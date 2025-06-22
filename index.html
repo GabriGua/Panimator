@@ -12,8 +12,31 @@
 </header>
     <h1>Let's start creating some pixel art!</h1>
     <div class="editor">
-    <canvas id="pixel-canvas" width="512" height="512"></canvas>
-    <div class="toolbar"><!-- Toolbar qui --></div>
+    <canvas class="canvasstyle" id="pixel-canvas" width="512" height="512"></canvas>
+    <div class="toolbar">Toolbar
+      <button id="pencil-tool">Pencil</button>
+      <button id="eraser-tool">Eraser</button>
+      <input type="color" id="color-picker" value="#000000">
+      <button id="fill-tool">Fill</button>
+      <button id="undo-button">Undo</button>
+      <button id="redo-button">Redo</button>
+      <input type="number" id="brush-size" value="1" min="1" max="10"> Brush Size
+      
+    </div>
+  </div>
+  <div class="animation">
+    <div class="animation-controls">
+      <button id="play-button">Play</button>
+      <button id="stop-button">Stop</button>
+      <button id="clear-button">Clear</button>
+      <input type="number" id="frame-rate" value="10" min="1" max="60"> FPS
+    </div>
+    <div class="frames">
+      <canvas class="frame-canvas" id="frame-1" width="128" height="128"></canvas>
+    </div>
+    
+    <div class="frame-preview">
+      <canvas class="preview-canvas" id="preview-canvas" width="128" height="128"></canvas>
   </div>
   <script src="app.js"></script>
 </body>
