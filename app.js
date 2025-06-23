@@ -1,10 +1,7 @@
+//canvas rendering
 const canvas = document.getElementById("pixel-canvas");
 const ctx = canvas.getContext("2d");
-const pixelSize = 16;
-let activeTool = null;
-let isDrawing = false;
-const pencilButton = document.getElementById("pencil-tool");
-const eraserButton = document.getElementById("eraser-tool");
+let pixelSize = 16;
 const gridWidth = Math.floor(canvas.width / pixelSize);
 const gridHeight = Math.floor(canvas.height / pixelSize);
 let grid = [];
@@ -14,7 +11,26 @@ for (let x = 0; x < gridWidth; x++) {
         grid[x][y] = null; // null = cella vuota
     }
 }
+//tools state
+let activeTool = null;
+let isDrawing = false;
 
+//buttons
+const pencilButton = document.getElementById("pencil-tool");
+const eraserButton = document.getElementById("eraser-tool");
+const fillButton = document.getElementById("fill-tool");
+const undoButton = document.getElementById("undo-tool");
+const redoButton = document.getElementById("redo-tool");
+const x16Button = document.getElementById("16");
+const x32Button = document.getElementById("32");
+const x8Button = document.getElementById("8");
+
+function setGridSize() {
+    
+    redrawCanvas();
+}
+
+//canvas rendering
 function redrawCanvas() {
     ctx.fillStyle = "#fff";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -56,6 +72,9 @@ canvas.addEventListener('mousedown', function(e) {
             isDrawing = true;
             eraseAtMouse(e);
             break;
+        case "fill":
+            fillAtMouse(e);
+            break;
         default:
             isDrawing = false;
             break;
@@ -69,6 +88,7 @@ canvas.addEventListener('mousemove', function(e) {
     if (isDrawing && activeTool === "eraser") {
         eraseAtMouse(e);
     }
+    
 });
 
 canvas.addEventListener('mouseup', function() {
@@ -78,6 +98,24 @@ canvas.addEventListener('mouseleave', function() {
     isDrawing = false;
 });
 
+//setting grid size
+x8Button.addEventListener("click", () => {
+    pixelSize = 64;
+    setGridSize();
+});
+x16Button.addEventListener("click", () => {
+    pixelSize = 32;
+    setGridSize();
+}
+);
+x32Button.addEventListener("click", () => {
+    pixelSize = 16;
+    setGridSize();
+}
+);
+
+
+//selecting tools
 pencilButton.addEventListener("click", () => {
     if (activeTool === "pencil") {
         
@@ -88,6 +126,7 @@ pencilButton.addEventListener("click", () => {
     activeTool = "pencil";
     pencilButton.classList.add("active");
     eraserButton.classList.remove("active");
+    fillButton.classList.remove("active");
   }
 });
 
@@ -101,10 +140,28 @@ eraserButton.addEventListener("click", () => {
         activeTool = "eraser";
         eraserButton.classList.add("active");
         pencilButton.classList.remove("active");
+        fillButton.classList.remove("active");
     }
 }
 );
 
+fillButton.addEventListener("click", () => {
+    if (activeTool === "fill") {
+        activeTool = null;
+        fillButton.classList.remove("active");
+    } else {
+        activeTool = "fill";
+        fillButton.classList.add("active");
+        pencilButton.classList.remove("active");
+        eraserButton.classList.remove("active");
+    }
+}
+);
+
+
+//tools functions
+
+//pencil
 function drawingAtMouse(e)
 {
     if (!isDrawing || activeTool !== "pencil") {
@@ -118,6 +175,7 @@ function drawingAtMouse(e)
   
 }
 
+//eraser
 function eraseAtMouse(e) {
     if (!isDrawing || activeTool !== "eraser") {
         return;
@@ -127,4 +185,41 @@ function eraseAtMouse(e) {
     grid[cellX][cellY] = null; 
     redrawCanvas();
 
+}
+
+//fill
+function fillAtMouse(e) {
+    if (activeTool !== "fill") {
+        return;
+    }
+    const currentColor = document.getElementById("color-picker").value;
+    const cellX = Math.floor(e.offsetX / pixelSize);
+    const cellY = Math.floor(e.offsetY / pixelSize);
+    
+    if (grid[cellX][cellY] === currentColor) {
+        return;
+    }
+    
+    const targetColor = grid[cellX][cellY];
+    floodFill(cellX, cellY, targetColor, currentColor);
+    redrawCanvas();
+}
+
+function floodFill(x, y, targetColor, replacementColor) {
+    if (x < 0 || x >= gridWidth || y < 0 || y >= gridHeight) {
+        return;
+    }
+    if (grid[x][y] !== targetColor) {
+        return;
+    }
+    grid[x][y] = replacementColor;
+    
+    // Recursively fill adjacent cells, this repeats until all connected 
+    // cells of the target color are filled
+    // with the replacement color.
+    
+    floodFill(x + 1, y, targetColor, replacementColor);
+    floodFill(x - 1, y, targetColor, replacementColor);
+    floodFill(x, y + 1, targetColor, replacementColor);
+    floodFill(x, y - 1, targetColor, replacementColor);
 }
