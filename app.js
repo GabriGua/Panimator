@@ -5,10 +5,11 @@ let pixelSize = 16;
 const gridWidth = Math.floor(canvas.width / pixelSize);
 const gridHeight = Math.floor(canvas.height / pixelSize);
 let grid = [];
+let gridUndo = [];
 for (let x = 0; x < gridWidth; x++) {
     grid[x] = [];
     for (let y = 0; y < gridHeight; y++) {
-        grid[x][y] = null; // null = cella vuota
+        grid[x][y] = null;
     }
 }
 //tools state
@@ -19,8 +20,8 @@ let isDrawing = false;
 const pencilButton = document.getElementById("pencil-tool");
 const eraserButton = document.getElementById("eraser-tool");
 const fillButton = document.getElementById("fill-tool");
-const undoButton = document.getElementById("undo-tool");
-const redoButton = document.getElementById("redo-tool");
+const undoButton = document.getElementById("undo-button");
+const redoButton = document.getElementById("redo-button");
 const x16Button = document.getElementById("16");
 const x32Button = document.getElementById("32");
 const x8Button = document.getElementById("8");
@@ -39,6 +40,7 @@ function redrawCanvas() {
         for (let y = 0; y < gridHeight; y++) {
             if (grid[x][y]) {
                 ctx.fillStyle = grid[x][y];
+                ctx.fillStyle = gridUndo[x][y];
                 ctx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
             }
         }
@@ -62,7 +64,9 @@ function drawGrid()
 }
 drawGrid();
 
-canvas.addEventListener('mousedown', function(e) {
+
+
+canvas.addEventListener("mousedown", function(e) {
     switch (activeTool) {
         case "pencil":
             isDrawing = true;
@@ -81,9 +85,11 @@ canvas.addEventListener('mousedown', function(e) {
     }
 });
 
-canvas.addEventListener('mousemove', function(e) {
+canvas.addEventListener("mousemove", function(e) {
     if (isDrawing && activeTool === "pencil") {
+
         drawingAtMouse(e);
+
     }
     if (isDrawing && activeTool === "eraser") {
         eraseAtMouse(e);
@@ -91,10 +97,14 @@ canvas.addEventListener('mousemove', function(e) {
     
 });
 
-canvas.addEventListener('mouseup', function() {
+canvas.addEventListener("mouseup", function() {
     isDrawing = false;
+    if (activeTool === "pencil" || activeTool === "eraser") {
+        undoStack.push(JSON.stringify(grid));
+        redoStack = [];
+    }
 });
-canvas.addEventListener('mouseleave', function() {
+canvas.addEventListener("mouseleave", function() {
     isDrawing = false;
 });
 
@@ -158,6 +168,29 @@ fillButton.addEventListener("click", () => {
 }
 );
 
+//undo and redo functionality
+let undoStack = [];
+let redoStack = [];
+undoButton.addEventListener("click", () => {
+    console.log(undoStack);
+    if (undoStack.length > 0) {
+        redoStack.push(JSON.stringify(grid));
+        if (undoStack.length > 1) {
+            undoStack.pop(); // Remove current state
+            grid = JSON.parse(undoStack.pop()); // Get previous state
+        }
+        redrawCanvas();
+    }
+});
+redoButton.addEventListener("click", () => {
+    if (redoStack.length > 0) {
+        undoStack.push(JSON.stringify(grid));
+        grid = JSON.parse(redoStack.pop());
+        redrawCanvas();
+    }
+}
+);
+undoStack.push(JSON.stringify(gridUndo)); // Initialize undo stack with the initial grid state
 
 //tools functions
 
@@ -218,8 +251,16 @@ function floodFill(x, y, targetColor, replacementColor) {
     // cells of the target color are filled
     // with the replacement color.
     
-    floodFill(x + 1, y, targetColor, replacementColor);
-    floodFill(x - 1, y, targetColor, replacementColor);
-    floodFill(x, y + 1, targetColor, replacementColor);
-    floodFill(x, y - 1, targetColor, replacementColor);
+    if(grid[x + 1][y] === targetColor) {
+       floodFill(x + 1, y, targetColor, replacementColor);
+    }
+    if(grid[x][y + 1] === targetColor) {
+       floodFill(x, y + 1, targetColor, replacementColor);
+    }
+    if(grid[x - 1][y] === targetColor) {
+       floodFill(x - 1, y, targetColor, replacementColor);
+    }
+    if(grid[x][y - 1] === targetColor) {
+       floodFill(x, y - 1, targetColor, replacementColor);
+    }
 }
