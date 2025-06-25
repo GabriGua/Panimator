@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap');
 
 body {
-    background-color: #ffffff;
+    background-color: #f0f0f0;
     color: rgb(0, 0, 0);
     font-family: 'Pixelify Sans', cursive;
     margin: 0;
@@ -9,7 +9,7 @@ body {
 }
 
 button {
-    background-color: #5c5c5c;
+    background-color: #363537;
     font-family: 'Pixelify Sans', cursive;
     color: white;
     border: none;
@@ -21,29 +21,52 @@ button {
 }
 
 button.active {
-  background-color: #ff0000;
-  
+  background-color: #8cd867;
+  background-color: #2fbf71;
 }
 
 button:hover {
-    background-color: #ff0000;
+    background-color: #2fbf71;
 }
 
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 #2fbf71;
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 0 0 10px rgba(47,191,113,0.3);
+        transform: scale(1.07);
+    }
+    100% {
+        box-shadow: 0 0 0 0 #2fbf71;
+        transform: scale(1);
+    }
+}
+
+button.pulse {
+    animation: pulse 0.4s;
+}
 
 nav {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: flex-end;
-    background-color: #ff5e00c2;
+    background-color: #ed7d3a;
     gap: 10px;
     padding: 10px 20px;
-    border-bottom: 5px solid #ff4646;
+    border-bottom: 5px solid #8cd867;
 }
 
 .export{
-    background-color: #a82d2d;
+    background-color: #9e1e3a;
     
+    
+    
+}
+.export:hover {
+    background-color: #ef2d56;
 }
 .title {
     font-size: 32px;
@@ -52,14 +75,38 @@ nav {
     margin-right: auto;
 }
 
+.canvas-container {
+    background-color: #f0f0f0;
+    background-image: url("/assets/background.png");
+    background-size: cover;     
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: auto;
+    padding: 130px;
+    
+    
+    
+}
 
 .canvasstyle {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
     justify-content: flex-start;
-    background-color: #4b4b4b00;
-    border: 5px solid #ff4646;
+    
+    background-color: #ffffff00;
+    border: 5px solid #000000;
+}
+#canvas {
+    background-color: #f0f0f0; 
+    
+    pointer-events: auto;
+    z-index: 3;
 }
 
 .toolbar {
@@ -74,7 +121,7 @@ nav {
     gap: 10px;
     border: 5px solid #000000;
     image-rendering: pixelated;
-    box-shadow: 0 0 0 2px #fff, 0 0 0 4px #ff4646;
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px #8cd867;
     width: 130px;
 }
 .editor {
@@ -82,7 +129,7 @@ nav {
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
-    gap: 50px;
+    gap: 20px;
 }
 
 .frame-canvas {
@@ -99,7 +146,7 @@ nav {
     gap: 10px;
     border: 5px solid #000000;
     image-rendering: pixelated;
-    box-shadow: 0 0 0 2px #fff, 0 0 0 4px #ff4646;
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px #8cd867;
     width: 500px;
     height: 50px;
 }
@@ -121,7 +168,7 @@ nav {
     gap: 10px;
     border: 5px solid #000000;
     image-rendering: pixelated;
-    box-shadow: 0 0 0 2px #fff, 0 0 0 4px #ff4646;
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px #8cd867;
     width: 400px;
 }
 
@@ -133,7 +180,7 @@ nav {
     gap: 2px;
     border: 5px solid #000000;
     image-rendering: pixelated;
-    box-shadow: 0 0 0 2px #fff, 0 0 0 4px #ff4646;
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px #8cd867;
     width: 300px;
     height: 374px;
 }

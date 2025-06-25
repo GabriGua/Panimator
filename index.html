@@ -18,39 +18,43 @@
 </header>
     <h1>Let's start creating some pixel art!</h1>
     <div class="editor">
-    <canvas class="canvasstyle" id="pixel-canvas" width="512" height="512"></canvas>
-    <div class="color-palette">
-      <div class="color-row">
-      <div class="color" style="background-color: #FF0000;"></div>
-      <div class="color" style="background-color: #00FF00;"></div>
-      <div class="color" style="background-color: #0000FF;"></div>
-      <div class="color" style="background-color: #FFFF00;"></div>
-      <div class="color" style="background-color: #FF00FF;"></div>
-      <div class="color" style="background-color: #00FFFF;"></div>
-      <div class="color" style="background-color: #FFFFFF;"></div>
-      <div class="color" style="background-color: #000000;"></div>
-      </div>
-       <div class="color-row">
-      <div class="color" style="background-color: #FF0000;"></div>
-      <div class="color" style="background-color: #00FF00;"></div>
-      <div class="color" style="background-color: #0000FF;"></div>
-      <div class="color" style="background-color: #FFFF00;"></div>
-      <div class="color" style="background-color: #FF00FF;"></div>
-      <div class="color" style="background-color: #00FFFF;"></div>
-      <div class="color" style="background-color: #FFFFFF;"></div>
-      <div class="color" style="background-color: #000000;"></div>
-      </div>
+      <div class="canvas-container">
+      
+      <canvas class="canvasstyle" id="pixel-canvas" width="512" height="512"></canvas>    
       </div>
     <div class="toolbar">Toolbar
-      <button id="pencil-tool">Pencil</button>
-      <button id="eraser-tool">Eraser</button>
-      <input type="color" id="color-picker" value="#000000">
-      <button id="fill-tool">Fill</button>
-      <button id="undo-button">Undo</button>
-      <button id="redo-button">Redo</button>
-      <input type="number" id="brush-size" value="1" min="1" max="10"> Brush Size
+        <button id="pencil-tool">Pencil</button>
+        <button id="eraser-tool">Eraser</button>
+        <input type="color" id="color-picker" value="#000000">
+        <button id="fill-tool">Fill</button>
+        <button id="undo-button">Undo</button>
+        <button id="redo-button">Redo</button>
+        <input type="number" id="brush-size" value="1" min="1" max="10"> Brush Size
+        
+      </div>
+      <div class="color-palette">
+        <div class="color-row">
+        <div class="color" style="background-color: #FF0000;"></div>
+        <div class="color" style="background-color: #00FF00;"></div>
+        <div class="color" style="background-color: #0000FF;"></div>
+        <div class="color" style="background-color: #FFFF00;"></div>
+        <div class="color" style="background-color: #FF00FF;"></div>
+        <div class="color" style="background-color: #00FFFF;"></div>
+        <div class="color" style="background-color: #FFFFFF;"></div>
+        <div class="color" style="background-color: #000000;"></div>
+        </div>
+        <div class="color-row">
+        <div class="color" style="background-color: #FF0000;"></div>
+        <div class="color" style="background-color: #00FF00;"></div>
+        <div class="color" style="background-color: #0000FF;"></div>
+        <div class="color" style="background-color: #FFFF00;"></div>
+        <div class="color" style="background-color: #FF00FF;"></div>
+        <div class="color" style="background-color: #00FFFF;"></div>
+        <div class="color" style="background-color: #FFFFFF;"></div>
+        <div class="color" style="background-color: #000000;"></div>
+        </div>
+        </div>
       
-    </div>
     
   </div>
   <div class="animation">
@@ -68,6 +72,8 @@
     
     <div class="frame-preview">
       <canvas class="preview-canvas" id="preview-canvas" width="128" height="128"></canvas>
+      <!-- <button id="prev-state">Precedente</button>
+      <button id="next-state">Successivo</button> -->
   </div>
   </div>
   <script src="app.js"></script>

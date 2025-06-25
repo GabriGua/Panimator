@@ -11,7 +11,7 @@ Just go to the website, start drawing frame-per-frame and export your animation 
 - [x] Pencil Function
 - [x] Eraser Function
 - [x] Fill Function
-- [ ] Undo/Redo Function
+- [x] Undo/Redo Function
 - [ ] Color Palette
     - [ ] Save Color
     - [ ] Load Color
@@ -29,7 +29,7 @@ Just go to the website, start drawing frame-per-frame and export your animation 
     - [ ] Adding Icons
     - [ ] Adding Background
     - [ ] Other
-- [ ] Adding Shotcuts
+- [ ] Adding Shortcuts
 - [ ] Theme Switcher
 - [ ] Enhance the README
 
