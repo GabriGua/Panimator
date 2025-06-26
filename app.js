@@ -1,3 +1,5 @@
+
+
 //canvas rendering
 const canvas = document.getElementById("pixel-canvas");
 const canvasPreview = document.getElementById("frame-1");
@@ -35,6 +37,7 @@ const redoButton = document.getElementById("redo-button");
 const x16Button = document.getElementById("16");
 const x32Button = document.getElementById("32");
 const x8Button = document.getElementById("8");
+const colorSave = document.getElementById("color-save");
 
 
 function setGridSize() {
@@ -323,18 +326,18 @@ function floodFill(x, y, targetColor, replacementColor) {
     // cells of the target color are filled
     // with the replacement color.
     
-    if(grid[x + 1][y] === targetColor) {
+    
        floodFill(x + 1, y, targetColor, replacementColor);
-    }
-    if(grid[x][y + 1] === targetColor) {
+    
+    
        floodFill(x, y + 1, targetColor, replacementColor);
-    }
-    if(grid[x - 1][y] === targetColor) {
+    
+    
        floodFill(x - 1, y, targetColor, replacementColor);
-    }
-    if(grid[x][y - 1] === targetColor) {
+    
+    
        floodFill(x, y - 1, targetColor, replacementColor);
-    }
+    
 }
 
 document.querySelectorAll('button').forEach(btn => {
@@ -343,5 +346,42 @@ document.querySelectorAll('button').forEach(btn => {
         void btn.offsetWidth;
         btn.classList.add('pulse');
     });
+    
+});
+
+function hexToRgb(hex) {
+    
+    hex = hex.replace(/^#/, '');
+    
+    if (hex.length === 3) {
+        hex = hex.split('').map(x => x + x).join('');
+    }
+    const num = parseInt(hex, 16);
+    return `rgb(${(num >> 16) & 255}, ${(num >> 8) & 255}, ${num & 255})`;
+}
+
+colorSave.addEventListener("click", () => {
+    const currentColor = document.getElementById("color-picker").value;
+    const colorList = document.getElementById("color-list");
+    const rgbColor = hexToRgb(currentColor);
+    const alreadyExists = Array.from(colorList.children).some(div => 
+    div.style.backgroundColor.replace(/\s/g, '').toLowerCase() === rgbColor.replace(/\s/g, '').toLowerCase()
+    );
+    if (alreadyExists) return;
+    const newColorDiv = document.createElement("div");
+    newColorDiv.className = "color";
+    newColorDiv.style.backgroundColor = currentColor;
+    newColorDiv.addEventListener("click", () => {
+        document.getElementById("color-picker").value = currentColor;
+        activeTool = "pencil";
+        newColorDiv.classList.remove("pulse");
+        void newColorDiv.offsetWidth;
+        newColorDiv.classList.add("pulse");
+        pencilButton.classList.add("active");
+        eraserButton.classList.remove("active");
+        fillButton.classList.remove("active");
+    });
+    
+    colorList.appendChild(newColorDiv);
 });
 

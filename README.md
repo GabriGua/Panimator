@@ -12,9 +12,9 @@ Just go to the website, start drawing frame-per-frame and export your animation 
 - [x] Eraser Function
 - [x] Fill Function
 - [x] Undo/Redo Function
-- [ ] Color Palette
-    - [ ] Save Color
-    - [ ] Load Color
+- [x] Color Palette
+    - [x] Save Color
+    - [x] Load Color
 - [ ] Brush Size
 - [ ] Timeline
     - [ ] Play Function
