@@ -16,16 +16,24 @@
     <button class="export" id="export">Export</button>
     </nav>
 </header>
-    <h1>Let's start creating some pixel art!</h1>
+    
     <div class="editor">
+      <div class="canvas-bg">
       <div class="canvas-container">
       
       <canvas class="canvasstyle" id="pixel-canvas" width="512" height="512"></canvas>    
       </div>
-    <div class="toolbar">Toolbar
-        <button id="pencil-tool">Pencil</button>
-        <button id="eraser-tool">Eraser</button>
+      </div>
+    <div class="toolbar"><font color="white">Toolbar</font>
         
+        <div class="tool-pencil">
+          <button id="pencil-tool">Pencil</button> 
+          <input class="selector" type="number" id="pixel-size" value="1" min="1" max="10">
+        </div>
+        <div class="tool-pencil">
+        <button id="eraser-tool">Eraser</button>
+        <input class="selector" type="number" id="erase-size" value="1" min="1" max="10">
+        </div>
         <div class="color-picker-wrap">
           <input type="color" id="color-picker" value="#000000">
           
@@ -34,7 +42,7 @@
         <button id="fill-tool">Fill</button>
         <button id="undo-button">Undo</button>
         <button id="redo-button">Redo</button>
-        <input type="number" id="brush-size" value="1" min="1" max="10"> Brush Size
+       
         
       </div>
       <div class="color-palette" id="color-list">

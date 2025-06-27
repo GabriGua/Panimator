@@ -75,8 +75,25 @@ nav {
     margin-right: auto;
 }
 
-.canvas-container {
+.canvas-bg{
     background-color: #f0f0f0;
+    background-image: url("./assets/background2.png");
+    background-size: contain;     
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+    max-width: 900px;                /* oppure width: 100vw; */
+    min-height: 200px;
+    max-height: 900px;                /* oppure height: 100vh; */
+    width: 100vw;
+    height: 100vh;
+}
+.canvas-container {
+    background-color: transparent;
     background-image: url("./assets/background.png");
     background-size: cover;     
     background-repeat: no-repeat;
@@ -122,8 +139,25 @@ nav {
     border: 5px solid #000000;
     image-rendering: pixelated;
     box-shadow: 0 0 0 2px #fff, 0 0 0 4px #8cd867;
-    width: 130px;
+    width: 150px;
 }
+
+.toolbar font {
+    text-shadow: 1px 1px 1px #222;
+    
+}
+
+.selector{
+    width: 30px;
+}
+
+.tool-pencil{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
 .editor {
     display: flex;
     flex-direction: row;

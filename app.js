@@ -27,6 +27,7 @@ for (let x = 0; x < gridWidth; x++) {
 //tools state
 let activeTool = null;
 let isDrawing = false;
+let hoverCell = null;
 
 //buttons
 const pencilButton = document.getElementById("pencil-tool");
@@ -57,6 +58,49 @@ function redrawCanvas() {
                 ctx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
             }
         }
+    }
+
+    if (hoverCell && activeTool !== "fill" && activeTool !== null) {
+        const pixelSizeInput = document.getElementById("pixel-size");
+        const eraseSizeInput = document.getElementById("erase-size");
+        let pixelReSize = 1;
+        if (activeTool === "pencil") {
+         pixelReSize = pixelSizeInput ? parseInt(pixelSizeInput.value) : 1;
+        }
+        else
+        if (activeTool === "eraser") {
+             pixelReSize = eraseSizeInput ? parseInt(eraseSizeInput.value) : 1;
+        }
+        let startX, startY, size;
+        if (pixelReSize > 1) {
+            if (pixelReSize % 2 !== 0) {
+                
+                const half = Math.floor(pixelReSize / 2);
+                startX = hoverCell.x - half;
+                startY = hoverCell.y - half;
+            } else {
+                
+                const half = pixelReSize / 2;
+                startX = hoverCell.x - half;
+                startY = hoverCell.y - half;
+            }
+            size = pixelReSize;
+        } else {
+            startX = hoverCell.x;
+            startY = hoverCell.y;
+            size = 1;
+        }
+
+        ctx.save();
+        ctx.strokeStyle = "#ff9800";
+        ctx.lineWidth = 2;
+        ctx.strokeRect(
+            startX * pixelSize + 1,
+            startY * pixelSize + 1,
+            size * pixelSize - 2,
+            size * pixelSize - 2
+        );
+        ctx.restore();
     }
 }
 
@@ -112,6 +156,13 @@ canvas.addEventListener("mousedown", function(e) {
 });
 
 canvas.addEventListener("mousemove", function(e) {
+    const cellX = Math.floor(e.offsetX / pixelSize);
+    const cellY = Math.floor(e.offsetY / pixelSize);
+
+    if (!hoverCell || hoverCell.x !== cellX || hoverCell.y !== cellY) {
+        hoverCell = { x: cellX, y: cellY };
+        redrawCanvas();
+    }
     if (isDrawing && activeTool === "pencil") {
 
         drawingAtMouse(e);
@@ -143,6 +194,8 @@ canvas.addEventListener("mouseup", function() {
 });
 canvas.addEventListener("mouseleave", function() {
     isDrawing = false;
+    hoverCell = null;
+    redrawCanvas();
     if ((activeTool === "pencil" || activeTool === "eraser") && isGridChanged()) {
         undoStack.push(JSON.stringify(grid));
         redoStack = [];
@@ -272,24 +325,102 @@ function drawingAtMouse(e)
     if (!isDrawing || activeTool !== "pencil") {
         return;
     }
-    const currentColor = document.getElementById("color-picker").value;
-    const cellX = Math.floor(e.offsetX / pixelSize);
-    const cellY = Math.floor(e.offsetY / pixelSize);
-    grid[cellX][cellY] = currentColor;
-    redrawCanvas();
-    drawPreviewFromStack(previewIndex);
+    const colorPicker = document.getElementById("color-picker");
+    const currentColor = colorPicker ? colorPicker.value : "#000000";
+const pixelSizeInput = document.getElementById("pixel-size");
+    const pixelReSize = pixelSizeInput ? parseInt(pixelSizeInput.value) : 1;
+    if (pixelReSize > 1) {
+        if (pixelReSize % 2 !== 0) {
+            const cellX = Math.floor(e.offsetX / pixelSize);
+            const cellY = Math.floor(e.offsetY / pixelSize);
+            const halfSize = Math.floor(pixelReSize / 2);
+            for (let x = cellX - halfSize; x <= cellX + halfSize; x++) {
+                for (let y = cellY - halfSize; y <= cellY + halfSize; y++) {
+                    if (x >= 0 && x < gridWidth && y >= 0 && y < gridHeight) {
+                        grid[x][y] = currentColor;
+                    }
+                }
+            }
+            redrawCanvas();
+            drawPreviewFromStack(previewIndex);
+        }
+        else {
+    
+            const cellX = Math.floor(e.offsetX / pixelSize);
+            const cellY = Math.floor(e.offsetY / pixelSize);
+            const halfSize = pixelReSize / 2;
+            // L'offset parte da (cellX - halfSize + 0.5)
+            const startX = Math.floor(cellX - halfSize );
+            const startY = Math.floor(cellY - halfSize );
+            for (let x = startX; x < startX + pixelReSize; x++) {
+                for (let y = startY; y < startY + pixelReSize; y++) {
+                    if (x >= 0 && x < gridWidth && y >= 0 && y < gridHeight) {
+                        grid[x][y] = currentColor;
+                    }
+                }
+            }
+            redrawCanvas();
+            drawPreviewFromStack(previewIndex);
+        }
+    }   
+    else {
+        const cellX = Math.floor(e.offsetX / pixelSize);
+        const cellY = Math.floor(e.offsetY / pixelSize);
+        grid[cellX][cellY] = currentColor;
+        redrawCanvas();
+        drawPreviewFromStack(previewIndex);
+    }
 }
+
 
 //eraser
 function eraseAtMouse(e) {
     if (!isDrawing || activeTool !== "eraser") {
         return;
     }
-    const cellX = Math.floor(e.offsetX / pixelSize);   
-    const cellY = Math.floor(e.offsetY / pixelSize);
-    grid[cellX][cellY] = null; 
-    redrawCanvas();
-    drawPreviewFromStack(previewIndex);
+    const pixelSizeInput = document.getElementById("erase-size");
+    const pixelReSize = pixelSizeInput ? parseInt(pixelSizeInput.value) : 1;
+    if (pixelReSize > 1) {
+        if (pixelReSize % 2 !== 0) {
+            const cellX = Math.floor(e.offsetX / pixelSize);
+            const cellY = Math.floor(e.offsetY / pixelSize);
+            const halfSize = Math.floor(pixelReSize / 2);
+            for (let x = cellX - halfSize; x <= cellX + halfSize; x++) {
+                for (let y = cellY - halfSize; y <= cellY + halfSize; y++) {
+                    if (x >= 0 && x < gridWidth && y >= 0 && y < gridHeight) {
+                        grid[x][y] = null;
+                    }
+                }
+            }
+            redrawCanvas();
+            drawPreviewFromStack(previewIndex);
+        }
+        else {
+    
+            const cellX = Math.floor(e.offsetX / pixelSize);
+            const cellY = Math.floor(e.offsetY / pixelSize);
+            const halfSize = pixelReSize / 2;
+            
+            const startX = Math.floor(cellX - halfSize );
+            const startY = Math.floor(cellY - halfSize );
+            for (let x = startX; x < startX + pixelReSize; x++) {
+                for (let y = startY; y < startY + pixelReSize; y++) {
+                    if (x >= 0 && x < gridWidth && y >= 0 && y < gridHeight) {
+                        grid[x][y] = null;
+                    }
+                }
+            }
+            redrawCanvas();
+            drawPreviewFromStack(previewIndex);
+        }
+    }   
+    else {
+        const cellX = Math.floor(e.offsetX / pixelSize);
+        const cellY = Math.floor(e.offsetY / pixelSize);
+        grid[cellX][cellY] = null;
+        redrawCanvas();
+        drawPreviewFromStack(previewIndex);
+    }
 }
 
 //fill
@@ -385,3 +516,22 @@ colorSave.addEventListener("click", () => {
     colorList.appendChild(newColorDiv);
 });
 
+const pixelSizeInputs = document.querySelectorAll('input[id="pixel-size"]');
+pixelSizeInputs.forEach(input => {
+    input.addEventListener('input', () => {
+        activeTool = "pencil";
+        pencilButton.classList.add("active");
+        eraserButton.classList.remove("active");
+        fillButton.classList.remove("active");
+    });
+});
+
+const eraseSizeInputs = document.querySelectorAll('input[id="erase-size"]');
+eraseSizeInputs.forEach(input => {
+    input.addEventListener('input', () => {
+        activeTool = "eraser";
+        eraserButton.classList.add("active");
+        pencilButton.classList.remove("active");
+        fillButton.classList.remove("active");
+    });
+});

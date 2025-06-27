@@ -15,7 +15,10 @@ Just go to the website, start drawing frame-per-frame and export your animation 
 - [x] Color Palette
     - [x] Save Color
     - [x] Load Color
-- [ ] Brush Size
+- [x] Brush Size
+    - [x] Pencil Size
+    - [x] Eraser Size
+    - [x] Cursor
 - [ ] Timeline
     - [ ] Play Function
     - [ ] Stop Function
