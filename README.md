@@ -1,10 +1,28 @@
 # Pixel-Art-Animator
-## Make your own pixel art animation from the comfort of your browser
+### Make your own pixel art animation from the comfort of your browser
 
-Just go to the website, start drawing frame-per-frame and export your animation as a GIF.
+*** Let's Get Started ***
+
+```
+- Go to the website: [Pixel Art Animator](https://gabrigua.github.io Pixel-Art-Animator/);
+
+- Start drawing Your Animations;
+
+- Export as PNG, Multiple PNGs and GIF!
+```
+### Tools
+Those are the tools available right now!
+
+- Pencil
+- Eraser
+- Fill Bucket
+- Color Palette
+
+> if you have any suggestions, you can write it at this email: gabrio.guastella@gmail.com
+
 
 ---
-**Roadmap**
+### Roadmap
 - [x] Canvas Rendering
 - [x] Canvas Resizing
 - [x] Toolbar
@@ -23,7 +41,12 @@ Just go to the website, start drawing frame-per-frame and export your animation 
     - [ ] Play Function
     - [ ] Stop Function
     - [ ] Clear Function
-    - [ ] Adding New Frames
+    - [x] Adding New Frames
+    - [x] Selecting New Frames
+    - [x] Saving Each Frame
+    - [x] Load Frames
+    - [x] Resize Frames from Canvas
+    - [ ] Deleting Frames and Re-numerating
 - [ ] Exporting as PNG
     - [ ] Multiple PNG
 - [ ] Exporting as GIF
@@ -35,6 +58,20 @@ Just go to the website, start drawing frame-per-frame and export your animation 
 - [ ] Adding Shortcuts
 - [ ] Theme Switcher
 - [ ] Enhance the README
+---
+### Trasparency
+*AI helped me with this, how?*<br>
+I used Github Copilot in "ask" mode only, whenever I didn't find a solution online.
 
+for what?
 
+- Canvas Rendering (sometimes)
+- Cursor Rendering in Canvas (sometimes)
+- Tools Pixel Size (sometimes) 
+- Frame Creation and Selection System (often, I had to re-adapt everything)
+- Debugging (rarely)
+---
+*** This project was made for learning purpuse and will be shipped to Summer Of Making, an [Hack Club](https://hackclub.com/) Event. ***
+---
+<p align="center">_© 2025 Gabriele Guastella. All rights reserved._</p>
 

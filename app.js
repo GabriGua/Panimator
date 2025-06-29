@@ -1,16 +1,14 @@
-
-
 //canvas rendering
 const canvas = document.getElementById("pixel-canvas");
-const canvasPreview = document.getElementById("frame-1");
+let canvasPreview;
 const ctx = canvas.getContext("2d");
 let pixelSize = 16;
-const gridWidth = Math.floor(canvas.width / pixelSize);
-const gridHeight = Math.floor(canvas.height / pixelSize);
+let gridWidth = Math.floor(canvas.width / pixelSize);
+let gridHeight = Math.floor(canvas.height / pixelSize);
 
-const previewPixelSizeX = canvasPreview.width / gridWidth;
-const previewPixelSizeY = canvasPreview.height / gridHeight;
-const ctxPreview = canvasPreview.getContext("2d");
+let previewPixelSizeX;
+let previewPixelSizeY;
+let ctxPreview;
 
 let grid = [];
 let gridUndo = [];
@@ -39,11 +37,67 @@ const x16Button = document.getElementById("16");
 const x32Button = document.getElementById("32");
 const x8Button = document.getElementById("8");
 const colorSave = document.getElementById("color-save");
+const addFrame = document.getElementById("add-frame");
 
 
-function setGridSize() {
+//Handling frames
+let frames = [];
+let activeFrameIndex = 0;
+
+function createFrame() {
+    const frameContainer = document.getElementById("timeline");
+    const newFrame = document.createElement("canvas");
+    newFrame.width = 100;
+    newFrame.height = 100;
+    newFrame.className = "frame-canvas";
+    newFrame.id = `frame-${frameContainer.children.length + 1}`;
+    const frameWrap = document.createElement("div");
+    frameWrap.className = "frame-wrap";
+    const frameNumber = document.createElement("span");
+    frameNumber.className = "frame-number";
+    frameNumber.textContent = frameContainer.children.length + 1;
+    frameWrap.appendChild(frameNumber);
+    frameWrap.appendChild(newFrame);
+    frameContainer.appendChild(frameWrap);
+    // Each frame is indivual
+    let prevFrame = frames[activeFrameIndex];
+    let newGrid;
+    if (prevFrame) {
+        newGrid = JSON.parse(JSON.stringify(prevFrame.grid));
+    } else {
+        newGrid = Array.from({length: gridWidth}, () => Array(gridHeight).fill(null));
+    }
+    frames.push({
+        grid: newGrid,
+        undoStack: [],
+        redoStack: [],
+        canvas: newFrame,
+        ctx: newFrame.getContext("2d")
+    });
+    selectFrame(frames.length - 1);
+    newFrame.addEventListener("click", () => {
+        selectFrame(Array.from(frameContainer.children).indexOf(frameWrap));
+    });
+}
+
+function selectFrame(index) {
     
+    document.querySelectorAll(".frame-wrap.active").forEach(f => f.classList.remove("active"));
+    document.querySelectorAll(".frame-canvas.active").forEach(c => c.classList.remove("active"));
+    
+    const frameContainer = document.getElementById("timeline");
+    const frameWrap = frameContainer.children[index];
+    const frameCanvas = frameWrap.querySelector(".frame-canvas");
+    frameWrap.classList.add("active");
+    frameCanvas.classList.add("active");
+    activeFrameIndex = index;
+    // Loading Frames
+    grid = JSON.parse(JSON.stringify(frames[index].grid));
+    undoStack = frames[index].undoStack;
+    redoStack = frames[index].redoStack;
+    previewIndex = undoStack.length - 1;
     redrawCanvas();
+    drawPreviewFromStack(previewIndex);
 }
 
 //canvas rendering
@@ -60,6 +114,7 @@ function redrawCanvas() {
         }
     }
 
+    //this is the cursor hover effect that adapts to the size of each tool
     if (hoverCell && activeTool !== "fill" && activeTool !== null) {
         const pixelSizeInput = document.getElementById("pixel-size");
         const eraseSizeInput = document.getElementById("erase-size");
@@ -104,18 +159,43 @@ function redrawCanvas() {
     }
 }
 
+//this function is used for the preview in the frames
 function drawPreviewFromStack(index) {
+    const frame = frames[activeFrameIndex];
+    if (!frame || !frame.ctx || !frame.canvas) return;
+    const ctxPreview = frame.ctx;
+    const canvasPreview = frame.canvas;
     ctxPreview.clearRect(0, 0, canvasPreview.width, canvasPreview.height);
     if (index < 0 || index >= undoStack.length) return;
     const state = JSON.parse(undoStack[index]);
-    for (let x = 0; x < state.length; x++) {
-        for (let y = 0; y < state[x].length; y++) {
+    
+    const cellSizeX = canvasPreview.width / gridWidth;
+    const cellSizeY = canvasPreview.height / gridHeight;
+    for (let x = 0; x < gridWidth; x++) {
+        for (let y = 0; y < gridHeight; y++) {
             if (state[x][y]) {
                 ctxPreview.fillStyle = state[x][y];
-                ctxPreview.fillRect(x * previewPixelSizeX, y * previewPixelSizeY, previewPixelSizeX, previewPixelSizeY);
+                ctxPreview.fillRect(x * cellSizeX, y * cellSizeY, cellSizeX, cellSizeY);
             }
         }
     }
+    // this draw the grid on the preview canvas
+    ctxPreview.save();
+    ctxPreview.strokeStyle = "rgba(0,0,0,0.15)";
+    ctxPreview.lineWidth = 1;
+    for (let x = 0; x <= gridWidth; x++) {
+        ctxPreview.beginPath();
+        ctxPreview.moveTo(x * cellSizeX, 0);
+        ctxPreview.lineTo(x * cellSizeX, canvasPreview.height);
+        ctxPreview.stroke();
+    }
+    for (let y = 0; y <= gridHeight; y++) {
+        ctxPreview.beginPath();
+        ctxPreview.moveTo(0, y * cellSizeY);
+        ctxPreview.lineTo(canvasPreview.width, y * cellSizeY);
+        ctxPreview.stroke();
+    }
+    ctxPreview.restore();
 }
 
 function drawGrid()
@@ -132,9 +212,11 @@ function drawGrid()
         }
     }
 }
+//Here everything starts
 drawGrid();
 redrawCanvas(); // Initial canvas rendering
 
+//different listeners for mouse events
 
 canvas.addEventListener("mousedown", function(e) {
     switch (activeTool) {
@@ -186,10 +268,9 @@ function isGridChanged() {
 canvas.addEventListener("mouseup", function() {
     isDrawing = false;
     if ((activeTool === "pencil" || activeTool === "eraser") && isGridChanged()) {
-        undoStack.push(JSON.stringify(grid));
+        saveState();
         redoStack = [];
-        previewIndex = undoStack.length - 1;
-        drawPreviewFromStack(previewIndex);
+        frames[activeFrameIndex].redoStack = redoStack;
     }
 });
 canvas.addEventListener("mouseleave", function() {
@@ -197,10 +278,9 @@ canvas.addEventListener("mouseleave", function() {
     hoverCell = null;
     redrawCanvas();
     if ((activeTool === "pencil" || activeTool === "eraser") && isGridChanged()) {
-        undoStack.push(JSON.stringify(grid));
+        saveState();
         redoStack = [];
-        previewIndex = undoStack.length - 1;
-        drawPreviewFromStack(previewIndex);
+        frames[activeFrameIndex].redoStack = redoStack;
     }
 });
 
@@ -269,7 +349,10 @@ let undoStack = [];
 let redoStack = [];
 
 function saveState() {
+    frames[activeFrameIndex].grid = JSON.parse(JSON.stringify(grid));
     undoStack.push(JSON.stringify(grid));
+    frames[activeFrameIndex].undoStack = undoStack;
+    frames[activeFrameIndex].redoStack = redoStack;
     previewIndex = undoStack.length - 1;
     drawPreviewFromStack(previewIndex);
 }
@@ -279,6 +362,7 @@ undoButton.addEventListener("click", () => {
         redoStack.push(JSON.stringify(grid));
         undoStack.pop();
         grid = JSON.parse(undoStack[undoStack.length - 1]);
+        frames[activeFrameIndex].grid = JSON.parse(JSON.stringify(grid));
         redrawCanvas();
         previewIndex = undoStack.length - 1;
         drawPreviewFromStack(previewIndex);
@@ -289,6 +373,7 @@ redoButton.addEventListener("click", () => {
         const redoState = redoStack.pop();
         undoStack.push(redoState);
         grid = JSON.parse(redoState);
+        frames[activeFrameIndex].grid = JSON.parse(JSON.stringify(grid));
         redrawCanvas();
         previewIndex = undoStack.length - 1;
         drawPreviewFromStack(previewIndex);
@@ -300,23 +385,8 @@ undoStack = [JSON.stringify(grid)];
 previewIndex = 0;
 drawPreviewFromStack(previewIndex);
 
-// Bottoni per navigare lo stack
-const prevStateBtn = document.getElementById("prev-state");
-const nextStateBtn = document.getElementById("next-state");
-if (prevStateBtn && nextStateBtn) {
-    prevStateBtn.addEventListener("click", () => {
-        if (previewIndex > 0) {
-            previewIndex--;
-            drawPreviewFromStack(previewIndex);
-        }
-    });
-    nextStateBtn.addEventListener("click", () => {
-        if (previewIndex < undoStack.length - 1) {
-            previewIndex++;
-            drawPreviewFromStack(previewIndex);
-        }
-    });
-}
+
+
 //tools functions
 
 //pencil
@@ -329,6 +399,7 @@ function drawingAtMouse(e)
     const currentColor = colorPicker ? colorPicker.value : "#000000";
 const pixelSizeInput = document.getElementById("pixel-size");
     const pixelReSize = pixelSizeInput ? parseInt(pixelSizeInput.value) : 1;
+    //Adjust the pixel size based on the input value
     if (pixelReSize > 1) {
         if (pixelReSize % 2 !== 0) {
             const cellX = Math.floor(e.offsetX / pixelSize);
@@ -349,7 +420,7 @@ const pixelSizeInput = document.getElementById("pixel-size");
             const cellX = Math.floor(e.offsetX / pixelSize);
             const cellY = Math.floor(e.offsetY / pixelSize);
             const halfSize = pixelReSize / 2;
-            // L'offset parte da (cellX - halfSize + 0.5)
+            
             const startX = Math.floor(cellX - halfSize );
             const startY = Math.floor(cellY - halfSize );
             for (let x = startX; x < startX + pixelReSize; x++) {
@@ -380,6 +451,7 @@ function eraseAtMouse(e) {
     }
     const pixelSizeInput = document.getElementById("erase-size");
     const pixelReSize = pixelSizeInput ? parseInt(pixelSizeInput.value) : 1;
+    //same adjustment as the pencil
     if (pixelReSize > 1) {
         if (pixelReSize % 2 !== 0) {
             const cellX = Math.floor(e.offsetX / pixelSize);
@@ -437,9 +509,11 @@ function fillAtMouse(e) {
     const targetColor = grid[cellX][cellY];
     floodFill(cellX, cellY, targetColor, currentColor);
     redrawCanvas();
-    // Salva lo stato solo qui per il fill
+    // Save the state after filling
     undoStack.push(JSON.stringify(grid));
-    redoStack = [];
+    frames[activeFrameIndex].grid = JSON.parse(JSON.stringify(grid));
+    frames[activeFrameIndex].undoStack = undoStack;
+    frames[activeFrameIndex].redoStack = redoStack;
     previewIndex = undoStack.length - 1;
     drawPreviewFromStack(previewIndex);
 }
@@ -456,7 +530,7 @@ function floodFill(x, y, targetColor, replacementColor) {
     // Recursively fill adjacent cells, this repeats until all connected 
     // cells of the target color are filled
     // with the replacement color.
-    
+    // (ik not the most efficient way, but works for this purpose)
     
        floodFill(x + 1, y, targetColor, replacementColor);
     
@@ -471,6 +545,8 @@ function floodFill(x, y, targetColor, replacementColor) {
     
 }
 
+//pulse effect on buttons
+
 document.querySelectorAll('button').forEach(btn => {
     btn.addEventListener('click', function() {
         btn.classList.remove('pulse');
@@ -479,6 +555,8 @@ document.querySelectorAll('button').forEach(btn => {
     });
     
 });
+
+//save or load color
 
 function hexToRgb(hex) {
     
@@ -516,6 +594,7 @@ colorSave.addEventListener("click", () => {
     colorList.appendChild(newColorDiv);
 });
 
+// Pixel size and erase size inputs
 const pixelSizeInputs = document.querySelectorAll('input[id="pixel-size"]');
 pixelSizeInputs.forEach(input => {
     input.addEventListener('input', () => {
@@ -535,3 +614,39 @@ eraseSizeInputs.forEach(input => {
         fillButton.classList.remove("active");
     });
 });
+
+// This add the first frame to the timeline when the page loads
+addFrame.addEventListener("click", createFrame);
+
+window.addEventListener("DOMContentLoaded", () => {
+    createFrame();
+});
+
+function setGridSize() {
+    // Update pixel size and grid dimensions to the frames
+    gridWidth = Math.floor(canvas.width / pixelSize);
+    gridHeight = Math.floor(canvas.height / pixelSize);
+    // This deletes all frames from the timeline
+    const frameContainer = document.getElementById("timeline");
+    while (frameContainer.firstChild) {
+        frameContainer.removeChild(frameContainer.firstChild);
+    }
+    // Reset
+    frames = [];
+    activeFrameIndex = 0;
+    
+    grid = [];
+    for (let x = 0; x < gridWidth; x++) {
+        grid[x] = [];
+        for (let y = 0; y < gridHeight; y++) {
+            grid[x][y] = null;
+        }
+    }
+    
+    undoStack = [JSON.stringify(grid)];
+    redoStack = [];
+    previewIndex = 0;
+    // Create the first frame (again)
+    createFrame();
+    redrawCanvas();
+}

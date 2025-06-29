@@ -12,7 +12,7 @@
     <button id="8">8x8</button>
     <button id="16">16x16</button>
     <button id="32">32x32</button>
-    
+    <span class="alert"><font color="red">*Changing size will delete every frame*</font></span>
     <button class="export" id="export">Export</button>
     </nav>
 </header>
@@ -57,18 +57,15 @@
       <button id="stop-button">Stop</button>
       <button id="clear-button">Clear</button>
       <input type="number" id="frame-rate" value="10" min="1" max="60"> FPS
+      <button id="add-frame">Add Frame</button>
     </div>
   </div>
-  <div class="timeline">
-    <div class="frames">
-      <canvas class="frame-canvas" id="frame-1" width="128" height="128"></canvas>
+  <div class="timeline-container">
+    <div class="timeline" id="timeline">
+
     </div>
-    
-    <div class="frame-preview">
-      <canvas class="preview-canvas" id="preview-canvas" width="128" height="128"></canvas>
-      
   </div>
-  </div>
+  
   <script src="app.js"></script>
 </body>
 
