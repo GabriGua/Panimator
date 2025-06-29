@@ -3,13 +3,13 @@
 
 ***Let's Get Started***
 
-```
-- Go to the website: [Pixel Art Animator](https://gabrigua.github.io Pixel-Art-Animator/);
 
-- Start drawing Your Animations;
+1. Go to the website: [Pixel Art Animator](https://gabrigua.github.io Pixel-Art-Animator/);
 
-- Export as PNG, Multiple PNGs and GIF!
-```
+2. Start drawing Your Animations;
+
+3. Export as PNG, Multiple PNGs and GIF!
+
 ### Tools
 Those are the tools available right now!
 
