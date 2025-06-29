@@ -1,15 +1,15 @@
 # Pixel-Art-Animator
 ### Make your own pixel art animation from the comfort of your browser
 
-*** Let's Get Started ***
+***Let's Get Started***
 
-```
-- Go to the website: [Pixel Art Animator](https://gabrigua.github.io Pixel-Art-Animator/);
 
-- Start drawing Your Animations;
+1. Go to the website: [Pixel Art Animator](https://gabrigua.github.io/Pixel-Art-Animator/);
 
-- Export as PNG, Multiple PNGs and GIF!
-```
+2. Start drawing Your Animations;
+
+3. Export as PNG, Multiple PNGs and GIF!
+
 ### Tools
 Those are the tools available right now!
 
@@ -75,7 +75,7 @@ for what?
 
 In some occasion used autocomplete just to speed up repetitive tasks.
 ---
-*** This project was made for learning purpuse and will be shipped to Summer Of Making, an [Hack Club](https://hackclub.com/) Event. ***
+***This project was made for learning purpuse and will be shipped to Summer Of Making, an [Hack Club](https://hackclub.com/) Event.***
 ---
-<p align="center">_© 2025 Gabriele Guastella. All rights reserved._</p>
+<p align="center">© 2025 Gabriele Guastella. All rights reserved.</p>
 
