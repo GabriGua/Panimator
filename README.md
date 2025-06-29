@@ -73,5 +73,5 @@ for what?
 ---
 ***This project was made for learning purpuse and will be shipped to Summer Of Making, an [Hack Club](https://hackclub.com/) Event.***
 ---
-<p align="center">_© 2025 Gabriele Guastella. All rights reserved._</p>
+<p align="center">© 2025 Gabriele Guastella. All rights reserved.</p>
 
