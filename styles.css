@@ -13,7 +13,7 @@ button {
     font-family: 'Pixelify Sans', cursive;
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 10px 10px;
     font-size: 16px;
     cursor: pointer;
     border-radius: 5px;
@@ -140,7 +140,8 @@ nav {
     border: 5px solid #000000;
     image-rendering: pixelated;
     box-shadow: 0 0 0 2px #fff, 0 0 0 4px #8cd867, 0 5px 10px 6px #3b3b3b;
-    width: 150px;
+    width: 160px;
+    padding: 10px;
 }
 
 .toolbar font {
@@ -265,6 +266,10 @@ nav {
     box-shadow: 0 0 0 2px #fff, 0 0 0 4px #8cd867;
 }
 
+.frame-wrap:hover .delete-frame {
+  display: inline-block;
+}
+
 .color-palette {
     display: grid;
     grid-template-columns: repeat(auto-fill, 20px); 
@@ -272,9 +277,10 @@ nav {
     gap: 6px;
     background-color: #ffffff;
     border: 5px solid #000000;
+    border-radius: 20px;
     image-rendering: pixelated;
     box-shadow: 0 0 0 2px #fff, 0 0 0 4px #8cd867;
-    width: 150px;
+    width: 154px;
     height: auto;
     padding: 10px;
     overflow-y: auto;
@@ -320,4 +326,92 @@ div.pulse {
     font-weight: bold;
     font-size: 14px;
     margin-left: 10px;
+}
+
+.undo-redo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.icons{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+/* Modern selector style */
+.selector {
+  width: 48px;
+  height: 32px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.25);
+  box-shadow: 0 2px 8px rgba(47,191,113,0.10), 0 0 0 2px #8cd867;
+  color: #eae9e9;
+  text-shadow: 1px 1px 1px #222;
+  font-size: 18px;
+  font-family: 'Pixelify Sans', cursive;
+  text-align: center;
+  outline: none;
+  transition: box-shadow 0.2s, background 0.2s;
+  backdrop-filter: blur(2px);
+}
+
+.selector:focus {
+  background: rgba(255,255,255,0.45);
+  box-shadow: 0 0 0 3px #2fbf71, 0 2px 8px rgba(47,191,113,0.15);
+  color: #ffffff;
+}
+
+.delete-icon {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-image: url("./assets/delete-svgrepo-com.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    border: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 3;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.delete-icon {
+    transition: filter 0.15s, transform 0.15s;
+}
+
+.delete-icon:hover {
+    filter: brightness(1.2) drop-shadow(0 0 6px #ef2d56);
+    transform: scale(1.15) rotate(-10deg);
+}
+
+.delete-frame {
+    all: unset;
+    display: none;
+    width: 30px;
+    height: 30px;
+    background-image: url("./assets/delete-svgrepo-com.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    border: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 3;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.delete-frame:hover {
+all: unset;
 }

@@ -56,6 +56,36 @@ function createFrame() {
     const frameNumber = document.createElement("span");
     frameNumber.className = "frame-number";
     frameNumber.textContent = frameContainer.children.length + 1;
+    const deleteFrame = document.createElement("button");
+    const deleteIcon = document.createElement("i");
+    deleteIcon.className = "delete-icon";
+    deleteFrame.appendChild(deleteIcon);
+    deleteFrame.className = "delete-frame";
+
+    //DELETING FRAMES
+    deleteFrame.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const index = Array.from(frameContainer.children).indexOf(frameWrap);
+        if (frames.length > 1) {
+            frames.splice(index, 1);
+            frameContainer.removeChild(frameWrap);
+            //Updating frame numbers
+            Array.from(frameContainer.children).forEach((wrap, i) => {
+            const number = wrap.querySelector('.frame-number');
+            if (number) number.textContent = i + 1;
+            // Updating frames IDs
+            const canvas = wrap.querySelector('.frame-canvas');
+            if (canvas) canvas.id = `frame-${i + 1}`;
+        });
+            if (activeFrameIndex >= frames.length) {
+                activeFrameIndex = frames.length - 1;
+            }
+            selectFrame(activeFrameIndex);
+        } else {
+            alert("You cannot delete the last frame.");
+        }
+    });
+    frameWrap.appendChild(deleteFrame);
     frameWrap.appendChild(frameNumber);
     frameWrap.appendChild(newFrame);
     frameContainer.appendChild(frameWrap);

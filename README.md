@@ -46,13 +46,13 @@ Those are the tools available right now!
     - [x] Saving Each Frame
     - [x] Load Frames
     - [x] Resize Frames from Canvas
-    - [ ] Deleting Frames and Re-numerating
+    - [x] Deleting Frames and Re-numerating
 - [ ] Exporting as PNG
     - [ ] Multiple PNG
 - [ ] Exporting as GIF
 - [ ] Adding localStorage
 - [ ] Better Styling
-    - [ ] Adding Icons
+    - [x] Adding Icons
     - [ ] Adding Background
     - [ ] Other
 - [ ] Adding Shortcuts
@@ -63,13 +63,17 @@ Those are the tools available right now!
 *AI helped me with this, how?*<br>
 I used Github Copilot in "ask" mode only, whenever I didn't find a solution online.
 
+
 for what?
 
 - Canvas Rendering (sometimes)
 - Cursor Rendering in Canvas (sometimes)
 - Tools Pixel Size (sometimes) 
 - Frame Creation and Selection System (often, I had to re-adapt everything)
+- Frame re-numeration (just the syntax)
 - Debugging (rarely)
+
+In some occasion used autocomplete just to speed up repetitive tasks.
 ---
 *** This project was made for learning purpuse and will be shipped to Summer Of Making, an [Hack Club](https://hackclub.com/) Event. ***
 ---
