@@ -4,7 +4,7 @@
 ***Let's Get Started***
 
 
-1. Go to the website: [Pixel Art Animator](https://gabrigua.github.io Pixel-Art-Animator/);
+1. Go to the website: [Pixel Art Animator](https://gabrigua.github.io/Pixel-Art-Animator/);
 
 2. Start drawing Your Animations;
 
