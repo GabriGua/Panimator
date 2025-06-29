@@ -1,7 +1,7 @@
 # Pixel-Art-Animator
 ### Make your own pixel art animation from the comfort of your browser
 
-*** Let's Get Started ***
+***Let's Get Started***
 
 ```
 - Go to the website: [Pixel Art Animator](https://gabrigua.github.io Pixel-Art-Animator/);
@@ -71,7 +71,7 @@ for what?
 - Frame Creation and Selection System (often, I had to re-adapt everything)
 - Debugging (rarely)
 ---
-*** This project was made for learning purpuse and will be shipped to Summer Of Making, an [Hack Club](https://hackclub.com/) Event. ***
+***This project was made for learning purpuse and will be shipped to Summer Of Making, an [Hack Club](https://hackclub.com/) Event.***
 ---
 <p align="center">_© 2025 Gabriele Guastella. All rights reserved._</p>
 
