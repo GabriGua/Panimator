@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 
-<body>
+<body background="./assets/sky.png">
   <header>
   <nav>
     <div class="title">Pixel Art Animator</div>
@@ -30,6 +30,8 @@
       <canvas class="canvasstyle" id="pixel-canvas" width="512" height="512"></canvas>    
       </div>
       </div>
+      <div class="canvas-controls">
+        
     <div class="toolbar"><font color="white">Toolbar</font>
         
         <div class="tool-pencil">
@@ -89,10 +91,13 @@
       <div class="color-palette" id="color-list">
         
        </div>
-      
+      </div>
     
   </div>
-  <div class="animation">
+  <div class ="animation-container">
+    
+    
+  <div class="animation" >
     <div class="animation-controls">
       <button id="play-button">
         <div class="icons">
@@ -125,7 +130,7 @@
 
     </div>
   </div>
-  
+  </div>
   <script src="app.js"></script>
 </body>
 

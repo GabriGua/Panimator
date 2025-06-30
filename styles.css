@@ -109,6 +109,41 @@ nav {
     
     
 }
+.canvas-controls {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+@media (max-width: 500px) {
+  .canvas-controls {
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100vw;
+    min-width: 0;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .canvas-container {
+    width: 100vw;
+    min-width: 0;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  .canvas-bg {
+    width: 100vw;
+    min-width: 0;
+    padding: 0;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+  }
+}
 
 .canvasstyle {
     display: flex;
@@ -182,12 +217,27 @@ nav {
     margin: 0 auto;
     cursor: pointer;
 }
+.animation-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 100vw;
+    padding: 10px;
+    
+    background-image: url("./assets/grass.png");
+    background-size: auto;
+    background-repeat: repeat;
+}
+
 .animation
 {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    
 }
 
 .animation-controls{
