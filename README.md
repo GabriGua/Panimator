@@ -53,7 +53,9 @@ Those are the tools available right now!
 - [ ] Adding localStorage
 - [ ] Better Styling
     - [x] Adding Icons
-    - [ ] Adding Background
+    - [x] Adding Background
+    - [x] Make Everything Dynamic
+    - [x] Adding Clouds
     - [ ] Other
 - [ ] Adding Shortcuts
 - [ ] Theme Switcher
