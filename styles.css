@@ -158,7 +158,7 @@ nav {
     border: 5px solid #000000;
     image-rendering: pixelated;
     box-shadow: 0 0 0 2px #fff, 0 0 0 4px #8cd867, 0 5px 10px 6px #3b3b3b;
-    width: 160px;
+    width: 340px;
     max-height: 340px;
     padding: 10px;
     
@@ -242,7 +242,7 @@ nav {
     border-radius: 20px;
     image-rendering: pixelated;
     box-shadow: 0 0 0 2px #fff, 0 0 0 4px #8cd867;
-    width: 520px;
+    width: calc(100% - 20px);
     height: 70px; 
 }
 
@@ -491,6 +491,71 @@ all: unset;
   }
 }
 
+/* Aggiungi a styles.css */
+.toggle-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  color: #fff;
+}
+
+.toggle-switch input[type="checkbox"] {
+  display: none;
+}
+
+.toggle-switch .slider {
+  width: 36px;
+  height: 20px;
+  background: #363537;
+  border-radius: 20px;
+  position: relative;
+  transition: background 0.2s;
+  display: inline-block;
+}
+
+.toggle-switch .slider:before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.2s;
+}
+
+.toggle-switch input[type="checkbox"]:checked + .slider {
+  background: #2fbf71;
+}
+
+.toggle-switch input[type="checkbox"]:checked + .slider:before {
+  transform: translateX(16px);
+}
+
+.question {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.question button {
+    background-color: #363537;
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px #8cd867, 0 5px 10px 6px #3b3b3b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
 
 
 @media screen and (max-width: 1300px) {

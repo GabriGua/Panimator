@@ -37,10 +37,10 @@ Those are the tools available right now!
     - [x] Pencil Size
     - [x] Eraser Size
     - [x] Cursor
-- [ ] Timeline
-    - [ ] Play Function
-    - [ ] Stop Function
-    - [ ] Clear Function
+- [x] Timeline
+    - [x] Play Function
+    - [x] Stop Function
+    - [x] Clear Function
     - [x] Adding New Frames
     - [x] Selecting New Frames
     - [x] Saving Each Frame
@@ -58,6 +58,7 @@ Those are the tools available right now!
     - [x] Adding Clouds
     - [ ] Other
 - [ ] Adding Shortcuts
+    - [ ] Key Map (Question Button)
 - [ ] Theme Switcher
 - [ ] Enhance the README
 ---

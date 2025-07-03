@@ -38,6 +38,7 @@ const x32Button = document.getElementById("32");
 const x8Button = document.getElementById("8");
 const colorSave = document.getElementById("color-save");
 const addFrame = document.getElementById("add-frame");
+const copyFrameToggle = document.getElementById("copyFrame-toggle");
 
 
 //Handling frames
@@ -92,7 +93,8 @@ function createFrame() {
     // Each frame is indivual
     let prevFrame = frames[activeFrameIndex];
     let newGrid;
-    if (prevFrame) {
+    if (prevFrame && copyFrameToggle.checked) {
+        
         newGrid = JSON.parse(JSON.stringify(prevFrame.grid));
     } else {
         newGrid = Array.from({length: gridWidth}, () => Array(gridHeight).fill(null));
@@ -680,3 +682,13 @@ function setGridSize() {
     createFrame();
     redrawCanvas();
 }
+
+export {frames, activeFrameIndex, selectFrame};
+
+// Keyboard shortcuts
+document.addEventListener('keydown', function(e) {
+    if (e.ctrlKey) {
+        e.preventDefault();
+        createFrame();
+    }
+});
