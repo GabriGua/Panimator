@@ -28,6 +28,7 @@ Those are the tools available right now!
 - [x] Toolbar
 - [x] Pencil Function
 - [x] Eraser Function
+- [x] Pixel Perfect (Bresenham Line)
 - [x] Fill Function
 - [x] Undo/Redo Function
 - [x] Color Palette
@@ -41,7 +42,7 @@ Those are the tools available right now!
     - [x] Play Function
     - [x] Stop Function
     - [x] Clear Function
-    - [x] Adding New Frames
+    - [x] Adding New Frames After the Frame Selected
     - [x] Selecting New Frames
     - [x] Saving Each Frame
     - [x] Load Frames

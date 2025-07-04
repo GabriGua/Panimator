@@ -9,9 +9,10 @@
   <header>
   <nav>
     <div class="title">Pixel Art Animator</div>
-    <button id="8">8x8</button>
+    
     <button id="16">16x16</button>
     <button id="32">32x32</button>
+    <button id="64">64x64</button>
     <span class="alert"><font color="red">*Changing size will delete every frame*</font></span>
     <button class="export" id="export">
       <div class="icons">
@@ -32,27 +33,27 @@
     </div> </div>
       <div class="canvas-controls">
         
-    <div class="toolbar"><font color="white" size="6">Toolbar</font>
+    <div class="toolbar">
         
         <div class="tool-pencil">
           <button id="pencil-tool">
             <div class="icons"> <svg xmlns="http://www.w3.org/2000/svg" fill="#ffffff" width="22px" height="22px" viewBox="0 0 256 256" id="Flat">
             <path d="M216,204H124.97046l75.51221-75.51221.00268-.00244.00244-.00293,26.33936-26.33935a19.99861,19.99861,0,0,0,.001-28.28516L182.1416,29.17041a20.02591,20.02591,0,0,0-28.28418.001l-120.001,120.001A19.87217,19.87217,0,0,0,28,163.31348V208a20.02229,20.02229,0,0,0,20,20H216a12,12,0,0,0,0-24ZM135.99976,80.97021,175.0293,120,100,195.0293,60.97046,156Zm32.00024-32L207.0293,88,192,103.0293,152.97046,64ZM52,180.9707,75.0293,204H52Z"/>
-          </svg>Pencil
+          </svg>
           </div>
            </button> 
-          <input class="selector" type="number" id="pixel-size" value="1" min="1" max="10">
+          <input class="selector" type="number" id="pixel-size" value="1" min="1" max="20">
         </div>
         <div class="tool-pencil">
         <button id="eraser-tool">
           <div class="icons">
           <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24" fill="transparent">
         <path d="M17.9995 13L10.9995 6.00004M20.9995 21H7.99955M10.9368 20.0628L19.6054 11.3941C20.7935 10.2061 21.3875 9.61207 21.6101 8.92709C21.8058 8.32456 21.8058 7.67551 21.6101 7.07298C21.3875 6.388 20.7935 5.79397 19.6054 4.60592L19.3937 4.39415C18.2056 3.2061 17.6116 2.61207 16.9266 2.38951C16.3241 2.19373 15.675 2.19373 15.0725 2.38951C14.3875 2.61207 13.7935 3.2061 12.6054 4.39415L4.39366 12.6059C3.20561 13.794 2.61158 14.388 2.38902 15.073C2.19324 15.6755 2.19324 16.3246 2.38902 16.9271C2.61158 17.6121 3.20561 18.2061 4.39366 19.3941L5.06229 20.0628C5.40819 20.4087 5.58114 20.5816 5.78298 20.7053C5.96192 20.815 6.15701 20.8958 6.36108 20.9448C6.59126 21 6.83585 21 7.32503 21H8.67406C9.16324 21 9.40784 21 9.63801 20.9448C9.84208 20.8958 10.0372 20.815 10.2161 20.7053C10.418 20.5816 10.5909 20.4087 10.9368 20.0628Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>Eraser
+        </svg>
 
         </div>
         </button>
-        <input class="selector" type="number" id="erase-size" value="1" min="1" max="10">
+        <input class="selector" type="number" id="erase-size" value="1" min="1" max="20">
         </div>
         <div class="color-picker-wrap">
           <input type="color" id="color-picker" value="#000000">
@@ -62,7 +63,7 @@
               <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24" fill="transparent">
             <path d="M8 20H6C4.89543 20 4 19.1046 4 18V6C4 4.89543 4.89543 4 6 4H9M8 20V14C8 13.4477 8.44772 13 9 13H15C15.5523 13 16 13.4477 16 14V20M8 20H16M16 20H18C19.1046 20 20 19.1046 20 18V8.82843C20 8.29799 19.7893 7.78929 19.4142 7.41421L16.5858 4.58579C16.2107 4.21071 15.702 4 15.1716 4H15M15 4V7C15 7.55228 14.5523 8 14 8H10C9.44772 8 9 7.55228 9 7V4M15 4H9" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-            Save</div></button>
+            </div></button>
         </div>
         <button id="fill-tool">
           <div class="icons">
@@ -72,19 +73,25 @@
             <path d="M28.8,15.3l-3-3.4c-1.5,2-3.2,3.9-4.7,5.3c0,0-0.1,0.1-0.1,0.1c-0.2,1.5-1.4,2.6-3,2.6c-1.7,0-3-1.3-3-3s1.3-3,3-3   c0.4,0,0.9,0.1,1.2,0.3c-0.2,0.2-0.4,0.4-0.6,0.6c-0.4,0.4-0.4,1,0,1.4c0.2,0.2,0.4,0.3,0.7,0.3c0.3,0,0.5-0.1,0.7-0.3   c4-4,10.1-11.5,7.6-14c-1.7-1.7-5.5,0.5-8.5,2.9c-1.4-0.5-3-0.2-4.1,0.9l-4,4c-2.1,2.1-4.5,3.8-7.3,5c-1,0.4-1.7,1.3-1.9,2.4   s0.1,2.2,0.9,2.9c0.6,0.6,1.4,1,2.3,1c0.8,0,1.5-0.3,2.1-0.8l4.5-4.5c0.4-0.4,1-0.4,1.4,0c0.4,0.4,0.4,1,0,1.4l-3.9,3.9l7.1,6.3   c0.9,0.8,2,1.2,3.1,1.2c1.2,0,2.4-0.5,3.4-1.4l5.6-5.6C30.3,20,30.4,17.2,28.8,15.3z M26.3,3.7c0.3,0.5-0.6,2.7-2.8,5.7l-2.6-2.9   C24.5,3.8,26.1,3.6,26.3,3.7z"/>
           </g>
           </svg>
-          Fill</div></button>
+          </div></button>
         <div class="undo-redo">
           <button id="undo-button">
             <div class="icons">
               <svg xmlns="http://www.w3.org/2000/svg" fill="#ffffff" width="20px" height="20px" viewBox="0 0 512 512"><title>ionicons-v5-b</title><path d="M256,48C141.13,48,48,141.13,48,256s93.13,208,208,208,208-93.13,208-208S370.87,48,256,48Zm97.67,281.1c-24.07-25.21-51.51-38.68-108.58-38.68v37.32a8.32,8.32,0,0,1-14.05,6L146.58,254a8.2,8.2,0,0,1,0-11.94L231,162.29a8.32,8.32,0,0,1,14.05,6v37.32c88.73,0,117.42,55.64,122.87,117.09C368.65,330.42,359.07,334.75,353.67,329.1Z"/></svg>
-            Undo</div></button>
+            </div></button>
           <button id="redo-button">
           <div class="icons">
             <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 512 512" fill="#ffffff"><title>ionicons-v5-b</title><path d="M266.91,327.74V290.42c-57.07,0-84.51,13.47-108.58,38.68-5.4,5.65-15,1.32-14.29-6.43,5.45-61.45,34.14-117.09,122.87-117.09V168.26a8.32,8.32,0,0,1,14-6L365.42,242a8.2,8.2,0,0,1,0,11.94L281,333.71A8.32,8.32,0,0,1,266.91,327.74Z"/><path d="M64,256c0,106,86,192,192,192s192-86,192-192S362,64,256,64,64,150,64,256Z" style="fill:none;stroke:#ffffff;stroke-miterlimit:10;stroke-width:32px"/></svg>
-            Redo
+          
           </div></button>
+          
         </div>
+        <label class="toggle-switch">
+        <input type="checkbox" id="pixelPerfect-toggle" checked>
+        <span class="slider"></span>
+        <font color="#363537">Pixel Perfect </font>
         
+        </label>
        
         
       </div>
@@ -144,6 +151,20 @@
   <div class="question">
     <button id="question-button"><font color="#ef2d56" size="30">?</font></button>
       
+  </div>
+
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <button class="close" id="close-button">&times;</button>
+      <h2>Key Shortcuts</h2>
+      <p>CTRL === Add Frames</p>
+      <p>Arrows Left / Right === Navigate Through the Timeline</p>
+    </div>
+    </div>
+
+  <div class="footer">
+    <p>Made with <span style="color: red;">&#10084;</span>
+    by <a href="https://github.com/GabriGua" target="_blank">GabriGua</a> || © 2025 Gabriele Guastella. All rights reserved.</p>
   </div>
 
   <script type="module" src="app.js"></script>
