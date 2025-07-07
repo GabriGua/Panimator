@@ -308,7 +308,7 @@ nav {
     box-shadow: 0 0 0 2px #fff, 0 0 0 4px #8cd867;
 }
 
-.frame-wrap:hover .delete-frame {
+.frame-wrap:hover .delete-frame,.frame-wrap:hover .download-frame {
   display: inline-block;
 }
 
@@ -427,11 +427,9 @@ div.pulse {
     z-index: 3;
     cursor: pointer;
     background-color: transparent;
-}
-
-.delete-icon {
     transition: filter 0.15s, transform 0.15s;
 }
+
 
 .delete-icon:hover {
     filter: brightness(1.2) drop-shadow(0 0 6px #ef2d56);
@@ -599,7 +597,8 @@ all: unset;
 }
 
 .modal-content {
-    background-color: #fefefe;
+    background: linear-gradient(90deg, #ed7d3a 0%, #ffd447 100%);
+
     margin: 15% auto; 
     padding: 20px;
     border: 1px solid #888;
@@ -651,6 +650,97 @@ all: unset;
     padding: 0;
     
     font-size: 14px;
+}
+
+
+.export-options {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.download-frame {
+    all: unset;
+    display: none;
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+    border: none;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 3;
+    cursor: pointer;
+    
+    background-color: transparent;
+    background-image: url("./assets/download-svgrepo-com.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    
+}
+.download-frame:hover{
+    all:unset;
+}
+
+.download-icon {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-image: url("./assets/download-svgrepo-com.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    border: none;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 3;
+    cursor: pointer;
+    background-color: transparent;
+    transition: filter 0.15s, transform 0.15s;
+}
+
+.download-icon:hover {
+    filter: brightness(1.2) drop-shadow(0 0 6px #ffd447);
+    transform: scale(1.15) rotate(-10deg);
+}
+
+#export-filename {
+  width: 220px;
+  height: 36px;
+  padding: 0 14px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.25);
+  box-shadow: 0 2px 8px rgba(237,125,58,0.10), 0 0 0 2px #ed7d3a;
+  color: #ffffff;
+  font-size: 18px;
+  font-family: 'Pixelify Sans', cursive;
+  outline: none;
+  margin: 0 8px;
+  transition: box-shadow 0.2s, background 0.2s;
+  backdrop-filter: blur(2px);
+}
+
+#export-filename:focus {
+  background: rgba(255,255,255,0.45);
+  box-shadow: 0 0 0 3px #ffd447, 0 2px 8px rgba(237,125,58,0.15);
+  color: #ffffff;
+}
+.export-info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    
 }
 
 a {

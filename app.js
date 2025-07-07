@@ -1,3 +1,5 @@
+import { exportPNG } from "./export.js";
+
 //canvas rendering
 const canvas = document.getElementById("pixel-canvas");
 let canvasPreview;
@@ -63,13 +65,25 @@ function createFrame() {
     const frameNumber = document.createElement("span");
     frameNumber.className = "frame-number";
     
+    
+    //Download single frame
+    const downloadFrame = document.createElement("button");
+    const downloadIcon = document.createElement("i");
+    downloadFrame.className = "download-frame";
+    downloadIcon.className = "download-icon";
+    downloadFrame.appendChild(downloadIcon);
+
+    downloadFrame.addEventListener("click", (e) => {
+        const index = Array.from(frameContainer.children).indexOf(frameWrap);
+        exportSpecificFrameAsPNG(index, `frame-${index + 1}`);
+    });
+
+    //DELETING FRAMES
     const deleteFrame = document.createElement("button");
     const deleteIcon = document.createElement("i");
     deleteIcon.className = "delete-icon";
     deleteFrame.appendChild(deleteIcon);
     deleteFrame.className = "delete-frame";
-
-    //DELETING FRAMES
     deleteFrame.addEventListener("click", (e) => {
         e.stopPropagation();
         const index = Array.from(frameContainer.children).indexOf(frameWrap);
@@ -92,6 +106,7 @@ function createFrame() {
             alert("You cannot delete the last frame.");
         }
     });
+    frameWrap.appendChild(downloadFrame);
     frameWrap.appendChild(deleteFrame);
     frameWrap.appendChild(frameNumber);
     frameWrap.appendChild(newFrame);
@@ -494,6 +509,17 @@ redoButton.addEventListener("click", () => {
 //Bresenham
 function drawLineOnGrid(x0, y0, x1, y1, color) {
     if (x0 === null || y0 === null) return;
+    
+    // Get the tool size based on active tool
+    let toolSize = 1;
+    if (activeTool === "pencil") {
+        const pixelSizeInput = document.getElementById("pixel-size");
+        toolSize = pixelSizeInput ? parseInt(pixelSizeInput.value) : 1;
+    } else if (activeTool === "eraser") {
+        const eraseSizeInput = document.getElementById("erase-size");
+        toolSize = eraseSizeInput ? parseInt(eraseSizeInput.value) : 1;
+    }
+    
     const dx = Math.abs(x1 - x0);
     const dy = Math.abs(y1 - y0);
     const sx = x0 < x1 ? 1 : -1;
@@ -501,14 +527,49 @@ function drawLineOnGrid(x0, y0, x1, y1, color) {
     let err = dx - dy;
     let x = x0;
     let y = y0;
+    
     while (true) {
-        if (x >= 0 && x < gridWidth && y >= 0 && y < gridHeight) {
-            grid[x][y] = color;
-        }
+        // Draw area of toolSize centered on current point
+        drawToolArea(x, y, toolSize, color);
+        
         if (x === x1 && y === y1) break;
         const e2 = 2 * err;
         if (e2 > -dy) { err -= dy; x += sx; }
         if (e2 < dx) { err += dx; y += sy; }
+    }
+}
+
+// Helper function to draw an area with the specified tool size
+function drawToolArea(centerX, centerY, toolSize, color) {
+    if (toolSize <= 1) {
+        // Single pixel
+        if (centerX >= 0 && centerX < gridWidth && centerY >= 0 && centerY < gridHeight) {
+            grid[centerX][centerY] = color;
+        }
+        return;
+    }
+    
+    // Multiple pixels - handle both odd and even sizes
+    let startX, startY;
+    if (toolSize % 2 !== 0) {
+        // Odd size - center perfectly
+        const halfSize = Math.floor(toolSize / 2);
+        startX = centerX - halfSize;
+        startY = centerY - halfSize;
+    } else {
+        // Even size - offset slightly
+        const halfSize = toolSize / 2;
+        startX = Math.floor(centerX - halfSize);
+        startY = Math.floor(centerY - halfSize);
+    }
+    
+    // Draw the area
+    for (let x = startX; x < startX + toolSize; x++) {
+        for (let y = startY; y < startY + toolSize; y++) {
+            if (x >= 0 && x < gridWidth && y >= 0 && y < gridHeight) {
+                grid[x][y] = color;
+            }
+        }
     }
 }
 
@@ -772,7 +833,6 @@ function setGridSize() {
     redrawCanvas();
 }
 
-export {frames, activeFrameIndex, selectFrame};
 
 // Keyboard shortcuts
 document.addEventListener('keydown', function(e) {
@@ -789,3 +849,65 @@ questionButton.addEventListener("click", () => {
 closeButton.addEventListener("click", () => {
     modal.style.display = "none";
 });
+
+function exportCanvasWithTransparentBg(callback) {
+    // 1. Salva il canvas attuale su un'immagine temporanea
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+    // 2. Cancella il canvas (diventa trasparente)
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // 3. Ridisegna SOLO i pixel presenti in grid (anche se bianchi)
+    for (let x = 0; x < gridWidth; x++) {
+        for (let y = 0; y < gridHeight; y++) {
+            if (grid[x][y]) {
+                ctx.fillStyle = grid[x][y];
+                ctx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
+            }
+        }
+    }
+
+    // 4. Chiama il callback (esporta PNG)
+    callback();
+
+    // 5. Ripristina il canvas originale
+    ctx.putImageData(imageData, 0, 0);
+}
+
+function exportSpecificFrameAsPNG(frameIndex, filename = "frame") {
+    const frame = frames[frameIndex];
+    if (!frame) {
+        alert("Frame non trovato!");
+        return;
+    }
+
+    // Crea un canvas temporaneo delle stesse dimensioni
+    const tempCanvas = document.createElement("canvas");
+    tempCanvas.width = canvas.width;
+    tempCanvas.height = canvas.height;
+    const tempCtx = tempCanvas.getContext("2d");
+
+    // Ottieni lo stato del frame
+    const state = frame.grid;
+
+    // NON riempire lo sfondo: lasciamo trasparente!
+    // Disegna solo i pixel presenti
+    for (let x = 0; x < gridWidth; x++) {
+        for (let y = 0; y < gridHeight; y++) {
+            if (state[x][y]) {
+                tempCtx.fillStyle = state[x][y];
+                tempCtx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
+            }
+        }
+    }
+
+    // Esporta come PNG
+    const link = document.createElement("a");
+    link.download = `${filename}.png`;
+    link.href = tempCanvas.toDataURL("image/png");
+    link.click();
+}
+
+export{exportCanvasWithTransparentBg};
+
+export {frames, activeFrameIndex, selectFrame};

@@ -48,7 +48,7 @@ Those are the tools available right now!
     - [x] Load Frames
     - [x] Resize Frames from Canvas
     - [x] Deleting Frames and Re-numerating
-- [ ] Exporting as PNG
+- [x] Exporting as PNG
     - [ ] Multiple PNG
 - [ ] Exporting as GIF
 - [ ] Adding localStorage
@@ -74,6 +74,7 @@ for what?
 - Cursor Rendering in Canvas (sometimes)
 - Tools Pixel Size (sometimes) 
 - Frame Creation and Selection System (often, I had to re-adapt everything)
+- Pixel Perfect (often, it was hard)
 - Frame re-numeration (just the syntax)
 - Debugging (rarely)
 
