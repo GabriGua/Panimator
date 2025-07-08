@@ -87,3 +87,5 @@ document.addEventListener('keydown', function(e) {
         selectFrame(activeFrameIndex - 1);
     }
 });
+
+export {animationFrameRate};

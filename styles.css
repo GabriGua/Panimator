@@ -308,9 +308,7 @@ nav {
     box-shadow: 0 0 0 2px #fff, 0 0 0 4px #8cd867;
 }
 
-.frame-wrap:hover .delete-frame,.frame-wrap:hover .download-frame {
-  display: inline-block;
-}
+
 
 
 .color-palette {
@@ -421,10 +419,7 @@ div.pulse {
     background-repeat: no-repeat;
     vertical-align: middle;
     border: none;
-    position: absolute;
-    top: 0;
-    right: 0;
-    z-index: 3;
+    
     cursor: pointer;
     background-color: transparent;
     transition: filter 0.15s, transform 0.15s;
@@ -446,10 +441,9 @@ div.pulse {
     background-repeat: no-repeat;
     vertical-align: middle;
     border: none;
-    position: absolute;
-    top: 0;
-    right: 0;
-    z-index: 3;
+    
+    
+    
     cursor: pointer;
     background-color: transparent;
 }
@@ -668,10 +662,7 @@ all: unset;
     height: 30px;
     vertical-align: middle;
     border: none;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    z-index: 3;
+    
     cursor: pointer;
     
     background-color: transparent;
@@ -694,10 +685,8 @@ all: unset;
     background-repeat: no-repeat;
     vertical-align: middle;
     border: none;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    z-index: 3;
+    
+    
     cursor: pointer;
     background-color: transparent;
     transition: filter 0.15s, transform 0.15s;
@@ -706,6 +695,85 @@ all: unset;
 .download-icon:hover {
     filter: brightness(1.2) drop-shadow(0 0 6px #ffd447);
     transform: scale(1.15) rotate(-10deg);
+}
+
+.options-menu {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  left: auto;
+  background: linear-gradient(120deg, #ffd447 0%, #2fbf71 100%);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+  padding: 0;
+  min-width: 40px;
+  width: 40px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  z-index: 20;
+  overflow: hidden;
+  opacity: 0;
+  transform: scaleY(0.7);
+  pointer-events: none;
+  visibility: hidden;
+  transition: opacity 0.22s cubic-bezier(.4,1.3,.6,1), transform 0.22s cubic-bezier(.4,1.3,.6,1), visibility 0.22s;
+}
+
+.frame-wrap.show-options .options-menu {
+  opacity: 1;
+  transform: scaleY(1);
+  pointer-events: auto;
+  visibility: visible;
+}
+
+.options-menu .download-frame,
+.options-menu .delete-frame {
+  display: block !important;
+  width: 36px;
+  height: 36px;
+  margin: 2px auto;
+  background: none;
+  background-image: none;
+  padding: 0;
+  border: none;
+  box-shadow: none;
+  color: #fff;
+  text-align: center;
+  font-size: 16px;
+  border-bottom: none;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, transform 0.18s;
+  outline: none;
+}
+.options-menu .download-frame:hover,
+.options-menu .delete-frame:hover {
+  background: #ef2d56;
+  color: #ffd447;
+  transform: scale(1.15) rotate(-8deg);
+}
+
+.options-button {
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: #888;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: background 0.2s, color 0.2s;
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  z-index: 21;
+  width: 30px;
+    height: 30px;
+}
+.options-button:hover {
+  color: #fff;
+  background: #444;
 }
 
 #export-filename {
@@ -881,4 +949,14 @@ a:hover, a:focus {
         justify-content: center;
         
     }
+}
+
+.frame-wrap .options-button {
+  display: none;
+}
+.frame-wrap:hover .options-button {
+  display: block;
+}
+.frame-wrap.show-options .options-button {
+  display: none;
 }

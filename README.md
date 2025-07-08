@@ -49,8 +49,9 @@ Those are the tools available right now!
     - [x] Resize Frames from Canvas
     - [x] Deleting Frames and Re-numerating
 - [x] Exporting as PNG
-    - [ ] Multiple PNG
-- [ ] Exporting as GIF
+    - [x] Multiple PNG
+- [x] Exporting as GIF
+- [x] Exporting as Sprite Sheet
 - [ ] Adding localStorage
 - [ ] Better Styling
     - [x] Adding Icons
@@ -70,13 +71,15 @@ I used Github Copilot in "ask" mode only, whenever I didn't find a solution onli
 
 for what?
 
-- Canvas Rendering (sometimes)
-- Cursor Rendering in Canvas (sometimes)
-- Tools Pixel Size (sometimes) 
-- Frame Creation and Selection System (often, I had to re-adapt everything)
-- Pixel Perfect (often, it was hard)
-- Frame re-numeration (just the syntax)
-- Debugging (rarely)
+- Canvas Rendering (sometimes);
+- Cursor Rendering in Canvas (sometimes);
+- Tools Pixel Size (sometimes);
+- Frame Creation and Selection System (often, I had to re-adapt everything);
+- Pixel Perfect (often, it was hard);
+- Frame re-numeration (just the syntax);
+- Exporting as a GIF (just to explain how to make it work);
+- Making a ZIP file (same as GIF);
+- Debugging (rarely);
 
 In some occasion used autocomplete just to speed up repetitive tasks.
 ---

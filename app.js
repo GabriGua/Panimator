@@ -1,19 +1,14 @@
-import { exportPNG } from "./export.js";
-
 //canvas rendering
 const canvas = document.getElementById("pixel-canvas");
-let canvasPreview;
+
 const ctx = canvas.getContext("2d");
 let pixelSize = 16;
 let gridWidth = Math.floor(canvas.width / pixelSize);
 let gridHeight = Math.floor(canvas.height / pixelSize);
 
-let previewPixelSizeX;
-let previewPixelSizeY;
-let ctxPreview;
 
 let grid = [];
-let gridUndo = [];
+
 let previewIndex = 0;
 
 
@@ -66,6 +61,11 @@ function createFrame() {
     frameNumber.className = "frame-number";
     
     
+
+
+    
+
+    
     //Download single frame
     const downloadFrame = document.createElement("button");
     const downloadIcon = document.createElement("i");
@@ -106,10 +106,40 @@ function createFrame() {
             alert("You cannot delete the last frame.");
         }
     });
-    frameWrap.appendChild(downloadFrame);
-    frameWrap.appendChild(deleteFrame);
+
+    const optionsMenu = document.createElement("div");
+    optionsMenu.className = "options-menu";
+    optionsMenu.appendChild(downloadFrame);
+    optionsMenu.appendChild(deleteFrame);
+    
+    frameWrap.appendChild(optionsMenu);
+    const optionsButton = document.createElement("button");
+    optionsButton.className = "options-button";
+    optionsButton.innerHTML = "&#8942;";
+    
+    optionsButton.addEventListener("click", (e) => {
+        e.stopPropagation();
+        document.querySelectorAll(".frame-wrap.show-options").forEach(wrap => {
+            if (wrap !== frameWrap) wrap.classList.remove("show-options");
+        });
+        frameWrap.classList.toggle("show-options");
+    });
+
+    // close button for the modal
+    document.addEventListener("click", (e) => {
+        document.querySelectorAll(".frame-wrap.show-options").forEach(wrap => {
+            wrap.classList.remove("show-options");
+        });
+    });
+
+    optionsMenu.addEventListener("click", (e) => {
+    e.stopPropagation();
+    });
+    
+
     frameWrap.appendChild(frameNumber);
     frameWrap.appendChild(newFrame);
+    frameWrap.appendChild(optionsButton);
    
     // Each frame is indivual
     let prevFrame = frames[activeFrameIndex];
@@ -833,6 +863,64 @@ function setGridSize() {
     redrawCanvas();
 }
 
+function exportCanvasWithTransparentBg(callback) {
+    
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+    
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    
+    for (let x = 0; x < gridWidth; x++) {
+        for (let y = 0; y < gridHeight; y++) {
+            if (grid[x][y]) {
+                ctx.fillStyle = grid[x][y];
+                ctx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
+            }
+        }
+    }
+
+    // export the canvas as PNG
+    callback();
+
+    // Restore the original image data
+    ctx.putImageData(imageData, 0, 0);
+}
+
+function exportSpecificFrameAsPNG(frameIndex, filename = "frame") {
+    const frame = frames[frameIndex];
+    if (!frame) {
+        alert("Frame non trovato!");
+        return;
+    }
+
+    // Create a temporary canvas to draw the frame
+    const tempCanvas = document.createElement("canvas");
+    tempCanvas.width = canvas.width;
+    tempCanvas.height = canvas.height;
+    const tempCtx = tempCanvas.getContext("2d");
+
+    
+    const state = frame.grid;
+
+    
+    
+    for (let x = 0; x < gridWidth; x++) {
+        for (let y = 0; y < gridHeight; y++) {
+            if (state[x][y]) {
+                tempCtx.fillStyle = state[x][y];
+                tempCtx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
+            }
+        }
+    }
+
+    // Export the temporary canvas as PNG
+    const link = document.createElement("a");
+    link.download = `${filename}.png`;
+    link.href = tempCanvas.toDataURL("image/png");
+    link.click();
+}
+
 
 // Keyboard shortcuts
 document.addEventListener('keydown', function(e) {
@@ -850,64 +938,7 @@ closeButton.addEventListener("click", () => {
     modal.style.display = "none";
 });
 
-function exportCanvasWithTransparentBg(callback) {
-    // 1. Salva il canvas attuale su un'immagine temporanea
-    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-
-    // 2. Cancella il canvas (diventa trasparente)
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // 3. Ridisegna SOLO i pixel presenti in grid (anche se bianchi)
-    for (let x = 0; x < gridWidth; x++) {
-        for (let y = 0; y < gridHeight; y++) {
-            if (grid[x][y]) {
-                ctx.fillStyle = grid[x][y];
-                ctx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
-            }
-        }
-    }
-
-    // 4. Chiama il callback (esporta PNG)
-    callback();
-
-    // 5. Ripristina il canvas originale
-    ctx.putImageData(imageData, 0, 0);
-}
-
-function exportSpecificFrameAsPNG(frameIndex, filename = "frame") {
-    const frame = frames[frameIndex];
-    if (!frame) {
-        alert("Frame non trovato!");
-        return;
-    }
-
-    // Crea un canvas temporaneo delle stesse dimensioni
-    const tempCanvas = document.createElement("canvas");
-    tempCanvas.width = canvas.width;
-    tempCanvas.height = canvas.height;
-    const tempCtx = tempCanvas.getContext("2d");
-
-    // Ottieni lo stato del frame
-    const state = frame.grid;
-
-    // NON riempire lo sfondo: lasciamo trasparente!
-    // Disegna solo i pixel presenti
-    for (let x = 0; x < gridWidth; x++) {
-        for (let y = 0; y < gridHeight; y++) {
-            if (state[x][y]) {
-                tempCtx.fillStyle = state[x][y];
-                tempCtx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
-            }
-        }
-    }
-
-    // Esporta come PNG
-    const link = document.createElement("a");
-    link.download = `${filename}.png`;
-    link.href = tempCanvas.toDataURL("image/png");
-    link.click();
-}
 
 export{exportCanvasWithTransparentBg};
 
-export {frames, activeFrameIndex, selectFrame};
+export {frames, activeFrameIndex, selectFrame, gridHeight, gridWidth, pixelSize};

@@ -1,13 +1,17 @@
 import { exportCanvasWithTransparentBg } from "./app.js";
+import { frames, gridWidth, gridHeight, pixelSize, selectFrame } from "./app.js";
+const canvas = document.getElementById("pixel-canvas");
+const frameRate = document.getElementById("frame-rate");
 const exportButton = document.getElementById("export-button");
 const exportModal = document.getElementById("export-modal");
 const closeButton = document.getElementById("export-close-button");
 const GIFButton = document.getElementById("export-GIF-button");
 const PNGButton = document.getElementById("export-PNG-button");
 const MPNGButton = document.getElementById("export-mPNG-button");
+const spriteSheetButton = document.getElementById("export-spriteSheet-button");
 const filenameInput = document.getElementById("export-filename");
 
-
+let fps = 24;
 let filename = "animation";
 
 exportButton.addEventListener("click", () => {
@@ -29,6 +33,21 @@ PNGButton.addEventListener("click", () => {
     exportModal.style.display = "none";
 });
 
+GIFButton.addEventListener("click", async () => {
+    await exportGIF();
+    exportModal.style.display = "none";
+});
+
+MPNGButton.addEventListener("click", () => {
+    exportMPNG();
+    exportModal.style.display = "none";
+});
+
+spriteSheetButton.addEventListener("click", () => {
+    exportSpriteSheet();
+    exportModal.style.display = "none";
+});
+
 function exportPNG() {
     exportCanvasWithTransparentBg(() => {
         const canvas = document.getElementById("pixel-canvas");
@@ -39,4 +58,133 @@ function exportPNG() {
     });
 }
 
+function findUnusedColor(frames) {
+    const usedColors = new Set();
+    for (const frame of frames) {
+        for (let x = 0; x < gridWidth; x++) {
+            for (let y = 0; y < gridHeight; y++) {
+                if (frame.grid[x][y]) usedColors.add(frame.grid[x][y].toUpperCase());
+            }
+        }
+    }
+    
+    const candidates = ["#FF00FF", "#00FFFE", "#123456", "#ABCDEF"];
+    return candidates.find(c => !usedColors.has(c)) || "#FF00FF";
+}
+
+async function exportGIF() {
+    fps = frameRate.value;
+    const transparentColor = findUnusedColor(frames);
+    const gifOptions = {
+        workers: 2,
+        quality: 10,
+        workerScript: './assets/lib/gif.worker.js',
+        width: canvas.width,
+        height: canvas.height,
+        transparent: parseInt(transparentColor.replace("#", "0x"), 16)
+    };
+
+    const gif = new window.GIF(gifOptions);
+
+    for (let i = 0; i < frames.length; i++) {
+        selectFrame(i);
+        const frame = frames[i];
+        await new Promise(resolve => requestAnimationFrame(resolve));
+        const tempCanvas = document.createElement("canvas");
+        tempCanvas.width = canvas.width;
+        tempCanvas.height = canvas.height;
+        const tempCtx = tempCanvas.getContext("2d");
+
+        tempCtx.clearRect(0, 0, tempCanvas.width, tempCanvas.height);
+
+        for (let x = 0; x < gridWidth; x++) {
+            for (let y = 0; y < gridHeight; y++) {
+                if (frame.grid[x][y]) {
+                    tempCtx.fillStyle = frame.grid[x][y];
+                    tempCtx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
+                } else {
+                    tempCtx.fillStyle = transparentColor;
+                    tempCtx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
+                }
+            }
+        }
+
+        gif.addFrame(tempCtx, {copy: true, delay: 1000 / fps});
+    }
+
+    gif.on('finished', function(blob) {
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = `${filename}.gif`;
+        link.click();
+    });
+
+    gif.render();
+}
+
+async function exportMPNG() {
+
+    const zip = new JSZip();
+
+    for (let i = 0; i < frames.length; i++) {
+        const tempCanvas = document.createElement("canvas");
+        tempCanvas.width = canvas.width;
+        tempCanvas.height = canvas.height;
+        const tempCtx = tempCanvas.getContext("2d");
+
+        tempCtx.clearRect(0, 0, tempCanvas.width, tempCanvas.height);
+
+        for (let x = 0; x < gridWidth; x++) {
+            for (let y = 0; y < gridHeight; y++) {
+                if (frames[i].grid[x][y]) {
+                    tempCtx.fillStyle = frames[i].grid[x][y];
+                    tempCtx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
+                } 
+
+            }
+        }
+
+    const blob = await new Promise(resolve => tempCanvas.toBlob(resolve, "image/png"));
+        zip.file(`frame-${i + 1}.png`, blob);
+    }
+
+    // Generate the zip file and trigger download
+    zip.generateAsync({ type: "blob" })
+        .then(function(content) {
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(content);
+            link.download = `${filename}.zip`;
+            link.click();
+        });
+}
+
+function exportSpriteSheet()
+{
+    const spriteSheetCanvas = document.createElement("canvas");
+    const spriteSheetCtx = spriteSheetCanvas.getContext("2d");
+
+    const frameWidth = gridWidth * pixelSize;
+    const frameHeight = gridHeight * pixelSize;
+    const totalFrames = frames.length;
+
+    spriteSheetCanvas.width = frameWidth * totalFrames;
+    spriteSheetCanvas.height = frameHeight;
+
+    for (let i = 0; i < totalFrames; i++) {
+        selectFrame(i);
+        for (let x = 0; x < gridWidth; x++) {
+            for (let y = 0; y < gridHeight; y++) {
+                if (frames[i].grid[x][y]) {
+                    spriteSheetCtx.fillStyle = frames[i].grid[x][y];
+                    spriteSheetCtx.fillRect(x * pixelSize + i * frameWidth, y * pixelSize, pixelSize, pixelSize);
+                }
+            }
+        }
+    }
+
+    const link = document.createElement("a");
+    link.download = `${filename}.png`;
+    link.href = spriteSheetCanvas.toDataURL("image/png");
+    link.click();
+}
 export {exportPNG};
