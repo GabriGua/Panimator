@@ -1,3 +1,4 @@
+import { isLight } from "./themeSwitcher.js";
 //canvas rendering
 const canvas = document.getElementById("pixel-canvas");
 
@@ -201,7 +202,15 @@ function selectFrame(index) {
 
 //canvas rendering
 function redrawCanvas() {
+    
+    if (isLight) {
     ctx.fillStyle = "#fff";
+    }
+    else {
+    ctx.fillStyle = "#585858ff";
+    }
+    
+    
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     drawGrid(); 
     for (let x = 0; x < gridWidth; x++) {
@@ -433,17 +442,24 @@ canvas.addEventListener("mouseleave", function() {
 
 //setting grid size
 x64Button.addEventListener("click", () => {
+
+    confirmGridResize(() => {
     pixelSize = 8;
     setGridSize();
+    });
 });
 x16Button.addEventListener("click", () => {
+    confirmGridResize(() => {
     pixelSize = 32;
     setGridSize();
+    });
 }
 );
 x32Button.addEventListener("click", () => {
+    confirmGridResize(() => {
     pixelSize = 16;
     setGridSize();
+    });
 }
 );
 
@@ -835,7 +851,14 @@ window.addEventListener("DOMContentLoaded", () => {
     pencilButton.classList.add("active");
 });
 
+function confirmGridResize(callback) {
+    if (confirm("*Changing size will delete every frame*\nAre you sure you want to continue?")) {
+        callback();
+    }
+}
+
 function setGridSize() {
+
     // Update pixel size and grid dimensions to the frames
     gridWidth = Math.floor(canvas.width / pixelSize);
     gridHeight = Math.floor(canvas.height / pixelSize);
@@ -924,11 +947,112 @@ function exportSpecificFrameAsPNG(frameIndex, filename = "frame") {
 
 // Keyboard shortcuts
 document.addEventListener('keydown', function(e) {
+    const pixelSizeInput = document.getElementById("pixel-size");
+    const eraseSizeInput = document.getElementById("erase-size");
     if (e.ctrlKey) {
         e.preventDefault();
         createFrame();
     }
+    
+    if (e.key === "z" || e.key === "Z") {
+        e.preventDefault();
+        undoButton.click();
+    }
+
+    if (e.key === "x" || e.key === "X") {
+        e.preventDefault();
+        redoButton.click();
+    }
+
+    if(e.key === "b" || e.key === "B")
+    {
+        e.preventDefault();
+        if (activeTool === "pencil") {
+            activeTool = null;
+            pencilButton.classList.remove("active");
+        }
+        else {
+            activeTool = "pencil";
+            pencilButton.classList.add("active");
+            eraserButton.classList.remove("active");
+            fillButton.classList.remove("active");
+        }
+    }
+
+    if(e.key === "e" || e.key === "E")
+    {
+        e.preventDefault();
+        if (activeTool === "eraser") {
+            activeTool = null;
+            eraserButton.classList.remove("active");
+        }
+        else {
+            activeTool = "eraser";
+            eraserButton.classList.add("active");
+            pencilButton.classList.remove("active");
+            fillButton.classList.remove("active");
+        }
+    }
+    if(e.key === "f" || e.key === "F")
+    {
+        console.log("Fill tool activated");
+        e.preventDefault();
+        if (activeTool === "fill") {
+            activeTool = null;
+            fillButton.classList.remove("active");
+        }
+        else {
+            activeTool = "fill";
+            fillButton.classList.add("active");
+            pencilButton.classList.remove("active");
+            eraserButton.classList.remove("active");
+        }
+    }
+
+    if (e.key === ".") {
+        e.preventDefault();
+        copyFrameToggle.checked = !copyFrameToggle.checked;
+        
+        copyFrameToggle.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+
+    if(activeTool === "pencil")
+    {
+        if (e.key === "ArrowUp") {
+            e.preventDefault();
+            pixelSizeInput.value = Math.min(parseInt(pixelSizeInput.value) + 1, 20);
+            pixelSizeInput.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+        if (e.key === "ArrowDown") {
+            e.preventDefault();
+            pixelSizeInput.value = Math.max(parseInt(pixelSizeInput.value) - 1, 1);
+            pixelSizeInput.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+    }
+    else if(activeTool === "eraser")
+    {
+        if (e.key === "ArrowUp") {
+            e.preventDefault();
+            eraseSizeInput.value = Math.min(parseInt(eraseSizeInput.value) + 1, 20);
+            eraseSizeInput.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+        if (e.key === "ArrowDown") {
+            e.preventDefault();
+            eraseSizeInput.value = Math.max(parseInt(eraseSizeInput.value) - 1, 1);
+            eraseSizeInput.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+    }
+
+    if (e.key === "s" || e.key === "S") {
+        e.preventDefault();
+        colorSave.click();
+    }
+
+    if (e.key === "Escape") {
+        modal.style.display = "none";
+    }
 });
+
 
 questionButton.addEventListener("click", () => {
     modal.style.display = "block";
@@ -938,6 +1062,10 @@ closeButton.addEventListener("click", () => {
     modal.style.display = "none";
 });
 
+window.addEventListener("themechange", (e) => {
+    
+    redrawCanvas();
+});
 
 export{exportCanvasWithTransparentBg};
 

@@ -76,15 +76,28 @@ document.addEventListener('keydown', function(e) {
         e.preventDefault(); 
         selectFrame(activeFrameIndex + 1);
     }
-});
+     
 
-document.addEventListener('keydown', function(e) {
     if (e.key === "ArrowLeft") {
         if (activeFrameIndex <= 0) {
             return;
         }
         e.preventDefault();
         selectFrame(activeFrameIndex - 1);
+    }
+
+    if (e.key === " ") {
+        e.preventDefault();
+        if (isPlaying) {
+            pauseAnimation();
+        } else {
+            startAnimation();
+        }
+    }
+
+    if (e.key === "c" || e.key === "C") {
+        e.preventDefault();
+        clearAnimation();
     }
 });
 

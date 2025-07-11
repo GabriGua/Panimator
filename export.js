@@ -86,6 +86,7 @@ async function exportGIF() {
 
     const gif = new window.GIF(gifOptions);
 
+    
     for (let i = 0; i < frames.length; i++) {
         selectFrame(i);
         const frame = frames[i];
@@ -94,6 +95,7 @@ async function exportGIF() {
         tempCanvas.width = canvas.width;
         tempCanvas.height = canvas.height;
         const tempCtx = tempCanvas.getContext("2d");
+        
 
         tempCtx.clearRect(0, 0, tempCanvas.width, tempCanvas.height);
 
@@ -187,4 +189,12 @@ function exportSpriteSheet()
     link.href = spriteSheetCanvas.toDataURL("image/png");
     link.click();
 }
+
+document.addEventListener("keydown", function(e) {
+    if (e.key === "Enter")  {
+        e.preventDefault();
+        exportButton.click();
+    }
+});
+
 export {exportPNG};
