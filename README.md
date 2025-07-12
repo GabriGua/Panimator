@@ -58,11 +58,11 @@ Those are the tools available right now!
     - [x] Adding Background
     - [x] Make Everything Dynamic
     - [x] Adding Clouds
-    - [ ] Other
+    - [x] Other
 - [x] Adding Shortcuts
     - [x] Key Map (Question Button)
 - [x] Theme Switcher
-    - [ ] Enhancements
+    - [x] Enhancements
 - [ ] Enhance the README
 ---
 ### Trasparency

@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap');
 
+:root {
+  --main-gradient: linear-gradient(90deg, #ed7d3a 0%, #ffd447 100%);
+  --main-gradient1: linear-gradient(180deg, #ed7d3a 0%, #ffd447 100%);
+}
+
 body {
     background-color: #22c1e9;
     color: rgb(0, 0, 0);
@@ -53,7 +58,7 @@ nav {
     flex-direction: row;
     align-items: center;
     justify-content: flex-end;
-    background: linear-gradient(90deg, #ed7d3a 0%, #ffd447 100%);
+    background: var(--main-gradient);
     gap: 10px;
     padding: 10px 20px;
     border-bottom: 5px solid #8cd867;
@@ -148,7 +153,7 @@ nav {
 }
 
 .toolbar {
-    background: linear-gradient(90deg, #ed7d3a 0%, #ffd447 100%);
+    background: var(--main-gradient1);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -233,7 +238,7 @@ nav {
 
 .animation-controls{
    margin: 10px;
-   background: linear-gradient(90deg, #ed7d3a 0%, #ffd447 100%);
+   background: var(--main-gradient);
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -263,7 +268,7 @@ nav {
 }
 
 .timeline {
-    background: linear-gradient(180deg, #ed7d3a 0%, #ffd447 100%);
+    background: var(--main-gradient1);
     display: grid;
     grid-template-columns: repeat(auto-fill, 128px);
     grid-auto-rows: 128px;
@@ -570,6 +575,8 @@ body.light-theme {
 
 body.dark-theme {
   background-image: url("./assets/DarkSky.png");
+  --main-gradient: linear-gradient(90deg, #0c906f 50%, #28c888  100%);
+  --main-gradient1: linear-gradient(180deg, #0c906f 50%, #28c888  100%);
 }
 
 body.light-theme {
@@ -634,7 +641,7 @@ body.dark-theme #theme-switcher {
 }
 
 .modal-content {
-    background: linear-gradient(90deg, #ed7d3a 0%, #ffd447 100%);
+    background: var(--main-gradient);
 
     margin: 15% auto; 
     padding: 20px;
@@ -960,7 +967,7 @@ a:hover, a:focus {
     }
 
     .toolbar {
-    background: linear-gradient(90deg, #ed7d3a 0%, #ffd447 100%);
+    background: var(--main-gradient1);
     display: flex;
     flex-direction: column;
     align-items: center;

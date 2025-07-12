@@ -951,7 +951,7 @@ document.addEventListener('keydown', function(e) {
     const eraseSizeInput = document.getElementById("erase-size");
     if (e.ctrlKey) {
         e.preventDefault();
-        createFrame();
+        addFrame.click();
     }
     
     if (e.key === "z" || e.key === "Z") {
@@ -970,6 +970,7 @@ document.addEventListener('keydown', function(e) {
         if (activeTool === "pencil") {
             activeTool = null;
             pencilButton.classList.remove("active");
+            
         }
         else {
             activeTool = "pencil";
@@ -977,6 +978,7 @@ document.addEventListener('keydown', function(e) {
             eraserButton.classList.remove("active");
             fillButton.classList.remove("active");
         }
+        redrawCanvas();
     }
 
     if(e.key === "e" || e.key === "E")
@@ -992,6 +994,7 @@ document.addEventListener('keydown', function(e) {
             pencilButton.classList.remove("active");
             fillButton.classList.remove("active");
         }
+        redrawCanvas();
     }
     if(e.key === "f" || e.key === "F")
     {
@@ -1007,6 +1010,7 @@ document.addEventListener('keydown', function(e) {
             pencilButton.classList.remove("active");
             eraserButton.classList.remove("active");
         }
+        redrawCanvas();
     }
 
     if (e.key === ".") {
@@ -1022,11 +1026,13 @@ document.addEventListener('keydown', function(e) {
             e.preventDefault();
             pixelSizeInput.value = Math.min(parseInt(pixelSizeInput.value) + 1, 20);
             pixelSizeInput.dispatchEvent(new Event('input', { bubbles: true }));
+            redrawCanvas();
         }
         if (e.key === "ArrowDown") {
             e.preventDefault();
             pixelSizeInput.value = Math.max(parseInt(pixelSizeInput.value) - 1, 1);
             pixelSizeInput.dispatchEvent(new Event('input', { bubbles: true }));
+            redrawCanvas();
         }
     }
     else if(activeTool === "eraser")
@@ -1035,11 +1041,13 @@ document.addEventListener('keydown', function(e) {
             e.preventDefault();
             eraseSizeInput.value = Math.min(parseInt(eraseSizeInput.value) + 1, 20);
             eraseSizeInput.dispatchEvent(new Event('input', { bubbles: true }));
+            redrawCanvas();
         }
         if (e.key === "ArrowDown") {
             e.preventDefault();
             eraseSizeInput.value = Math.max(parseInt(eraseSizeInput.value) - 1, 1);
             eraseSizeInput.dispatchEvent(new Event('input', { bubbles: true }));
+            redrawCanvas();
         }
     }
 

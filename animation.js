@@ -89,15 +89,15 @@ document.addEventListener('keydown', function(e) {
     if (e.key === " ") {
         e.preventDefault();
         if (isPlaying) {
-            pauseAnimation();
+            pauseButton.click();
         } else {
-            startAnimation();
+            playButton.click();
         }
     }
 
     if (e.key === "c" || e.key === "C") {
         e.preventDefault();
-        clearAnimation();
+        clearButton.click();
     }
 });
 
