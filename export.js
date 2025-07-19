@@ -1,5 +1,5 @@
 import { exportCanvasWithTransparentBg } from "./app.js";
-import { frames, gridWidth, gridHeight, pixelSize, selectFrame } from "./app.js";
+import { frames } from "./app.js";
 const canvas = document.getElementById("pixel-canvas");
 const frameRate = document.getElementById("frame-rate");
 const exportButton = document.getElementById("export-button");
@@ -9,10 +9,16 @@ const GIFButton = document.getElementById("export-GIF-button");
 const PNGButton = document.getElementById("export-PNG-button");
 const MPNGButton = document.getElementById("export-mPNG-button");
 const spriteSheetButton = document.getElementById("export-spriteSheet-button");
+const projectButton = document.getElementById("export-project-button");
 const filenameInput = document.getElementById("export-filename");
 
 let fps = 24;
-let filename = "animation";
+export let filename = "animation";
+
+export function setFilename(name) {
+    filename = name;
+}
+
 
 exportButton.addEventListener("click", () => {
     exportModal.style.display = "block";
@@ -45,6 +51,11 @@ MPNGButton.addEventListener("click", () => {
 
 spriteSheetButton.addEventListener("click", () => {
     exportSpriteSheet();
+    exportModal.style.display = "none";
+});
+
+projectButton.addEventListener("click", () => {
+    exportProject();
     exportModal.style.display = "none";
 });
 
@@ -190,11 +201,35 @@ function exportSpriteSheet()
     link.click();
 }
 
+function exportProject() {
+    const projectData = {
+        frames: frames.map(frame => ({
+            grid: frame.grid,
+            width: frame.width,
+            height: frame.height,
+            pixelSize: frame.pixelSize
+        })),
+        gridWidth,
+        gridHeight,
+        pixelSize,
+        filename: typeof filename !== "undefined" && filename ? filename : "animation",
+        palette: typeof palette !== "undefined" && palette !== null ? palette : []
+    };
+    const blob = new Blob([JSON.stringify(projectData, null, 2)], { type: "application/json" });
+    const link = document.createElement("a");
+    link.download = `${filename}.json`;
+    link.href = URL.createObjectURL(blob);
+    link.click();
+}
+
+
 document.addEventListener("keydown", function(e) {
     if (e.key === "Enter")  {
         e.preventDefault();
         exportButton.click();
     }
 });
+
+
 
 export {exportPNG};

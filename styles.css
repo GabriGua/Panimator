@@ -63,6 +63,18 @@ nav {
     padding: 10px 20px;
     border-bottom: 5px solid #8cd867;
 }
+.import-export {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.import
+{
+    background-color: #3b3b3b;
+    
+}
 
 .export{
     background-color: #9e1e3a;
@@ -81,6 +93,7 @@ nav {
 }
 
 .canvas-bg{
+  
     background-color: transparent;
     background-image: url("./assets/canvas.png");
     background-size: contain;     
@@ -98,6 +111,7 @@ nav {
     height: 100vh;
 }
 .canvas-container {
+  position: relative;
     background-color: transparent;
     background-image: url("./assets/background.png");
     background-size: cover;     
@@ -590,6 +604,11 @@ body.light-theme #theme-switcher {
   border: 2px solid #ffd447;
   transition: background 0.2s, color 0.2s;
 }
+
+body.dark-theme .toggle-switch input[type="checkbox"]:checked + .slider  {
+  background: #ccff00;
+}
+
 body.dark-theme #theme-switcher {
   background: #363537;
   color: #ffd447;
@@ -1025,4 +1044,28 @@ a:hover, a:focus {
     align-items: center;
     justify-content: center;
     gap: 10px;
+}
+
+#delete-project {
+  all: unset;
+  display: inline-block;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 80px;
+  height: 80px;
+  background-image: url("./assets/delete-svgrepo-com.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+  transition: filter 0.15s, transform 0.15s;
+}
+
+#delete-project:hover {
+  filter: brightness(1.2) drop-shadow(0 0 6px #ef2d56);
+  transform: scale(1.15) rotate(-10deg);
 }

@@ -52,8 +52,9 @@ Those are the tools available right now!
     - [x] Multiple PNG
 - [x] Exporting as GIF
 - [x] Exporting as Sprite Sheet
-- [ ] Adding localStorage
-- [ ] Better Styling
+- [x] Adding localStorage
+    - [x] Deleting Project
+- [x] Better Styling
     - [x] Adding Icons
     - [x] Adding Background
     - [x] Make Everything Dynamic

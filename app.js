@@ -61,12 +61,6 @@ function createFrame() {
     const frameNumber = document.createElement("span");
     frameNumber.className = "frame-number";
     
-    
-
-
-    
-
-    
     //Download single frame
     const downloadFrame = document.createElement("button");
     const downloadIcon = document.createElement("i");
@@ -103,6 +97,7 @@ function createFrame() {
                 activeFrameIndex = frames.length - 1;
             }
             selectFrame(activeFrameIndex);
+            saveToLocalStorage();
         } else {
             alert("You cannot delete the last frame.");
         }
@@ -175,7 +170,7 @@ frameContainer.insertBefore(frameWrap, wraps[insertIndex] || null);
         selectFrame(Array.from(frameContainer.children).indexOf(frameWrap));
     });
     selectFrame(insertIndex);
-    
+    saveToLocalStorage();
 }
 
 function selectFrame(index) {
@@ -518,6 +513,7 @@ function saveState() {
     frame.redoStack = [];
     previewIndex = frame.undoStack.length - 1;
     drawPreviewFromStack(previewIndex);
+    saveToLocalStorage();
 }
 
 undoButton.addEventListener("click", () => {
@@ -806,6 +802,7 @@ colorSave.addEventListener("click", () => {
     const newColorDiv = document.createElement("div");
     newColorDiv.className = "color";
     newColorDiv.style.backgroundColor = currentColor;
+    newColorDiv.setAttribute("data-color", currentColor);
     newColorDiv.addEventListener("click", () => {
         document.getElementById("color-picker").value = currentColor;
         activeTool = "pencil";
@@ -818,6 +815,7 @@ colorSave.addEventListener("click", () => {
     });
     
     colorList.appendChild(newColorDiv);
+    saveToLocalStorage();
 });
 
 // Pixel size and erase size inputs
@@ -845,8 +843,12 @@ eraseSizeInputs.forEach(input => {
 addFrame.addEventListener("click", createFrame);
 
 window.addEventListener("DOMContentLoaded", () => {
-    createFrame();
-    selectFrame(0);
+     if (localStorage.getItem("frames")) {
+        loadFromLocalStorage();
+    } else {
+        createFrame();
+        selectFrame(0);
+    }
     activeTool = "pencil";
     pencilButton.classList.add("active");
 });
@@ -1059,6 +1061,12 @@ document.addEventListener('keydown', function(e) {
     if (e.key === "Escape") {
         modal.style.display = "none";
     }
+
+    if (e.key === "p" || e.key === "P") {
+        e.preventDefault();
+        pixelPerfectToggle.checked = !pixelPerfectToggle.checked;
+        pixelPerfectToggle.dispatchEvent(new Event('change', { bubbles: true }));
+    }
 });
 
 
@@ -1074,6 +1082,104 @@ window.addEventListener("themechange", (e) => {
     
     redrawCanvas();
 });
+
+
+// Salva frames e palette su localStorage
+function saveToLocalStorage() {
+    // Salva solo la griglia di ogni frame (non canvas o ctx)
+    const framesData = frames.map(frame => ({
+        grid: frame.grid,
+        undoStack: frame.undoStack,
+        redoStack: frame.redoStack
+    }));
+    // Salva la palette
+    const colorList = document.getElementById("color-list");
+    const palette = Array.from(colorList.children).map(div => div.getAttribute("data-color"));
+    localStorage.setItem("palette", JSON.stringify(palette));
+
+    localStorage.setItem("frames", JSON.stringify(framesData));
+    
+}
+
+// Carica frames e palette da localStorage
+function loadFromLocalStorage() {
+    const framesData = JSON.parse(localStorage.getItem("frames"));
+    const palette = JSON.parse(localStorage.getItem("palette"));
+
+    if (framesData && Array.isArray(framesData)) {
+        // Svuota timeline e frames
+        const frameContainer = document.getElementById("timeline");
+        while (frameContainer.firstChild) frameContainer.removeChild(frameContainer.firstChild);
+        frames.length = 0;
+        activeFrameIndex = 0;
+
+        // Ricrea i frame
+        framesData.forEach((frameData, i) => {
+            createFrame();
+            frames[i].grid = frameData.grid;
+            frames[i].undoStack = frameData.undoStack || [JSON.stringify(frameData.grid)];
+            frames[i].redoStack = frameData.redoStack || [];
+        });
+        selectFrame(0);
+    }
+
+    // Ricrea la palette
+    if (palette && Array.isArray(palette)) {
+        const colorList = document.getElementById("color-list");
+        colorList.innerHTML = "";
+        palette.forEach(color => {
+            const newColorDiv = document.createElement("div");
+            newColorDiv.className = "color";
+            newColorDiv.style.backgroundColor = color;
+            newColorDiv.addEventListener("click", () => {
+                document.getElementById("color-picker").value = color;
+                activeTool = "pencil";
+                newColorDiv.classList.remove("pulse");
+                void newColorDiv.offsetWidth;
+                newColorDiv.classList.add("pulse");
+                pencilButton.classList.add("active");
+                eraserButton.classList.remove("active");
+                fillButton.classList.remove("active");
+            });
+            colorList.appendChild(newColorDiv);
+        });
+    }
+}
+
+const deleteProjectButton = document.getElementById("delete-project");
+if (deleteProjectButton) {
+    deleteProjectButton.addEventListener("click", () => {
+        if (confirm("Are you sure you want to delete the project? This action cannot be undone.")) {
+            localStorage.removeItem("frames");
+            localStorage.removeItem("palette");
+            // Reset editor
+            const frameContainer = document.getElementById("timeline");
+            while (frameContainer.firstChild) frameContainer.removeChild(frameContainer.firstChild);
+            frames.length = 0;
+            activeFrameIndex = 0;
+            grid = [];
+            for (let x = 0; x < gridWidth; x++) {
+                grid[x] = [];
+                for (let y = 0; y < gridHeight; y++) {
+                    grid[x][y] = null;
+                }
+            }
+            // Ricrea il primo frame e resetta la palette
+            createFrame();
+            selectFrame(0);
+            const colorList = document.getElementById("color-list");
+            if (colorList) colorList.innerHTML = "";
+            redrawCanvas();
+            
+        }
+    });
+}
+
+export function setGridParams({ width, height, pixel }) {
+    gridWidth = width;
+    gridHeight = height;
+    pixelSize = pixel;
+}
 
 export{exportCanvasWithTransparentBg};
 

@@ -8,12 +8,12 @@ const setThemeBtnIcon = () => {
   if (body.classList.contains('dark-theme')) {
     themeBtn.textContent = '🌙'; 
     isLight = false;
-    console.log(isLight);
+    
     window.dispatchEvent(new CustomEvent("themechange", { detail: { isLight } }));
   } else {
     themeBtn.textContent = '☀️'; 
     isLight = true;
-    console.log(isLight);
+    
     window.dispatchEvent(new CustomEvent("themechange", { detail: { isLight } }));
   }
 };

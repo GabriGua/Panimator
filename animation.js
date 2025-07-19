@@ -32,8 +32,8 @@ function startAnimation() {
             if (currentFrame < frameNumber) {
                 animationTimer = setTimeout(showNextFrame, 1000 / animationFrameRate);
             } else {
-                playButton.disabled = false;
-                frameRate.disabled = false;
+                currentFrame = 0; 
+                animationTimer = setTimeout(showNextFrame, 1000 / animationFrameRate);
             }
         
     }
