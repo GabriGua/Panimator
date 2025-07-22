@@ -1,4 +1,4 @@
-import { frames, selectFrame, setGridParams } from "./app.js";
+import { frames, selectFrame, setGridParams, activeFrameIndex, activeTool } from "./app.js";
 import {setFilename} from "./export.js";
 
 
@@ -9,7 +9,7 @@ export function importProjectFromFile(file) {
         try {
             const projectData = JSON.parse(e.target.result);
             setFilename(projectData.filename || "animation");
-            // Aggiorna anche il campo di input visivo
+            
             const filenameInput = document.getElementById("export-filename");
             if (filenameInput) filenameInput.value = projectData.filename || "animation";
             setGridParams({
@@ -19,22 +19,23 @@ export function importProjectFromFile(file) {
                 name: projectData.filename
             });
 
-            // Ripristina i frame
+            // Reset Frames
             frames.length = 0;
-            window.activeFrameIndex = -1;
+        
             const frameContainer = document.getElementById("timeline");
             while (frameContainer.firstChild) frameContainer.removeChild(frameContainer.firstChild);
 
             projectData.frames.forEach((frameData, i) => {
-                // Imposta l'indice attivo PRIMA della creazione del frame (mai negativo)
-                window.activeFrameIndex = frames.length > 0 ? frames.length - 1 : 0;
+                
+                
                 if (typeof window.createFrame === "function") {
-                    window.createFrame(frameData.grid, frameData.width, frameData.height, frameData.pixelSize);
+                    window.createFrame(frameData.grid);
+                    console.log(`Frame ${i + 1} created with grid size: ${frameData.grid.length}x${frameData.grid[0].length}`);
                 }
                 const frameObj = frames[frames.length - 1];
                 if (!frameObj) {
                     console.error("Frame non creato correttamente! frames:", frames);
-                    throw new Error("Frame non creato correttamente: frames[" + (frames.length - 1) + "] è undefined");
+                    return;
                 }
                 frameObj.undoStack = [JSON.stringify(frameData.grid)];
                 frameObj.redoStack = [];
@@ -43,7 +44,7 @@ export function importProjectFromFile(file) {
                 }
             });
 
-            // Se sono stati importati frame, seleziona il primo e aggiorna la UI
+            
             if (frames.length > 0) {
                 selectFrame(0);
                 if (typeof window.redrawCanvas === "function") {
@@ -51,7 +52,7 @@ export function importProjectFromFile(file) {
                 }
             }
 
-            // Ripristina la palette usando data-color (hex)
+            // Palette reset
             if (projectData.palette && Array.isArray(projectData.palette)) {
                 const colorList = document.getElementById("color-list");
                 colorList.innerHTML = "";
@@ -62,7 +63,7 @@ export function importProjectFromFile(file) {
                     newColorDiv.setAttribute("data-color", color);
                     newColorDiv.addEventListener("click", () => {
                         document.getElementById("color-picker").value = color;
-                        window.activeTool = "pencil";
+                        activeTool = "pencil";
                         newColorDiv.classList.remove("pulse");
                         void newColorDiv.offsetWidth;
                         newColorDiv.classList.add("pulse");
@@ -74,7 +75,7 @@ export function importProjectFromFile(file) {
                 });
             }
 
-            // NON chiamare setGridSize dopo l'import: cancella i frame appena importati
+            
 
             // Salva in localStorage
             if (typeof window.saveToLocalStorage === "function") {

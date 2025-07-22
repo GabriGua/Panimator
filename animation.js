@@ -27,7 +27,7 @@ function startAnimation() {
         
         
             selectFrame(currentFrame);
-            console.log(`Displaying frame ${currentFrame + 1} of ${frameNumber}`);
+            
             currentFrame++;
             if (currentFrame < frameNumber) {
                 animationTimer = setTimeout(showNextFrame, 1000 / animationFrameRate);
@@ -45,7 +45,7 @@ function startAnimation() {
    
 }
 
-function pauseAnimation() {
+export function pauseAnimation() {
     isPlaying = false;
     clearTimeout(animationTimer);
     playButton.disabled = false;
@@ -63,7 +63,7 @@ function clearAnimation() {
 }
 
 
-console.log(playButton, pauseButton, clearButton, frameRate);
+
 playButton.addEventListener('click', startAnimation);
 pauseButton.addEventListener('click', pauseAnimation);
 clearButton.addEventListener('click', clearAnimation);
@@ -100,5 +100,9 @@ document.addEventListener('keydown', function(e) {
         clearButton.click();
     }
 });
+
+export function addFrameDuringAnimation() {
+    frameNumber++;
+}
 
 export {animationFrameRate};

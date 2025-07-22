@@ -52,6 +52,8 @@ Those are the tools available right now!
     - [x] Multiple PNG
 - [x] Exporting as GIF
 - [x] Exporting as Sprite Sheet
+- [x] Exporting a Project
+    - [x] Importing a Project
 - [x] Adding localStorage
     - [x] Deleting Project
 - [x] Better Styling
@@ -64,7 +66,8 @@ Those are the tools available right now!
     - [x] Key Map (Question Button)
 - [x] Theme Switcher
     - [x] Enhancements
-- [ ] Enhance the README
+- [ ] Final Polishing
+- [x] Enhance the README
 ---
 ### Trasparency
 *AI helped me with this, how?*<br>
@@ -81,6 +84,7 @@ for what?
 - Frame re-numeration (just the syntax);
 - Exporting as a GIF (just to explain how to make it work);
 - Making a ZIP file (same as GIF);
+- Making the Import / Export of a project work (the import was a mess of errors)
 - Debugging (rarely);
 
 In some occasion used autocomplete just to speed up repetitive tasks.

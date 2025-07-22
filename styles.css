@@ -185,6 +185,7 @@ nav {
 }
 
 
+
 .toolbar font {
     text-shadow: 1px 1px 2px #fff, 0 0 4px #2fbf71;
     
@@ -423,6 +424,12 @@ div.pulse {
   backdrop-filter: blur(2px);
 }
 
+body.dark-theme .selector {
+  background: rgba(255,255,255,0.25);
+  box-shadow: 0 2px 8px rgba(237,125,58,0.10), 0 0 0 2px #3aed3a;
+  color: #ebebeb;
+}
+
 .selector:focus {
   background: rgba(255,255,255,0.45);
   box-shadow: 0 0 0 3px #ffd447, 0 2px 8px rgba(237,125,58,0.15);
@@ -639,6 +646,12 @@ body.dark-theme #theme-switcher {
   transition: box-shadow 0.2s, background 0.2s;
   margin: 0 8px;
   backdrop-filter: blur(2px);
+}
+
+body.dark-theme #frame-rate {
+  background: rgba(255,255,255,0.25);
+  box-shadow: 0 2px 8px rgba(237,125,58,0.10), 0 0 0 2px #3aed3a;
+  color: #ebebeb;
 }
 
 #frame-rate:focus {

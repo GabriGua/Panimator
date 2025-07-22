@@ -1,3 +1,4 @@
+import { addFrameDuringAnimation, pauseAnimation } from "./animation.js";
 import { isLight } from "./themeSwitcher.js";
 //canvas rendering
 const canvas = document.getElementById("pixel-canvas");
@@ -49,7 +50,8 @@ const closeButton = document.getElementById("close-button");
 let frames = [];
 let activeFrameIndex = 0;
 
-function createFrame() {
+function createFrame(importedGrid = null) {
+    addFrameDuringAnimation();
     const frameContainer = document.getElementById("timeline");
     const newFrame = document.createElement("canvas");
     newFrame.width = 100;
@@ -140,7 +142,21 @@ function createFrame() {
     // Each frame is indivual
     let prevFrame = frames[activeFrameIndex];
     let newGrid;
-    if (prevFrame && copyFrameToggle.checked) {
+    if(importedGrid !== null) {
+        if (
+            !Array.isArray(importedGrid) ||
+            importedGrid.length !== gridWidth ||
+            !Array.isArray(importedGrid[0]) ||
+            importedGrid[0].length !== gridHeight
+        ) {
+            newGrid = Array.from({ length: gridWidth }, () =>
+                Array(gridHeight).fill(null)
+            );
+        } else {
+            newGrid = importedGrid;
+        }
+
+    }else if (prevFrame && copyFrameToggle.checked) {
         
         newGrid = JSON.parse(JSON.stringify(prevFrame.grid));
     } else {
@@ -155,6 +171,7 @@ function createFrame() {
         canvas: newFrame,
         ctx: newFrame.getContext("2d")
     });
+    grid = JSON.parse(JSON.stringify(newGrid));
 
      const wraps = Array.from(frameContainer.children);
 frameContainer.insertBefore(frameWrap, wraps[insertIndex] || null);
@@ -198,6 +215,17 @@ function selectFrame(index) {
 //canvas rendering
 function redrawCanvas() {
     
+    if (
+        !grid ||
+        grid.length !== gridWidth ||
+        !grid[0] ||
+        grid[0].length !== gridHeight
+    ) {
+        grid = Array.from({ length: gridWidth }, () =>
+            Array(gridHeight).fill(null)
+        );
+    }
+
     if (isLight) {
     ctx.fillStyle = "#fff";
     }
@@ -205,6 +233,7 @@ function redrawCanvas() {
     ctx.fillStyle = "#585858ff";
     }
     
+
     
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     drawGrid(); 
@@ -1084,15 +1113,15 @@ window.addEventListener("themechange", (e) => {
 });
 
 
-// Salva frames e palette su localStorage
+// localStorage functions
 function saveToLocalStorage() {
-    // Salva solo la griglia di ogni frame (non canvas o ctx)
+    //frames
     const framesData = frames.map(frame => ({
         grid: frame.grid,
         undoStack: frame.undoStack,
         redoStack: frame.redoStack
     }));
-    // Salva la palette
+    // palette
     const colorList = document.getElementById("color-list");
     const palette = Array.from(colorList.children).map(div => div.getAttribute("data-color"));
     localStorage.setItem("palette", JSON.stringify(palette));
@@ -1101,19 +1130,19 @@ function saveToLocalStorage() {
     
 }
 
-// Carica frames e palette da localStorage
+
 function loadFromLocalStorage() {
     const framesData = JSON.parse(localStorage.getItem("frames"));
     const palette = JSON.parse(localStorage.getItem("palette"));
 
     if (framesData && Array.isArray(framesData)) {
-        // Svuota timeline e frames
+        // Clean up existing frames
         const frameContainer = document.getElementById("timeline");
         while (frameContainer.firstChild) frameContainer.removeChild(frameContainer.firstChild);
         frames.length = 0;
         activeFrameIndex = 0;
 
-        // Ricrea i frame
+        // Create frames from stored data
         framesData.forEach((frameData, i) => {
             createFrame();
             frames[i].grid = frameData.grid;
@@ -1123,7 +1152,7 @@ function loadFromLocalStorage() {
         selectFrame(0);
     }
 
-    // Ricrea la palette
+    // Create Palette from stored colors
     if (palette && Array.isArray(palette)) {
         const colorList = document.getElementById("color-list");
         colorList.innerHTML = "";
@@ -1164,7 +1193,8 @@ if (deleteProjectButton) {
                     grid[x][y] = null;
                 }
             }
-            // Ricrea il primo frame e resetta la palette
+            
+            pauseAnimation();
             createFrame();
             selectFrame(0);
             const colorList = document.getElementById("color-list");
@@ -1179,8 +1209,38 @@ export function setGridParams({ width, height, pixel }) {
     gridWidth = width;
     gridHeight = height;
     pixelSize = pixel;
+
+    grid = [];
+    for (let x = 0; x < gridWidth; x++) {
+        grid[x] = [];
+        for (let y = 0; y < gridHeight; y++) {
+            grid[x][y] = null;
+        }
+    }
 }
+
+const importProjectBtn = document.getElementById("import-button");
+const importProjectInput = document.getElementById("import-project");
+
+importProjectBtn.addEventListener("click", () => {
+    importProjectInput.click();
+});
+
+importProjectInput.addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    if (file) {
+        // Chiama la funzione di import dal tuo import.js
+        import("./import.js").then(module => {
+            module.importProjectFromFile(file);
+        });
+    }
+});
 
 export{exportCanvasWithTransparentBg};
 
-export {frames, activeFrameIndex, selectFrame, gridHeight, gridWidth, pixelSize};
+export {frames, activeFrameIndex, selectFrame, gridHeight, gridWidth, pixelSize, activeTool};
+
+window.createFrame = createFrame;
+window.drawPreviewFromStack = drawPreviewFromStack;
+window.saveToLocalStorage = saveToLocalStorage;
+window.redrawCanvas = redrawCanvas;

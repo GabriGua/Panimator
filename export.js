@@ -1,4 +1,5 @@
 import { exportCanvasWithTransparentBg } from "./app.js";
+import { gridWidth, gridHeight, pixelSize } from "./app.js";
 import { frames } from "./app.js";
 const canvas = document.getElementById("pixel-canvas");
 const frameRate = document.getElementById("frame-rate");
@@ -205,9 +206,7 @@ function exportProject() {
     const projectData = {
         frames: frames.map(frame => ({
             grid: frame.grid,
-            width: frame.width,
-            height: frame.height,
-            pixelSize: frame.pixelSize
+            
         })),
         gridWidth,
         gridHeight,
