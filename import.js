@@ -77,14 +77,14 @@ export function importProjectFromFile(file) {
 
             
 
-            // Salva in localStorage
+        
             if (typeof window.saveToLocalStorage === "function") {
                 window.saveToLocalStorage();
             }
 
-            alert("Progetto importato con successo!");
+            
         } catch (err) {
-            alert("Errore nell'importazione del progetto: " + err.message);
+            alert("Error: " + err.message);
         }
     };
     reader.readAsText(file);
