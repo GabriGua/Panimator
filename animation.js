@@ -1,4 +1,5 @@
 import { frames, selectFrame, activeFrameIndex } from "./app.js";
+import { exportModal } from "./export.js";
 
 const playButton = document.getElementById("play-button");
 const pauseButton = document.getElementById("stop-button");
@@ -69,6 +70,11 @@ pauseButton.addEventListener('click', pauseAnimation);
 clearButton.addEventListener('click', clearAnimation);
 
 document.addEventListener('keydown', function(e) {
+
+    if(exportModal.style.display === "block") {
+        return;
+    }
+
     if (e.key === "ArrowRight") {
         if (activeFrameIndex >= frames.length - 1) {
             return;

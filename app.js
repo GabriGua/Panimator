@@ -1,4 +1,5 @@
 import { addFrameDuringAnimation, pauseAnimation } from "./animation.js";
+import { exportModal } from "./export.js";
 import { isLight } from "./themeSwitcher.js";
 //canvas rendering
 const canvas = document.getElementById("pixel-canvas");
@@ -874,6 +875,10 @@ addFrame.addEventListener("click", createFrame);
 window.addEventListener("DOMContentLoaded", () => {
      if (localStorage.getItem("frames")) {
         loadFromLocalStorage();
+        for (let i = 0; i < frames.length; i++) {
+            selectFrame(i);
+        }
+        selectFrame(0);
     } else {
         createFrame();
         selectFrame(0);
@@ -978,124 +983,142 @@ function exportSpecificFrameAsPNG(frameIndex, filename = "frame") {
 
 // Keyboard shortcuts
 document.addEventListener('keydown', function(e) {
+    // Check if user is typing in an input field
+    const activeElement = document.activeElement;
+    const isInputActive = activeElement && (
+        activeElement.tagName === 'INPUT' || 
+        activeElement.tagName === 'TEXTAREA' || 
+        activeElement.isContentEditable
+    );
+    
+    // If user is typing in an input, don't activate shortcuts
+    if (isInputActive) {
+        return;
+    }
+
     const pixelSizeInput = document.getElementById("pixel-size");
     const eraseSizeInput = document.getElementById("erase-size");
-    if (e.ctrlKey) {
-        e.preventDefault();
-        addFrame.click();
+    if(exportModal.style.display === "block") {
+        return;
     }
-    
-    if (e.key === "z" || e.key === "Z") {
-        e.preventDefault();
-        undoButton.click();
-    }
-
-    if (e.key === "x" || e.key === "X") {
-        e.preventDefault();
-        redoButton.click();
-    }
-
-    if(e.key === "b" || e.key === "B")
-    {
-        e.preventDefault();
-        if (activeTool === "pencil") {
-            activeTool = null;
-            pencilButton.classList.remove("active");
-            
+        if (e.ctrlKey) {
+            e.preventDefault();
+            addFrame.click();
         }
-        else {
-            activeTool = "pencil";
-            pencilButton.classList.add("active");
-            eraserButton.classList.remove("active");
-            fillButton.classList.remove("active");
-        }
-        redrawCanvas();
-    }
-
-    if(e.key === "e" || e.key === "E")
-    {
-        e.preventDefault();
-        if (activeTool === "eraser") {
-            activeTool = null;
-            eraserButton.classList.remove("active");
-        }
-        else {
-            activeTool = "eraser";
-            eraserButton.classList.add("active");
-            pencilButton.classList.remove("active");
-            fillButton.classList.remove("active");
-        }
-        redrawCanvas();
-    }
-    if(e.key === "f" || e.key === "F")
-    {
-        console.log("Fill tool activated");
-        e.preventDefault();
-        if (activeTool === "fill") {
-            activeTool = null;
-            fillButton.classList.remove("active");
-        }
-        else {
-            activeTool = "fill";
-            fillButton.classList.add("active");
-            pencilButton.classList.remove("active");
-            eraserButton.classList.remove("active");
-        }
-        redrawCanvas();
-    }
-
-    if (e.key === ".") {
-        e.preventDefault();
-        copyFrameToggle.checked = !copyFrameToggle.checked;
         
-        copyFrameToggle.dispatchEvent(new Event('change', { bubbles: true }));
-    }
-
-    if(activeTool === "pencil")
-    {
-        if (e.key === "ArrowUp") {
+        if (e.key === "z" || e.key === "Z") {
             e.preventDefault();
-            pixelSizeInput.value = Math.min(parseInt(pixelSizeInput.value) + 1, 20);
-            pixelSizeInput.dispatchEvent(new Event('input', { bubbles: true }));
+            undoButton.click();
+        }
+
+        if (e.key === "x" || e.key === "X") {
+            e.preventDefault();
+            redoButton.click();
+        }
+
+        if(e.key === "b" || e.key === "B")
+        {
+            e.preventDefault();
+            if (activeTool === "pencil") {
+                activeTool = null;
+                pencilButton.classList.remove("active");
+                
+            }
+            else {
+                activeTool = "pencil";
+                pencilButton.classList.add("active");
+                eraserButton.classList.remove("active");
+                fillButton.classList.remove("active");
+            }
             redrawCanvas();
         }
-        if (e.key === "ArrowDown") {
+
+        if(e.key === "e" || e.key === "E")
+        {
             e.preventDefault();
-            pixelSizeInput.value = Math.max(parseInt(pixelSizeInput.value) - 1, 1);
-            pixelSizeInput.dispatchEvent(new Event('input', { bubbles: true }));
+            if (activeTool === "eraser") {
+                activeTool = null;
+                eraserButton.classList.remove("active");
+            }
+            else {
+                activeTool = "eraser";
+                eraserButton.classList.add("active");
+                pencilButton.classList.remove("active");
+                fillButton.classList.remove("active");
+            }
             redrawCanvas();
         }
-    }
-    else if(activeTool === "eraser")
-    {
-        if (e.key === "ArrowUp") {
+        if(e.key === "f" || e.key === "F")
+        {
+            console.log("Fill tool activated");
             e.preventDefault();
-            eraseSizeInput.value = Math.min(parseInt(eraseSizeInput.value) + 1, 20);
-            eraseSizeInput.dispatchEvent(new Event('input', { bubbles: true }));
+            if (activeTool === "fill") {
+                activeTool = null;
+                fillButton.classList.remove("active");
+            }
+            else {
+                activeTool = "fill";
+                fillButton.classList.add("active");
+                pencilButton.classList.remove("active");
+                eraserButton.classList.remove("active");
+            }
             redrawCanvas();
         }
-        if (e.key === "ArrowDown") {
+
+        if (e.key === ".") {
             e.preventDefault();
-            eraseSizeInput.value = Math.max(parseInt(eraseSizeInput.value) - 1, 1);
-            eraseSizeInput.dispatchEvent(new Event('input', { bubbles: true }));
-            redrawCanvas();
+            copyFrameToggle.checked = !copyFrameToggle.checked;
+            
+            copyFrameToggle.dispatchEvent(new Event('change', { bubbles: true }));
         }
-    }
 
-    if (e.key === "s" || e.key === "S") {
-        e.preventDefault();
-        colorSave.click();
-    }
+        if(activeTool === "pencil")
+        {
+            if (e.key === "ArrowUp") {
+                e.preventDefault();
+                pixelSizeInput.value = Math.min(parseInt(pixelSizeInput.value) + 1, 20);
+                pixelSizeInput.dispatchEvent(new Event('input', { bubbles: true }));
+                redrawCanvas();
+            }
+            if (e.key === "ArrowDown") {
+                e.preventDefault();
+                pixelSizeInput.value = Math.max(parseInt(pixelSizeInput.value) - 1, 1);
+                pixelSizeInput.dispatchEvent(new Event('input', { bubbles: true }));
+                redrawCanvas();
+            }
+        }
+        else if(activeTool === "eraser")
+        {
+            if (e.key === "ArrowUp") {
+                e.preventDefault();
+                eraseSizeInput.value = Math.min(parseInt(eraseSizeInput.value) + 1, 20);
+                eraseSizeInput.dispatchEvent(new Event('input', { bubbles: true }));
+                redrawCanvas();
+            }
+            if (e.key === "ArrowDown") {
+                e.preventDefault();
+                eraseSizeInput.value = Math.max(parseInt(eraseSizeInput.value) - 1, 1);
+                eraseSizeInput.dispatchEvent(new Event('input', { bubbles: true }));
+                redrawCanvas();
+            }
+        }
 
-    if (e.key === "Escape") {
-        modal.style.display = "none";
-    }
+        if (e.key === "s" || e.key === "S") {
+            e.preventDefault();
+            colorSave.click();
+        }
 
-    if (e.key === "p" || e.key === "P") {
-        e.preventDefault();
-        pixelPerfectToggle.checked = !pixelPerfectToggle.checked;
-        pixelPerfectToggle.dispatchEvent(new Event('change', { bubbles: true }));
-    }
+        if (e.key === "Escape") {
+            modal.style.display = "none";
+        }
+
+        if (e.key === "p" || e.key === "P") {
+            e.preventDefault();
+            pixelPerfectToggle.checked = !pixelPerfectToggle.checked;
+            pixelPerfectToggle.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+
+    
 });
 
 
@@ -1229,7 +1252,7 @@ importProjectBtn.addEventListener("click", () => {
 importProjectInput.addEventListener("change", (e) => {
     const file = e.target.files[0];
     if (file) {
-        // Chiama la funzione di import dal tuo import.js
+        
         import("./import.js").then(module => {
             module.importProjectFromFile(file);
         });

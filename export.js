@@ -4,7 +4,7 @@ import { frames } from "./app.js";
 const canvas = document.getElementById("pixel-canvas");
 const frameRate = document.getElementById("frame-rate");
 const exportButton = document.getElementById("export-button");
-const exportModal = document.getElementById("export-modal");
+export const exportModal = document.getElementById("export-modal");
 const closeButton = document.getElementById("export-close-button");
 const GIFButton = document.getElementById("export-GIF-button");
 const PNGButton = document.getElementById("export-PNG-button");
