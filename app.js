@@ -1223,6 +1223,15 @@ if (deleteProjectButton) {
             const colorList = document.getElementById("color-list");
             if (colorList) colorList.innerHTML = "";
             redrawCanvas();
+
+           
+            previewIndex = 0;
+            
+            // Reset the import input
+            const importProjectInput = document.getElementById("import-project");
+            if (importProjectInput) {
+                importProjectInput.value = "";
+            }
             
         }
     });
@@ -1252,12 +1261,53 @@ importProjectBtn.addEventListener("click", () => {
 importProjectInput.addEventListener("change", (e) => {
     const file = e.target.files[0];
     if (file) {
+        // Reset the input value to allow re-importing the same file
+        e.target.value = "";
+        
         
         import("./import.js").then(module => {
-            module.importProjectFromFile(file);
+            if (module && module.importProjectFromFile) {
+                module.importProjectFromFile(file);
+            } else {
+                console.error("Import module not loaded correctly");
+                alert("Error loading import module. Please refresh the page and try again.");
+            }
+        }).catch(error => {
+            console.error("Error importing module:", error);
+            alert("Error importing project. Please refresh the page and try again.");
         });
     }
 });
+
+export function getCurrentPalette() {
+    const colorList = document.getElementById("color-list");
+    if (!colorList) return [];
+    
+    return Array.from(colorList.children).map(div => {
+         let color = div.getAttribute("data-color") || 
+                   div.style.backgroundColor || 
+                   div.dataset.color;
+               
+               if (color && color.startsWith('rgb')) {
+            color = rgbToHex(color);
+        }
+        return color;
+    }).filter(color => color);
+
+    
+}
+function rgbToHex(rgb) {
+    
+    const result = rgb.match(/\d+/g);
+    if (!result || result.length < 3) return rgb;
+    
+    const r = parseInt(result[0]);
+    const g = parseInt(result[1]);
+    const b = parseInt(result[2]);
+    
+   
+    return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+}
 
 export{exportCanvasWithTransparentBg};
 

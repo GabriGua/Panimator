@@ -1,5 +1,5 @@
 import { exportCanvasWithTransparentBg } from "./app.js";
-import { gridWidth, gridHeight, pixelSize } from "./app.js";
+import { gridWidth, gridHeight, pixelSize, selectFrame, getCurrentPalette } from "./app.js";
 import { frames } from "./app.js";
 const canvas = document.getElementById("pixel-canvas");
 const frameRate = document.getElementById("frame-rate");
@@ -203,6 +203,7 @@ function exportSpriteSheet()
 }
 
 function exportProject() {
+    const palette = getCurrentPalette();
     const projectData = {
         frames: frames.map(frame => ({
             grid: frame.grid,

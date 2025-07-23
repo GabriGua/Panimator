@@ -46,6 +46,9 @@ export function importProjectFromFile(file) {
 
             
             if (frames.length > 0) {
+                for (let i = 0; i < frames.length; i++) {
+                    selectFrame(i);
+                }
                 selectFrame(0);
                 if (typeof window.redrawCanvas === "function") {
                     window.redrawCanvas();
@@ -81,6 +84,7 @@ export function importProjectFromFile(file) {
             if (typeof window.saveToLocalStorage === "function") {
                 window.saveToLocalStorage();
             }
+
 
             
         } catch (err) {
