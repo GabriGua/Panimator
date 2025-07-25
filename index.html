@@ -1,20 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>P-A-A</title>
+    <title>Panimator</title>
     <link rel="icon" type="image/png" href="/assets/favicon.png">
     <link rel="stylesheet" href="styles.css">
 </head>
 
+<div id="tutorial-overlay" style="display:none;">
+  <div id="tutorial-highlight"></div>
+  <div id="tutorial-box">
+    <div id="tutorial-text"></div>
+    <div id="tutorial-controls">
+      <button id="tutorial-prev">Prev</button>
+      <button id="tutorial-skip">Skip</button>
+      <button id="tutorial-next">Next</button>
+    </div>
+  </div>
+</div>
+
 <body background="./assets/sky.png">
   <header>
   <nav>
-    <div class="title">Pixel Art Animator</div>
+    <div class="title">Panimator</div>
     <div class="gridOptContainers">
-      
+    <div class="tutorial">
+            <button onclick="startTutorial()" style="z-index:10001;">Tutorial</button>
+      </div>
     <div class="theme">
     <button id="theme-button"></button>
-      
   
     <button id="16">16x16</button>
     <button id="32">32x32</button>
@@ -103,7 +116,7 @@
         <label class="toggle-switch">
         <input type="checkbox" id="pixelPerfect-toggle" checked>
         <span class="slider"></span>
-        <font color="#363537">Pixel Perfect </font>
+        <div class="PP">Pixel Perfect</div>
         
         </label>
        
@@ -214,6 +227,7 @@
     by <a href="https://github.com/GabriGua" target="_blank">GabriGua</a> || © 2025 Gabriele Guastella. All rights reserved.</p>
   </div>
 
+  <script type="module" src="tutorial.js"></script>
   <script type="module" src="import.js"></script>
   <script type="module" src="themeSwitcher.js"></script>
   <script src="./assets/lib/jszip.min.js"></script>

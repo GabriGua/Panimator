@@ -430,6 +430,10 @@ body.dark-theme .selector {
   color: #ebebeb;
 }
 
+body.light-theme .selector {
+  color: #363537;
+}
+
 .selector:focus {
   background: rgba(255,255,255,0.45);
   box-shadow: 0 0 0 3px #ffd447, 0 2px 8px rgba(237,125,58,0.15);
@@ -594,6 +598,7 @@ body.light-theme {
   background-image: url("./assets/sky.png");
 }
 
+
 body.dark-theme {
   background-image: url("./assets/DarkSky.png");
   --main-gradient: linear-gradient(90deg, #0c906f 50%, #28c888  100%);
@@ -652,6 +657,10 @@ body.dark-theme #frame-rate {
   background: rgba(255,255,255,0.25);
   box-shadow: 0 2px 8px rgba(237,125,58,0.10), 0 0 0 2px #3aed3a;
   color: #ebebeb;
+}
+
+body.light-theme #frame-rate {
+  color: #363537;
 }
 
 #frame-rate:focus {
@@ -1081,4 +1090,74 @@ a:hover, a:focus {
 #delete-project:hover {
   filter: brightness(1.2) drop-shadow(0 0 6px #ef2d56);
   transform: scale(1.15) rotate(-10deg);
+}
+
+#tutorial-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+}
+#tutorial-highlight {
+  
+  position: absolute;
+  border: 3px solid #ccff00;
+  border-radius: 8px;
+  box-shadow: 0 0 30px 10px #ccff00;
+  pointer-events: none;
+  transition: all 0.3s;
+}
+#tutorial-box {
+  position: absolute;
+  background: var(--main-gradient);
+  color: #222;
+  padding: 24px 18px 12px 18px;
+  border-radius: 10px;
+  max-width: 320px;
+  box-shadow: 0 4px 32px #0008;
+  z-index: 10000;
+  left: 50%;
+  top: 80px;
+  transform: translateX(-50%);
+}
+#tutorial-controls {
+  margin-top: 12px;
+  text-align: center;
+}
+#tutorial-controls button {
+  margin-left: 8px;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 5px;
+  
+  color: #fff;
+  cursor: pointer;
+}
+#tutorial-controls button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+#tutorial-prev {
+  background: #28c888;
+}
+
+#tutorial-next {
+  background: #2fbf71;
+}
+
+#tutorial-skip {
+  background: #ef2d56;
+}
+
+.PP {
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  line-height: 1.5;
+  color: #363537;
 }
