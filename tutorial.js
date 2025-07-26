@@ -149,6 +149,39 @@ function showTutorialStep(index) {
   const previousButton = document.getElementById("tutorial-prev");
   const nextButton = document.getElementById("tutorial-next");
 
+  //scroll disable
+  if (index < 0 || index >= tutorialSteps.length) {
+    overlay.style.display = "none";
+    if (spotlightCanvas) spotlightCanvas.style.display = 'none';
+    document.body.style.overflow = ""; 
+    return;
+}
+
+overlay.style.display = "block";
+if (spotlightCanvas) spotlightCanvas.style.display = 'block';
+document.body.style.overflow = "hidden"; 
+
+document.getElementById("tutorial-next").onclick = () => {
+  if (currentStepIndex < tutorialSteps.length - 1) {
+    currentStepIndex++;
+    showTutorialStep(currentStepIndex);
+  } else {
+    document.getElementById("tutorial-overlay").style.display = "none";
+    if (spotlightCanvas) spotlightCanvas.style.display = 'none';
+    document.body.style.overflow = ""; 
+    window.removeEventListener("scroll", updateSpotlightPosition);
+    window.removeEventListener("resize", updateSpotlightPosition);
+  }
+};
+
+document.getElementById("tutorial-skip").onclick = () => {
+  document.getElementById("tutorial-overlay").style.display = "none";
+  if (spotlightCanvas) spotlightCanvas.style.display = 'none';
+  document.body.style.overflow = ""; 
+  window.removeEventListener("scroll", updateSpotlightPosition);
+  window.removeEventListener("resize", updateSpotlightPosition);
+};
+
   // Create spotlight canvas if needed
   if (!spotlightCanvas) {
     spotlightCanvas = document.createElement('canvas');

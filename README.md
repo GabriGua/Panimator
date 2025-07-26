@@ -8,7 +8,7 @@
 
 2. Start drawing Your Animations;
 
-3. Export as PNG, Multiple PNGs and GIF!
+3. Export as PNG, Multiple PNGs, Spritesheet and GIF!
 
 ### Tools
 Those are the tools available right now!
@@ -17,6 +17,7 @@ Those are the tools available right now!
 - Eraser
 - Fill Bucket
 - Color Palette
+- Animator Timeline
 
 > if you have any suggestions, you can write it at this email: gabrio.guastella@gmail.com
 
@@ -90,6 +91,7 @@ for what?
 - Debugging (rarely);
 
 In some occasion used autocomplete just to speed up repetitive tasks.
+
 ---
 ***This project was made for learning purpuse and will be shipped to Summer Of Making, an [Hack Club](https://hackclub.com/) Event.***
 ---
