@@ -4,14 +4,14 @@ document.getElementById("tutorial-prev").onclick = () => {};
 const tutorialSteps = [
   { element: ".canvasstyle", text: "This is your Canvas, draw whatever you like!" },
   { element: ".toolbar", text: "Here is the Toolbar: Use the tools to draw in the canvas" },
-  { element: "#color-list", text: "In this section will be saved all the colors. That's a color palette!" },
-  { element: ".timeline-container", text: "In the timeline will be displayed all the frames in order, here you can switch from a frame to another." },
-  { element: ".animation-controls", text: "Control the animation: play, stop, delete and set the frame rate." },
+  { element: "#color-list", text: "That's a color palette! Save your favourite colors" },
+  { element: ".timeline-container", text: "In the timeline you can switch from a frame to another." },
+  { element: ".animation-controls", text: "Control the animation, set the frame rate and add new frames" },
   { element: "#delete-project", text: "Delete the current project, you can always import it again. " },
-  { element: ".theme", text: "Change Theme or set the grid size" },
-  { element: ".import-export", text: "Import or export your project, or export as a GIF, PNG, mPNG and Spritesheet." },
-  { element: ".question", text: "Click here to see all the shortcuts" },
-  { element: ".tutorial", text: "Click here to start the tutorial again." },
+  { element: ".theme", text: "Change Theme or set the grid size whenever you want" },
+  { element: ".import-export", text: "Import your project, or export as a GIF, PNG, mPNG and Spritesheet." },
+  { element: ".question", text: "Click here to see all the shortcuts, speed up your work!" },
+  { element: ".tutorial", text: "Click here to start the tutorial again. yk it could be useful right?" },
 ];
 
 let currentStepIndex = 0;
