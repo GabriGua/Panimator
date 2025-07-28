@@ -50,6 +50,7 @@ Those are the tools available right now!
     - [x] Resize Frames from Canvas
     - [x] Deleting Frames and Re-numerating
     - [x] Changing Frames Position
+    - [x] Onion Skin Animation
 - [x] Exporting as PNG
     - [x] Multiple PNG
 - [x] Exporting as GIF
@@ -90,6 +91,7 @@ for what?
 - Making the Import / Export of a project work (the import was a mess of errors)
 - Making a smooth transition in js for the Tutorial (I rarely animated in js)
 - Making a Drag and Drop system to re-positioning frames (just to know how this system should have worked)
+- Making the onion skin work ( had to understand how to make it work with a canvas)
 - Debugging (rarely);
 
 In some occasion used autocomplete just to speed up repetitive tasks.

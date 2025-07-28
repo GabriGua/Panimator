@@ -8,7 +8,7 @@ const ctx = canvas.getContext("2d");
 let pixelSize = 16;
 let gridWidth = Math.floor(canvas.width / pixelSize);
 let gridHeight = Math.floor(canvas.height / pixelSize);
-
+let onionSkinEnabled = false;
 
 let grid = [];
 
@@ -265,6 +265,11 @@ function redrawCanvas() {
     
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     drawGrid(); 
+
+    if (onionSkinEnabled) {
+        drawOnionSkin();
+    }
+
     for (let x = 0; x < gridWidth; x++) {
         for (let y = 0; y < gridHeight; y++) {
             if (grid[x][y]) {
@@ -318,6 +323,79 @@ function redrawCanvas() {
         ctx.restore();
     }
 }
+
+function drawOnionSkin() {
+    const currentFrame = activeFrameIndex;
+    
+    
+    if (currentFrame > 0) {
+        const prevFrame = frames[currentFrame - 1];
+        if (prevFrame && prevFrame.grid) {
+            drawOnionLayer(prevFrame.grid, 'rgba(0, 100, 255, 0.1)'); // Blu sbiadito
+        }
+    }
+    
+    
+    if (currentFrame < frames.length - 1) {
+        const nextFrame = frames[currentFrame + 1];
+        if (nextFrame && nextFrame.grid) {
+            drawOnionLayer(nextFrame.grid, 'rgba(255, 50, 50, 0.1)'); // Rosso sbiadito
+        }
+    }
+}
+
+
+function drawOnionLayer(frameGrid, overlayColor) {
+    ctx.save();
+    
+    
+    const rgba = overlayColor.match(/rgba?\(([^)]+)\)/)[1].split(',');
+    const alpha = parseFloat(rgba[3]);
+    
+    
+    const isBlue = overlayColor.includes('0, 100, 255');
+    const tintColor = isBlue ? 'rgba(0, 100, 255, 1)' : 'rgba(255, 50, 50, 1)';
+    
+    
+    ctx.globalAlpha = alpha;
+    
+    for (let x = 0; x < gridWidth; x++) {
+        for (let y = 0; y < gridHeight; y++) {
+            if (frameGrid[x][y]) {
+                ctx.fillStyle = frameGrid[x][y];
+                ctx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
+            }
+        }
+    }
+    
+    
+    ctx.globalCompositeOperation = 'multiply';
+    ctx.globalAlpha = 0.3; 
+    ctx.fillStyle = tintColor;
+    
+    for (let x = 0; x < gridWidth; x++) {
+        for (let y = 0; y < gridHeight; y++) {
+            if (frameGrid[x][y]) {
+                ctx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
+            }
+        }
+    }
+    
+   
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.globalAlpha = 1.0;
+    ctx.restore();
+}
+function toggleOnionSkin() {
+    onionSkinEnabled = !onionSkinEnabled;
+    redrawCanvas();
+}
+const onionSkinToggle = document.getElementById("onion-skin-toggle");
+
+// Aggiungi l'event listener vicino agli altri event listeners
+onionSkinToggle.addEventListener("change", () => {
+    toggleOnionSkin();
+});
 
 //this function is used for the preview in the frames
 function drawPreviewFromStack(index) {
@@ -1145,6 +1223,11 @@ document.addEventListener('keydown', function(e) {
             pixelPerfectToggle.dispatchEvent(new Event('change', { bubbles: true }));
         }
 
+        if (e.key === "o" || e.key === "O") {
+            e.preventDefault();
+            onionSkinToggle.checked = !onionSkinToggle.checked;
+            onionSkinToggle.dispatchEvent(new Event('change', { bubbles: true }));
+        }
     
 });
 
@@ -1430,6 +1513,7 @@ function updateFrameNumbers() {
         if (canvas) canvas.id = `frame-${i + 1}`;
     });
 }
+
 
 
 export{exportCanvasWithTransparentBg};
