@@ -28,8 +28,8 @@ export function importProjectFromFile(file) {
             projectData.frames.forEach((frameData, i) => {
                 
                 
-                if (typeof window.createFrame === "function") {
-                    window.createFrame(frameData.grid);
+                if (typeof window.createFrameWithImportedGrid === "function") {
+                    window.createFrameWithImportedGrid(frameData.grid);
                     console.log(`Frame ${i + 1} created with grid size: ${frameData.grid.length}x${frameData.grid[0].length}`);
                 }
                 const frameObj = frames[frames.length - 1];

@@ -53,6 +53,15 @@ let activeFrameIndex = 0;
 let draggedElement = null;
 let draggedIndex = null;
 
+
+function createNewFrame() {
+    return createFrame(null);
+}
+
+function createFrameWithImportedGrid(importedGrid) {
+    return createFrame(importedGrid);
+}
+
 function createFrame(importedGrid = null) {
     addFrameDuringAnimation();
     const frameContainer = document.getElementById("timeline");
@@ -153,32 +162,33 @@ function createFrame(importedGrid = null) {
     frameWrap.appendChild(newFrame);
     frameWrap.appendChild(optionsButton);
    
-    // Each frame is indivual
+    
     let prevFrame = frames[activeFrameIndex];
     let newGrid;
-    if(importedGrid !== null) {
+    if (importedGrid !== null && importedGrid !== undefined) {
+        
         if (
             !Array.isArray(importedGrid) ||
             importedGrid.length !== gridWidth ||
             !Array.isArray(importedGrid[0]) ||
             importedGrid[0].length !== gridHeight
         ) {
+            console.warn("Imported grid has wrong dimensions, creating empty grid");
             newGrid = Array.from({ length: gridWidth }, () =>
                 Array(gridHeight).fill(null)
             );
         } else {
-            newGrid = importedGrid;
+            newGrid = JSON.parse(JSON.stringify(importedGrid)); // Deep copy
         }
-
     }
-    
-    if (prevFrame && copyFrameToggle.checked) {
-       
+    else if (prevFrame && copyFrameToggle.checked) {
+        
         newGrid = JSON.parse(JSON.stringify(prevFrame.grid));
     } else {
+        
         newGrid = Array.from({length: gridWidth}, () => Array(gridHeight).fill(null));
-    
     }
+
     const insertIndex = activeFrameIndex + 1;
     frames.splice(insertIndex, 0, {
         grid: newGrid,
@@ -887,7 +897,7 @@ eraseSizeInputs.forEach(input => {
 });
 
 // This add the first frame to the timeline when the page loads
-addFrame.addEventListener("click", createFrame);
+addFrame.addEventListener("click", createNewFrame);
 
 window.addEventListener("DOMContentLoaded", () => {
      if (localStorage.getItem("frames")) {
@@ -897,7 +907,7 @@ window.addEventListener("DOMContentLoaded", () => {
         }
         selectFrame(0);
     } else {
-        createFrame();
+        createNewFrame();
         selectFrame(0);
     }
     activeTool = "pencil";
@@ -935,7 +945,7 @@ function setGridSize() {
     
     previewIndex = 0;
     // Create the first frame (again)
-    createFrame();
+    createNewFrame();
     redrawCanvas();
 }
 
@@ -1184,7 +1194,7 @@ function loadFromLocalStorage() {
 
         // Create frames from stored data
         framesData.forEach((frameData, i) => {
-            createFrame();
+            createNewFrame();
             frames[i].grid = frameData.grid;
             frames[i].undoStack = frameData.undoStack || [JSON.stringify(frameData.grid)];
             frames[i].redoStack = frameData.redoStack || [];
@@ -1235,7 +1245,7 @@ if (deleteProjectButton) {
             }
             
             pauseAnimation();
-            createFrame();
+            createNewFrame();
             selectFrame(0);
             const colorList = document.getElementById("color-list");
             if (colorList) colorList.innerHTML = "";
@@ -1426,7 +1436,7 @@ export{exportCanvasWithTransparentBg};
 
 export {frames, activeFrameIndex, selectFrame, gridHeight, gridWidth, pixelSize, activeTool};
 
-window.createFrame = createFrame;
+window.createFrameWithImportedGrid = createFrameWithImportedGrid;
 window.drawPreviewFromStack = drawPreviewFromStack;
 window.saveToLocalStorage = saveToLocalStorage;
 window.redrawCanvas = redrawCanvas;
