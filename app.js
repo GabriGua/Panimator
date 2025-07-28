@@ -50,6 +50,8 @@ const closeButton = document.getElementById("close-button");
 //Handling frames
 let frames = [];
 let activeFrameIndex = 0;
+let draggedElement = null;
+let draggedIndex = null;
 
 function createFrame(importedGrid = null) {
     addFrameDuringAnimation();
@@ -61,6 +63,10 @@ function createFrame(importedGrid = null) {
     
     const frameWrap = document.createElement("div");
     frameWrap.className = "frame-wrap";
+
+    frameWrap.draggable = true;
+    frameWrap.setAttribute('data-frame-index', '');
+
     const frameNumber = document.createElement("span");
     frameNumber.className = "frame-number";
     
@@ -105,6 +111,13 @@ function createFrame(importedGrid = null) {
             alert("You cannot delete the last frame.");
         }
     });
+
+    frameWrap.addEventListener('dragstart', handleDragStart);
+    frameWrap.addEventListener('dragover', handleDragOver);
+    frameWrap.addEventListener('drop', handleDrop);
+    frameWrap.addEventListener('dragend', handleDragEnd);
+    frameWrap.addEventListener('dragenter', handleDragEnter);
+    frameWrap.addEventListener('dragleave', handleDragLeave);
 
     const optionsMenu = document.createElement("div");
     optionsMenu.className = "options-menu";
@@ -157,8 +170,10 @@ function createFrame(importedGrid = null) {
             newGrid = importedGrid;
         }
 
-    }else if (prevFrame && copyFrameToggle.checked) {
-        
+    }
+    
+    if (prevFrame && copyFrameToggle.checked) {
+       
         newGrid = JSON.parse(JSON.stringify(prevFrame.grid));
     } else {
         newGrid = Array.from({length: gridWidth}, () => Array(gridHeight).fill(null));
@@ -190,6 +205,8 @@ frameContainer.insertBefore(frameWrap, wraps[insertIndex] || null);
     selectFrame(insertIndex);
     saveToLocalStorage();
 }
+
+
 
 function selectFrame(index) {
     
@@ -1296,6 +1313,8 @@ export function getCurrentPalette() {
 
     
 }
+
+
 function rgbToHex(rgb) {
     
     const result = rgb.match(/\d+/g);
@@ -1308,6 +1327,100 @@ function rgbToHex(rgb) {
    
     return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
 }
+
+function handleDragStart(e) {
+    draggedElement = this;
+    const frameContainer = document.getElementById("timeline");
+    draggedIndex = Array.from(frameContainer.children).indexOf(this);
+    
+    
+    this.style.opacity = '0.5';
+    this.classList.add('dragging');
+    
+    
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/html', this.outerHTML);
+}
+
+function handleDragOver(e) {
+    if (e.preventDefault) {
+        e.preventDefault(); 
+    }
+    e.dataTransfer.dropEffect = 'move';
+    return false;
+}
+
+function handleDragEnter(e) {
+    if (this !== draggedElement) {
+        this.classList.add('drag-over');
+    }
+}
+
+function handleDragLeave(e) {
+    this.classList.remove('drag-over');
+}
+
+function handleDrop(e) {
+    if (e.stopPropagation) {
+        e.stopPropagation(); 
+    }
+    
+    if (draggedElement !== this) {
+        const frameContainer = document.getElementById("timeline");
+        const targetIndex = Array.from(frameContainer.children).indexOf(this);
+        
+        
+        const draggedFrame = frames.splice(draggedIndex, 1)[0];
+        frames.splice(targetIndex, 0, draggedFrame);
+        
+        
+        if (draggedIndex < targetIndex) {
+            frameContainer.insertBefore(draggedElement, this.nextSibling);
+        } else {
+            frameContainer.insertBefore(draggedElement, this);
+        }
+        
+        
+        updateFrameNumbers();
+        
+       
+        if (activeFrameIndex === draggedIndex) {
+            activeFrameIndex = targetIndex;
+        } else if (activeFrameIndex === targetIndex) {
+            activeFrameIndex = draggedIndex;
+        }
+        
+        
+        saveToLocalStorage();
+    }
+    
+    return false;
+}
+
+function handleDragEnd(e) {
+    // Ripristina lo stile
+    this.style.opacity = '';
+    this.classList.remove('dragging');
+    
+    // Rimuovi le classi di stile da tutti i frame
+    document.querySelectorAll('.frame-wrap').forEach(frame => {
+        frame.classList.remove('drag-over');
+    });
+    
+    draggedElement = null;
+    draggedIndex = null;
+}
+
+function updateFrameNumbers() {
+    const frameContainer = document.getElementById("timeline");
+    Array.from(frameContainer.children).forEach((wrap, i) => {
+        const number = wrap.querySelector('.frame-number');
+        if (number) number.textContent = i + 1;
+        const canvas = wrap.querySelector('.frame-canvas');
+        if (canvas) canvas.id = `frame-${i + 1}`;
+    });
+}
+
 
 export{exportCanvasWithTransparentBg};
 

@@ -107,12 +107,7 @@ nav button {
 .export:hover {
     background-color: #ef2d56;
 }
-.title {
-    font-size: 32px;
-    font-weight: bold;
-    color: #000000;
-    margin-right: auto;
-}
+
 
 .canvas-bg{
   
@@ -153,7 +148,7 @@ nav button {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 30px;
     margin-bottom: 20px;
     
     width: auto;
@@ -186,6 +181,33 @@ nav button {
     
     pointer-events: auto;
     z-index: 3;
+}
+
+/* Aggiungi al tuo file CSS */
+.frame-wrap {
+    cursor: grab;
+    transition: all 0.2s ease;
+}
+
+.frame-wrap:active {
+    cursor: grabbing;
+}
+
+.frame-wrap.dragging {
+    opacity: 0.5 !important;
+    transform: rotate(5deg);
+    z-index: 1000;
+}
+
+.frame-wrap.drag-over {
+    border: 2px dashed #007bff;
+    background-color: rgba(0, 123, 255, 0.1);
+    transform: scale(1.05);
+}
+
+.frame-wrap:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .toolbar {
@@ -1200,7 +1222,90 @@ a:hover, a:focus {
 .PP {
   margin: 0;
   padding: 0;
-  font-size: 20px;
+  font-size: 14px;
   line-height: 1.5;
   color: #363537;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+    font-size: 32px;
+    font-weight: bold;
+    color: #000000;
+    margin-right: auto;
+    margin-bottom: auto;
+}
+
+.logo svg text,
+.logo svg path {
+    animation: paintDrip 3s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    animation-delay: 0.2s;
+    opacity: 0;
+
+}
+
+@keyframes paintDrip {
+    0% {
+        opacity: 0;
+        clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
+        filter: 
+            saturate(0.2) 
+            brightness(0.3)
+            
+    }
+    25% {
+        opacity: 0.7;
+        clip-path: polygon(0% 0%, 100% 0%, 100% 30%, 0% 25%);
+        filter: 
+            saturate(0.6) 
+            brightness(0.7)
+            
+    }
+    50% {
+        opacity: 0.9;
+        clip-path: polygon(0% 0%, 100% 0%, 100% 65%, 0% 60%);
+        filter: 
+            saturate(1) 
+            brightness(1)
+            
+    }
+    75% {
+        opacity: 1;
+        clip-path: polygon(0% 0%, 100% 0%, 100% 90%, 0% 85%);
+        filter: 
+            saturate(1.2) 
+            brightness(1.1)
+            
+    }
+    100% {
+        opacity: 1;
+        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+        filter: 
+            saturate(1) 
+            brightness(1)
+            
+    }
+}
+
+.color-picker {
+    position: relative;
+}
+
+.palette-logo {
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    width: 27px;
+    height: 27px;
+    z-index: 10;
+    
+    /* Stile badge */
+    background: #2fbf71;
+    border-radius: 50%;
+    padding: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    
+    /* Colore dell'SVG */
+    fill: white;
 }

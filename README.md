@@ -1,10 +1,10 @@
-# Pixel-Art-Animator
+[![Panimator](./assets/Panimator.svg)](https://gabrigua.github.io/Panimator/)
 ### Make your own pixel art animation from the comfort of your browser
 
 ***Let's Get Started***
 
 
-1. Go to the website: [Pixel Art Animator](https://gabrigua.github.io/Pixel-Art-Animator/);
+1. Go to the website: [Pixel Art Animator](https://gabrigua.github.io/Panimator/);
 
 2. Start drawing Your Animations;
 
@@ -49,6 +49,7 @@ Those are the tools available right now!
     - [x] Load Frames
     - [x] Resize Frames from Canvas
     - [x] Deleting Frames and Re-numerating
+    - [x] Changing Frames Position
 - [x] Exporting as PNG
     - [x] Multiple PNG
 - [x] Exporting as GIF
@@ -88,6 +89,7 @@ for what?
 - Making a ZIP file (same as GIF);
 - Making the Import / Export of a project work (the import was a mess of errors)
 - Making a smooth transition in js for the Tutorial (I rarely animated in js)
+- Making a Drag and Drop system to re-positioning frames (just to know how this system should have worked)
 - Debugging (rarely);
 
 In some occasion used autocomplete just to speed up repetitive tasks.
