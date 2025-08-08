@@ -392,7 +392,7 @@ function toggleOnionSkin() {
 }
 const onionSkinToggle = document.getElementById("onion-skin-toggle");
 
-// Aggiungi l'event listener vicino agli altri event listeners
+
 onionSkinToggle.addEventListener("change", () => {
     toggleOnionSkin();
 });

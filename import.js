@@ -1,3 +1,4 @@
+
 import { frames, selectFrame, setGridParams, activeFrameIndex, activeTool } from "./app.js";
 import {setFilename} from "./export.js";
 
@@ -10,6 +11,8 @@ export function importProjectFromFile(file) {
             const projectData = JSON.parse(e.target.result);
             setFilename(projectData.filename || "animation");
             
+            const version = projectData.version || "1.0";
+
             const filenameInput = document.getElementById("export-filename");
             if (filenameInput) filenameInput.value = projectData.filename || "animation";
             setGridParams({
@@ -26,9 +29,20 @@ export function importProjectFromFile(file) {
             while (frameContainer.firstChild) frameContainer.removeChild(frameContainer.firstChild);
 
             projectData.frames.forEach((frameData, i) => {
-                
-                
-                if (typeof window.createFrameWithImportedGrid === "function") {
+                let frameGrid;
+                if(version ==="2.0")
+                {
+                    if (frameData.format === "compressed" && frameData.cells) {
+                        // Frame compressed
+                        frameGrid = decompressFrame(frameData.cells, projectData.gridWidth, projectData.gridHeight);
+                    } else if (frameData.format === "legacy" && frameData.grid) {
+                        // Frame legacy
+                        frameGrid = frameData.grid;
+                    }
+                    
+                    window.createFrameWithImportedGrid(frameGrid);
+                }
+                else if (typeof window.createFrameWithImportedGrid === "function") {
                     window.createFrameWithImportedGrid(frameData.grid);
                     console.log(`Frame ${i + 1} created with grid size: ${frameData.grid.length}x${frameData.grid[0].length}`);
                 }
@@ -37,8 +51,18 @@ export function importProjectFromFile(file) {
                     console.error("Frame non creato correttamente! frames:", frames);
                     return;
                 }
-                frameObj.undoStack = [JSON.stringify(frameData.grid)];
-                frameObj.redoStack = [];
+
+                if(version === "2.0")
+                {
+                   frameObj.undoStack = [JSON.stringify(frameGrid)];
+                frameObj.redoStack = []; 
+                }
+                else
+                {
+                    frameObj.undoStack = [JSON.stringify(frameData.grid)];
+                    frameObj.redoStack = []; 
+                }
+                
                 if (typeof window.drawPreviewFromStack === "function") {
                     window.drawPreviewFromStack(frames.length - 1);
                 }
@@ -92,4 +116,31 @@ export function importProjectFromFile(file) {
         }
     };
     reader.readAsText(file);
+}
+
+function decompressFrame(compressedCells, width, height) {
+    if (!compressedCells || !Array.isArray(compressedCells)) {
+        console.warn('compressedCells non valido:', compressedCells);
+        return Array.from({ length: width }, () => Array(height).fill(null));
+    }
+    
+    const frameGrid = Array.from({ length: width }, () => 
+        Array(height).fill(null)
+    );
+    
+    compressedCells.forEach(cell => {
+        if (cell && typeof cell.pixel === 'number' && cell.color) {
+            const pixelIndex = cell.pixel - 1;
+            const x = pixelIndex % width;
+            const y = Math.floor(pixelIndex / width);
+            
+            if (x >= 0 && x < width && y >= 0 && y < height) {
+                frameGrid[x][y] = cell.color;
+            } else {
+                console.warn(`Pixel ${cell.pixel} fuori dai limiti: x=${x}, y=${y}`);
+            }
+        }
+    });
+    
+    return frameGrid;
 }

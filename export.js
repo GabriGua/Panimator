@@ -205,16 +205,44 @@ function exportSpriteSheet()
 function exportProject() {
     const palette = getCurrentPalette();
     const projectData = {
-        frames: frames.map(frame => ({
-            grid: frame.grid,
-            
-        })),
+        version: "2.0",
+        frames: [],
         gridWidth,
         gridHeight,
         pixelSize,
         filename: typeof filename !== "undefined" && filename ? filename : "animation",
-        palette: typeof palette !== "undefined" && palette !== null ? palette : []
+        palette: typeof palette !== "undefined" && palette !== null ? palette : [],
+        createdAt: new Date().toISOString()
     };
+
+    frames.forEach((frame, index) => {
+        
+        const compressedCells = compressFrame(frame.grid);
+        const gridData = frame.grid;
+
+        const compressedSize = JSON.stringify(compressedCells).length;
+        const legacySize = JSON.stringify(gridData).length;
+
+        const useCompression = compressedSize < legacySize;
+
+        const frameData = {
+            index: index,
+            format: useCompression ? "compressed" : "legacy",
+            timestamp: frame.timestamp || new Date().toISOString()
+
+        };
+
+        if (useCompression) {
+            frameData.cells = compressedCells;
+        } else {
+            frameData.grid = gridData;
+        }
+        projectData.frames.push(frameData);
+    
+    });
+    
+
+
     const blob = new Blob([JSON.stringify(projectData, null, 2)], { type: "application/json" });
     const link = document.createElement("a");
     link.download = `${filename}.json`;
@@ -230,6 +258,31 @@ document.addEventListener("keydown", function(e) {
     }
 });
 
+function compressFrame(frameGrid) {
+    if (!frameGrid || !Array.isArray(frameGrid)) {
+        console.warn('frameGrid non valido:', frameGrid);
+        return [];
+    }
+    
+    const compressedCells = [];
+    
+    for (let x = 0; x < frameGrid.length; x++) {
+        if (!Array.isArray(frameGrid[x])) continue;
+        
+        for (let y = 0; y < frameGrid[x].length; y++) {
+            const color = frameGrid[x][y];
+            if (color !== null && color !== undefined && color !== '') {
+                const pixelNumber = y * frameGrid.length + x + 1;
+                compressedCells.push({
+                    pixel: pixelNumber,
+                    color: color
+                });
+            }
+        }
+    }
+    
+    return compressedCells.sort((a, b) => a.pixel - b.pixel);
+}
 
 
 export {exportPNG};

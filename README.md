@@ -57,6 +57,7 @@ Those are the tools available right now!
 - [x] Exporting as Sprite Sheet
 - [x] Exporting a Project
     - [x] Importing a Project
+    - [x] Better Export System
 - [x] Adding localStorage
     - [x] Deleting Project
 - [x] Better Styling
@@ -71,7 +72,9 @@ Those are the tools available right now!
     - [x] Enhancements
 - [x] Final Polishing
 - [x] Adding a Tutorial
+- [ ] Opacity
 - [x] Enhance the README
+
 ---
 ### Trasparency
 *AI helped me with this, how?*<br>
