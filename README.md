@@ -73,6 +73,7 @@ Those are the tools available right now!
 - [x] Final Polishing
 - [x] Adding a Tutorial
 - [ ] Opacity
+- [ ] Layers
 - [x] Enhance the README
 
 ---

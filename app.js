@@ -121,6 +121,7 @@ function createFrame(importedGrid = null) {
         }
     });
 
+
     frameWrap.addEventListener('dragstart', handleDragStart);
     frameWrap.addEventListener('dragover', handleDragOver);
     frameWrap.addEventListener('drop', handleDrop);
@@ -1513,7 +1514,6 @@ function updateFrameNumbers() {
         if (canvas) canvas.id = `frame-${i + 1}`;
     });
 }
-
 
 
 export{exportCanvasWithTransparentBg};
