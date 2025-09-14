@@ -13,7 +13,7 @@ let onionSkinEnabled = false;
 let grid = [];
 
 let previewIndex = 0;
-
+let currentOpacity = 100;
 
 for (let x = 0; x < gridWidth; x++) {
     grid[x] = [];
@@ -492,7 +492,7 @@ canvas.addEventListener("mousemove", function(e) {
     if (isDrawing && activeTool === "pencil") {
 
         if(pixelPerfectToggle.checked) {
-        drawLineOnGrid(lastDrawX, lastDrawY, cellX, cellY, document.getElementById("color-picker").value);
+        drawLineOnGrid(lastDrawX, lastDrawY, cellX, cellY, getCurrentColorWithOpacity());
         }
         else
         {
@@ -757,7 +757,7 @@ function drawingAtMouse(e)
         return;
     }
     const colorPicker = document.getElementById("color-picker");
-    const currentColor = colorPicker ? colorPicker.value : "#000000";
+    const currentColor = getCurrentColorWithOpacity();
 const pixelSizeInput = document.getElementById("pixel-size");
     const pixelReSize = pixelSizeInput ? parseInt(pixelSizeInput.value) : 1;
     //Adjust the pixel size based on the input value
@@ -860,7 +860,7 @@ function eraseAtMouse(e) {
 //fill
 function fillAtMouse(e) {
     if (activeTool !== "fill") return;
-    const currentColor = document.getElementById("color-picker").value;
+    const currentColor = getCurrentColorWithOpacity();
     const cellX = Math.floor(e.offsetX / pixelSize);
     const cellY = Math.floor(e.offsetY / pixelSize);
     if (grid[cellX][cellY] === currentColor) return;
@@ -916,19 +916,22 @@ document.querySelectorAll('button').forEach(btn => {
 
 //save or load color
 
-function hexToRgb(hex) {
+function hexToRgb(hex, opacity) {
     
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    if (!result) return hex;
+        
     hex = hex.replace(/^#/, '');
     
-    if (hex.length === 3) {
-        hex = hex.split('').map(x => x + x).join('');
-    }
-    const num = parseInt(hex, 16);
-    return `rgb(${(num >> 16) & 255}, ${(num >> 8) & 255}, ${num & 255})`;
+    const r = parseInt(result[1], 16);
+    const g = parseInt(result[2], 16);
+    const b = parseInt(result[3], 16);
+    const alpha = opacity / 100;
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
 
 colorSave.addEventListener("click", () => {
-    const currentColor = document.getElementById("color-picker").value;
+    const currentColor = getCurrentColorWithOpacity();
     const colorList = document.getElementById("color-list");
     const rgbColor = hexToRgb(currentColor);
     const alreadyExists = Array.from(colorList.children).some(div => 
@@ -939,8 +942,35 @@ colorSave.addEventListener("click", () => {
     newColorDiv.className = "color";
     newColorDiv.style.backgroundColor = currentColor;
     newColorDiv.setAttribute("data-color", currentColor);
+    newColorDiv.setAttribute("data-opacity", currentOpacity);
     newColorDiv.addEventListener("click", () => {
-        document.getElementById("color-picker").value = currentColor;
+        const savedColor = newColorDiv.getAttribute("data-color");
+        const savedOpacity = newColorDiv.getAttribute("data-opacity") || "100";
+        
+        if(savedColor.startsWith('rgba'))
+        {
+        const match = savedColor.match(/rgba\((\d+),\s*(\d+),\s*(\d+),\s*([\d.]+)\)/);
+            if (match) {
+                const r = parseInt(match[1]);
+                const g = parseInt(match[2]);
+                const b = parseInt(match[3]);
+                const hexColor = "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+                document.getElementById("color-picker").value = hexColor;
+                
+                
+                currentOpacity = parseInt(savedOpacity);
+                document.getElementById("opacity-slider").value = currentOpacity;
+                document.getElementById("opacity-value").textContent = `${currentOpacity}%`;
+            }
+        }
+        else
+        {
+            document.getElementById("color-picker").value = savedColor;
+            currentOpacity = 100;
+            document.getElementById("opacity-slider").value = 100;
+            document.getElementById("opacity-value").textContent = "100%";
+        }
+
         activeTool = "pencil";
         newColorDiv.classList.remove("pulse");
         void newColorDiv.offsetWidth;
@@ -948,6 +978,8 @@ colorSave.addEventListener("click", () => {
         pencilButton.classList.add("active");
         eraserButton.classList.remove("active");
         fillButton.classList.remove("active");
+
+        updateColorPreview();
     });
     
     colorList.appendChild(newColorDiv);
@@ -991,6 +1023,25 @@ window.addEventListener("DOMContentLoaded", () => {
     }
     activeTool = "pencil";
     pencilButton.classList.add("active");
+
+    //opacity slider functionality
+    const opacitySlider = document.getElementById("opacity-slider");
+    const opacityValue = document.getElementById("opacity-value");
+    if (opacitySlider && opacityValue) {
+        opacitySlider.addEventListener('input', (e) => {
+            currentOpacity = parseInt(e.target.value);
+            opacityValue.textContent = `${currentOpacity}%`;
+            
+            
+            const opacity = currentOpacity / 100;
+            opacitySlider.style.background = `linear-gradient(to right, 
+                rgba(255, 255, 255, 0.2), 
+                rgba(47, 191, 113, ${opacity}))`;
+                
+            
+            updateColorPreview();
+        });
+    }
 });
 
 function confirmGridResize(callback) {
@@ -1515,7 +1566,27 @@ function updateFrameNumbers() {
     });
 }
 
+function getCurrentColorWithOpacity() {
+    const colorPicker = document.getElementById("color-picker");
+    const currentColor = colorPicker ? colorPicker.value : "#000000";
 
+    if(currentOpacity < 100) {
+        return hexToRgb(currentColor, currentOpacity);
+    }
+    return currentColor;
+}
+
+function updateColorPreview() {
+    const colorPicker = document.getElementById("color-picker");
+    const colorPickerWrap = document.getElementById("color-picker-wrap");
+
+    if(colorPicker && colorPickerWrap) {
+        const currentColor = getCurrentColorWithOpacity();
+        colorPickerWrap.style.setProperty('--current-opacity', currentOpacity / 100);
+
+        colorPicker.dataset.opacity = currentOpacity;
+    }
+}
 export{exportCanvasWithTransparentBg};
 
 export {frames, activeFrameIndex, selectFrame, gridHeight, gridWidth, pixelSize, activeTool};

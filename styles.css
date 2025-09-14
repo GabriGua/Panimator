@@ -414,8 +414,12 @@ nav button {
 }
 
 .color-picker-wrap {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 113px;
-    height: 40px;
+    height: auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -662,18 +666,7 @@ body.dark-theme::before {
   z-index: 1;
   transition: opacity 0.3s;
 }
-#tutorial-overlay {
-  position: fixed;
-  top: 0; 
-  left: 0; 
-  right: 0; 
-  bottom: 0;
-  z-index: 9999; 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: auto;
-}
+
 
 
 body.light-theme {
@@ -996,7 +989,7 @@ a:hover, a:focus {
 }
 @media screen and (max-width: 1500px) {
     .toolbar {
-        width: calc(70% - 50px);
+        width: calc(90% - 50px);
         
         
         flex-direction: row;
@@ -1021,9 +1014,9 @@ a:hover, a:focus {
    
 
     .color-picker-wrap {
-        width: 90px;
-        height: 90px;
-        flex-direction: column;
+        width: auto;
+        height: auto;
+        flex-direction: row;
         align-items: center;
         justify-content: center;
         
@@ -1327,12 +1320,84 @@ a:hover, a:focus {
     height: 27px;
     z-index: 10;
     
-    /* Stile badge */
+  
     background: #2fbf71;
     border-radius: 50%;
     padding: 4px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     
-    /* Colore dell'SVG */
+    
     fill: white;
+}
+
+.opacity-control {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    margin-top: 4px;
+}
+
+.opacity-control label {
+    font-size: 9px;
+    font-weight: bold;
+    color: #363537;
+    min-width: 30px;
+}
+
+#opacity-value {
+    font-size: 9px;
+    font-weight: bold;
+    color: #155331;
+    min-width: 25px;
+    text-align: center;
+    background: rgba(47, 191, 113, 0.2);
+    padding: 1px 3px;
+    border-radius: 2px;
+}
+
+#opacity-slider {
+    flex: 1;
+    max-width: 45px;
+    height: 3px;
+    background: linear-gradient(to right, 
+        rgba(255, 255, 255, 0.2), 
+        rgba(47, 191, 113, 1));
+    border-radius: 2px;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+}
+
+#opacity-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 10px;
+    height: 10px;
+    background: #2fbf71;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+
+
+
+.color-preview {
+    position: relative;
+    overflow: hidden;
+}
+
+.color-preview::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: currentColor;
+    opacity: var(--current-opacity, 1);
+    pointer-events: none;
 }

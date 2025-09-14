@@ -96,7 +96,12 @@
         </div>
         <div class="color-picker-wrap">
           <input type="color" id="color-picker" value="#000000">
-          
+            <div class="opacity-control">
+          <label for="opacity-slider">Opacity:</label>
+          <input type="range" id="opacity-slider" min="0" max="100" value="100" step="1">
+          <span id="opacity-value">100%</span>
+      </div>
+    
           <button class="save" id="color-save">
             <div class="icons">
               <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24" fill="transparent">
