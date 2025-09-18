@@ -934,9 +934,21 @@ colorSave.addEventListener("click", () => {
     const currentColor = getCurrentColorWithOpacity();
     const colorList = document.getElementById("color-list");
     const rgbColor = hexToRgb(currentColor);
-    const alreadyExists = Array.from(colorList.children).some(div => 
-    div.style.backgroundColor.replace(/\s/g, '').toLowerCase() === rgbColor.replace(/\s/g, '').toLowerCase()
-    );
+    const alreadyExists = Array.from(colorList.children).some(div => {
+        
+    const savedColor = div.getAttribute("data-color");
+    
+    if(!currentColor.startsWith('rgba') && !savedColor.startsWith('rgba'))
+    {
+        return currentColor.toLowerCase() === savedColorColor.toLowerCase();
+    }
+
+    const currentNormalized = normalizeColor(currentColor);
+    const savedNormalized = normalizeColor(savedColor);
+    return currentNormalized === savedNormalized;
+    }
+
+);
     if (alreadyExists) return;
     const newColorDiv = document.createElement("div");
     newColorDiv.className = "color";
@@ -985,6 +997,21 @@ colorSave.addEventListener("click", () => {
     colorList.appendChild(newColorDiv);
     saveToLocalStorage();
 });
+
+function normalizeColor(color) {
+    if(!color) return "";
+
+    if(color.startsWith('rgba')) {
+        return color.replace(/\s+/g, '').toLowerCase();
+    }
+
+    if(color.startsWith('#')) {
+        const rgba = hexToRgb(color, 100);
+        return rgba.replace(/\s/g, '').toLowerCase();
+    }
+
+    return color.toLowerCase();
+}
 
 // Pixel size and erase size inputs
 const pixelSizeInputs = document.querySelectorAll('input[id="pixel-size"]');

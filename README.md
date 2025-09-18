@@ -39,6 +39,10 @@ Those are the tools available right now!
     - [x] Pencil Size
     - [x] Eraser Size
     - [x] Cursor
+- [ ] Mirroring Canvas
+- [ ] Geometric Shapes
+- [ ] Automatic Outline
+- [ ] Custom Cursors
 - [x] Timeline
     - [x] Play Function
     - [x] Stop Function

@@ -1401,3 +1401,4 @@ a:hover, a:focus {
     opacity: var(--current-opacity, 1);
     pointer-events: none;
 }
+
