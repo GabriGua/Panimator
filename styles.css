@@ -1402,3 +1402,14 @@ a:hover, a:focus {
     pointer-events: none;
 }
 
+.cursor-pencil {
+    cursor: url('./assets/Pencil.png') 0 32 , auto;
+}
+
+.cursor-eraser {
+    cursor: url('./assets/Rubber.png') 16 16, auto;
+}
+
+.cursor-fill {
+    cursor: url('./assets/Bucket.png') 0 32, auto;
+}

@@ -281,7 +281,7 @@ function redrawCanvas() {
     }
 
     //this is the cursor hover effect that adapts to the size of each tool
-    if (hoverCell && activeTool !== "fill" && activeTool !== null) {
+    if (hoverCell &&  activeTool !== null) {
         const pixelSizeInput = document.getElementById("pixel-size");
         const eraseSizeInput = document.getElementById("erase-size");
         let pixelReSize = 1;
@@ -291,6 +291,9 @@ function redrawCanvas() {
         else
         if (activeTool === "eraser") {
              pixelReSize = eraseSizeInput ? parseInt(eraseSizeInput.value) : 1;
+        }
+        else {
+            pixelReSize = 1;
         }
         let startX, startY, size;
         if (pixelReSize > 1) {
@@ -601,6 +604,8 @@ pencilButton.addEventListener("click", () => {
         
     activeTool = null;
     pencilButton.classList.remove("active"); 
+    
+    
   } else {
     
     activeTool = "pencil";
@@ -608,6 +613,7 @@ pencilButton.addEventListener("click", () => {
     eraserButton.classList.remove("active");
     fillButton.classList.remove("active");
   }
+  updateCursor();
 });
 
 eraserButton.addEventListener("click", () => {
@@ -622,6 +628,7 @@ eraserButton.addEventListener("click", () => {
         pencilButton.classList.remove("active");
         fillButton.classList.remove("active");
     }
+    updateCursor();
 }
 );
 
@@ -635,6 +642,7 @@ fillButton.addEventListener("click", () => {
         pencilButton.classList.remove("active");
         eraserButton.classList.remove("active");
     }
+    updateCursor();
 }
 );
 
@@ -1049,6 +1057,7 @@ window.addEventListener("DOMContentLoaded", () => {
         selectFrame(0);
     }
     activeTool = "pencil";
+    updateCursor();
     pencilButton.classList.add("active");
 
     //opacity slider functionality
@@ -1215,6 +1224,7 @@ document.addEventListener('keydown', function(e) {
                 fillButton.classList.remove("active");
             }
             redrawCanvas();
+            updateCursor();
         }
 
         if(e.key === "e" || e.key === "E")
@@ -1231,6 +1241,7 @@ document.addEventListener('keydown', function(e) {
                 fillButton.classList.remove("active");
             }
             redrawCanvas();
+            updateCursor();
         }
         if(e.key === "f" || e.key === "F")
         {
@@ -1247,6 +1258,7 @@ document.addEventListener('keydown', function(e) {
                 eraserButton.classList.remove("active");
             }
             redrawCanvas();
+            updateCursor();
         }
 
         if (e.key === ".") {
@@ -1269,6 +1281,7 @@ document.addEventListener('keydown', function(e) {
                 pixelSizeInput.value = Math.max(parseInt(pixelSizeInput.value) - 1, 1);
                 pixelSizeInput.dispatchEvent(new Event('input', { bubbles: true }));
                 redrawCanvas();
+                
             }
         }
         else if(activeTool === "eraser")
@@ -1614,6 +1627,42 @@ function updateColorPreview() {
         colorPicker.dataset.opacity = currentOpacity;
     }
 }
+
+function updateCursor()
+{
+    const canvas = document.getElementById("pixel-canvas");
+    canvas.classList.remove('cursor-pencil');
+    canvas.classList.remove('cursor-eraser');
+    canvas.classList.remove('cursor-fill');
+
+    if(activeTool === "pencil")
+    {
+        
+        canvas.classList.remove('cursor-eraser');
+        canvas.classList.remove('cursor-fill');
+        canvas.classList.add('cursor-pencil');
+    }
+    else if(activeTool === "eraser")
+    {
+        canvas.classList.remove('cursor-fill');
+        canvas.classList.remove('cursor-pencil');
+        canvas.classList.add('cursor-eraser');
+    }
+    else if(activeTool === "fill")
+    {
+        
+         canvas.classList.remove('cursor-pencil');
+        canvas.classList.remove('cursor-eraser');
+        canvas.classList.add('cursor-fill');
+    }
+    else
+    {
+        canvas.classList.remove('cursor-pencil');
+        canvas.classList.remove('cursor-eraser');
+        canvas.classList.remove('cursor-fill');
+    }
+
+};
 export{exportCanvasWithTransparentBg};
 
 export {frames, activeFrameIndex, selectFrame, gridHeight, gridWidth, pixelSize, activeTool};

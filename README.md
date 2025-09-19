@@ -42,7 +42,7 @@ Those are the tools available right now!
 - [ ] Mirroring Canvas
 - [ ] Geometric Shapes
 - [ ] Automatic Outline
-- [ ] Custom Cursors
+- [x] Custom Cursors
 - [x] Timeline
     - [x] Play Function
     - [x] Stop Function
