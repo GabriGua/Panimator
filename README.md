@@ -39,7 +39,7 @@ Those are the tools available right now!
     - [x] Pencil Size
     - [x] Eraser Size
     - [x] Cursor
-- [ ] Mirroring Canvas
+- [x] Mirroring Canvas
 - [ ] Geometric Shapes
 - [ ] Automatic Outline
 - [x] Custom Cursors

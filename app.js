@@ -39,6 +39,8 @@ const x16Button = document.getElementById("16");
 const x32Button = document.getElementById("32");
 const x64Button = document.getElementById("64");
 const colorSave = document.getElementById("color-save");
+const hMirrorButton = document.getElementById("horizontal-mirror");
+const vMirrorButton = document.getElementById("vertical-mirror");
 const addFrame = document.getElementById("add-frame");
 const copyFrameToggle = document.getElementById("copyFrame-toggle");
 const pixelPerfectToggle = document.getElementById("pixelPerfect-toggle");
@@ -645,6 +647,14 @@ fillButton.addEventListener("click", () => {
     updateCursor();
 }
 );
+
+hMirrorButton.addEventListener("click", () => {
+    horizontalMirroring();
+});
+
+vMirrorButton.addEventListener("click", () => {
+    verticalMirroring();
+});
 
 //undo and redo functionality
 
@@ -1305,6 +1315,16 @@ document.addEventListener('keydown', function(e) {
             colorSave.click();
         }
 
+        if (e.key === "h" || e.key === "H") {
+            e.preventDefault();
+            hMirrorButton.click();
+        }
+        
+        if (e.key === "v" || e.key === "V") {
+            e.preventDefault();
+            vMirrorButton.click();
+        }
+
         if (e.key === "Escape") {
             modal.style.display = "none";
         }
@@ -1663,6 +1683,47 @@ function updateCursor()
     }
 
 };
+
+
+
+function horizontalMirroring()
+{
+    for (let y = 0; y < gridHeight; y++) {
+        for (let x = 0; x < Math.floor(gridWidth / 2); x++) {
+            const oppositeX = gridWidth - 1 - x;
+            const temp = grid[x][y];
+            grid[x][y] = grid[oppositeX][y];
+            grid[oppositeX][y] = temp;
+        }
+    }
+    redrawCanvas();
+    const frame = frames[activeFrameIndex];
+    frame.undoStack.push(JSON.stringify(grid));
+    frame.grid = JSON.parse(JSON.stringify(grid));
+    frame.redoStack = [];
+    previewIndex = frame.undoStack.length - 1;
+    drawPreviewFromStack(previewIndex);
+}
+
+function verticalMirroring()
+{
+    for (let x = 0; x < gridWidth; x++) {
+        for (let y = 0; y < Math.floor(gridHeight / 2); y++) {
+            const oppositeY = gridHeight - 1 - y;
+            const temp = grid[x][y];
+            grid[x][y] = grid[x][oppositeY];
+            grid[x][oppositeY] = temp;
+        }
+    }
+    redrawCanvas();
+    const frame = frames[activeFrameIndex];
+    frame.undoStack.push(JSON.stringify(grid));
+    frame.grid = JSON.parse(JSON.stringify(grid));
+    frame.redoStack = [];
+    previewIndex = frame.undoStack.length - 1;
+    drawPreviewFromStack(previewIndex);
+}
+
 export{exportCanvasWithTransparentBg};
 
 export {frames, activeFrameIndex, selectFrame, gridHeight, gridWidth, pixelSize, activeTool};

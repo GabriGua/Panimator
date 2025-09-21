@@ -79,6 +79,7 @@ nav button {
     align-items: center;
     justify-content: center;
     gap: 10px;
+    z-index: 1000;
 }
 
 .import-export .icons svg {
@@ -126,6 +127,7 @@ nav button {
     max-height: 900px;               
     width: 100vw;
     height: 100vh;
+    z-index: 1001;
 }
 .canvas-container {
   position: relative;
@@ -153,6 +155,7 @@ nav button {
     
     width: auto;
     box-sizing: border-box;
+    z-index: 1000;
 }
 
 @media (max-width: 1300px) {
@@ -225,7 +228,7 @@ nav button {
     height: auto;
    
     padding: 10px;
-    
+    z-index: 1000;
 }
 
 
@@ -283,6 +286,7 @@ nav button {
     background-image: url("./assets/grass.png");
     background-size: auto;
     background-repeat: repeat;
+    
 }
 
 .animation
@@ -309,6 +313,7 @@ nav button {
     box-shadow: 0 0 0 2px #fff, 0 0 0 4px #8cd867;
     width: calc(100% - 20px);
     height: 70px; 
+    z-index: 1000;
 }
 
 .frame-wrap {
@@ -351,6 +356,7 @@ nav button {
     max-width: 100%;
     box-sizing: border-box;
     padding: 10px;
+    z-index: 1000;
 }
 
 .frame-number {
@@ -394,6 +400,7 @@ nav button {
     overflow-y: auto;
     overflow: hidden;
     justify-content: start;
+    z-index: 1000;
 }
 
 .color{
@@ -537,7 +544,8 @@ all: unset;
     height: 100%;
     pointer-events: none; 
     z-index: -1;
-    overflow: hidden;       
+    overflow: hidden;     
+    z-index: 1000;  
 }
 
 .cloud {
@@ -637,10 +645,18 @@ all: unset;
     padding: 0;
 }
 
+
 .question button:hover {
     background-color: #2fbf71;
 }
 
+.more-tools {
+    display: flex;
+    flex-direction: row;
+    top: 20px;
+    left: 20px;
+    gap: 10px;
+}
 
 body.light-theme {
   background-image: url("./assets/sky.png");
@@ -736,7 +752,7 @@ body.light-theme #frame-rate {
 .modal {
     display: none; 
     position: fixed;
-    z-index: 1000; 
+    z-index: 1002; 
     left: 0;
     top: 0;
     width: 100%;
@@ -985,7 +1001,7 @@ a:hover, a:focus {
   flex-direction: row;
     align-items: right;
   gap: 50px;
-  
+  z-index: 1000;
 }
 @media screen and (max-width: 1500px) {
     .toolbar {
@@ -1073,10 +1089,25 @@ a:hover, a:focus {
     height: 60px !important;
     z-index: 2000 !important;
   }
+
+  .more-tools{
+    flex-direction: column!important;
+  }
+
+  .undo-redo {
+    flex-direction: column!important;
+  }
 }
 
 @media screen and (max-width: 800px) {
     
+  .more-tools{
+    flex-direction: row!important;
+  }
+
+  .undo-redo {
+    flex-direction: row!important;
+  }
   .canvas-container {
     
     flex-direction: column;
@@ -1255,6 +1286,7 @@ a:hover, a:focus {
     color: #000000;
     margin-right: auto;
     margin-bottom: auto;
+    z-index: 1000;
 }
 
 .logo svg text,
