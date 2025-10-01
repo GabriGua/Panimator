@@ -102,6 +102,7 @@ async function exportGIF() {
     for (let i = 0; i < frames.length; i++) {
         selectFrame(i);
         const frame = frames[i];
+        const composite = buildCompositeGridFromLayersOrFrame(frame);
         await new Promise(resolve => requestAnimationFrame(resolve));
         const tempCanvas = document.createElement("canvas");
         tempCanvas.width = canvas.width;
@@ -113,8 +114,9 @@ async function exportGIF() {
 
         for (let x = 0; x < gridWidth; x++) {
             for (let y = 0; y < gridHeight; y++) {
-                if (frame.grid[x][y]) {
-                    tempCtx.fillStyle = frame.grid[x][y];
+                const col = composite[x][y];
+                if (col) {
+                    tempCtx.fillStyle = col;
                     tempCtx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
                 } else {
                     tempCtx.fillStyle = transparentColor;
@@ -141,6 +143,11 @@ async function exportMPNG() {
     const zip = new JSZip();
 
     for (let i = 0; i < frames.length; i++) {
+
+        const frame = frames[i];
+    const composite = buildCompositeGridFromLayersOrFrame(frame);
+
+
         const tempCanvas = document.createElement("canvas");
         tempCanvas.width = canvas.width;
         tempCanvas.height = canvas.height;
@@ -150,8 +157,9 @@ async function exportMPNG() {
 
         for (let x = 0; x < gridWidth; x++) {
             for (let y = 0; y < gridHeight; y++) {
-                if (frames[i].grid[x][y]) {
-                    tempCtx.fillStyle = frames[i].grid[x][y];
+                const col = composite[x][y];
+                if (col) {
+                    tempCtx.fillStyle = col;
                     tempCtx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
                 } 
 
@@ -185,11 +193,15 @@ function exportSpriteSheet()
     spriteSheetCanvas.height = frameHeight;
 
     for (let i = 0; i < totalFrames; i++) {
+
         selectFrame(i);
+        const frame = frames[i];
+    const composite = buildCompositeGridFromLayersOrFrame(frame);
         for (let x = 0; x < gridWidth; x++) {
             for (let y = 0; y < gridHeight; y++) {
-                if (frames[i].grid[x][y]) {
-                    spriteSheetCtx.fillStyle = frames[i].grid[x][y];
+                const col = composite[x][y];
+                if (col) {
+                    spriteSheetCtx.fillStyle = col;
                     spriteSheetCtx.fillRect(x * pixelSize + i * frameWidth, y * pixelSize, pixelSize, pixelSize);
                 }
             }
@@ -205,43 +217,54 @@ function exportSpriteSheet()
 function exportProject() {
     const palette = getCurrentPalette();
     const projectData = {
-        version: "2.0",
+        version: "3.0",                    // ← nuova versione con layers
         frames: [],
         gridWidth,
         gridHeight,
         pixelSize,
         filename: typeof filename !== "undefined" && filename ? filename : "animation",
-        palette: typeof palette !== "undefined" && palette !== null ? palette : [],
+        palette: Array.isArray(palette) ? palette : [],
         createdAt: new Date().toISOString()
     };
 
     frames.forEach((frame, index) => {
-        
-        const compressedCells = compressFrame(frame.grid);
-        const gridData = frame.grid;
+        // Snapshot composito (per compatibilità e anteprime)
+        const compositeGrid = frame.grid;
 
-        const compressedSize = JSON.stringify(compressedCells).length;
-        const legacySize = JSON.stringify(gridData).length;
+        // Compat: comprime o salva “legacy”
+        const compressedCells = compressFrame(compositeGrid);
+        const useCompression = JSON.stringify(compressedCells).length < JSON.stringify(compositeGrid).length;
 
-        const useCompression = compressedSize < legacySize;
+        // Layer per-frame: name, visible, grid
+        const layersOut = Array.isArray(frame.layers)
+            ? frame.layers.map(L => ({
+                name: L.name || `Layer`,
+                visible: L.visible !== false,
+                grid: L.grid
+            }))
+            : [{
+                // Retro-compat: se non ci sono layers, crea layer unico dal composito
+                name: "Layer 1",
+                visible: true,
+                grid: compositeGrid
+            }];
 
         const frameData = {
-            index: index,
-            format: useCompression ? "compressed" : "legacy",
-            timestamp: frame.timestamp || new Date().toISOString()
-
+            index,
+            timestamp: frame.timestamp || new Date().toISOString(),
+            activeLayerIndex: frame.activeLayerIndex ?? 0,
+            layers: layersOut,
+            format: useCompression ? "compressed" : "legacy"
         };
 
         if (useCompression) {
             frameData.cells = compressedCells;
         } else {
-            frameData.grid = gridData;
+            frameData.grid = compositeGrid;
         }
-        projectData.frames.push(frameData);
-    
-    });
-    
 
+        projectData.frames.push(frameData);
+    });
 
     const blob = new Blob([JSON.stringify(projectData, null, 2)], { type: "application/json" });
     const link = document.createElement("a");
@@ -283,6 +306,28 @@ function compressFrame(frameGrid) {
     
     return compressedCells.sort((a, b) => a.pixel - b.pixel);
 }
+
+
+function buildCompositeGridFromLayersOrFrame(frame) {
+  if (!frame || !Array.isArray(frame.layers) || frame.layers.length === 0) {
+    return frame?.grid ?? [];
+  }
+  const composite = Array.from({ length: gridWidth }, () => Array(gridHeight).fill(null));
+  for (let li = 0; li < frame.layers.length; li++) {
+    const L = frame.layers[li];
+    if (!L || L.visible === false || !Array.isArray(L.grid)) continue;
+    const g = L.grid;
+    for (let x = 0; x < gridWidth; x++) {
+      for (let y = 0; y < gridHeight; y++) {
+        const c = g[x]?.[y];
+        if (c) composite[x][y] = c;
+      }
+    }
+  }
+  return composite;
+}
+
+
 
 
 export {exportPNG};

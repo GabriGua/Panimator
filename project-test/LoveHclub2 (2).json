@@ -1,0 +1,4792 @@
+{
+  "version": "2.0",
+  "frames": [
+    {
+      "index": 0,
+      "format": "legacy",
+      "timestamp": "2025-08-08T13:18:33.127Z",
+      "grid": [
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "#000000",
+          "#000000",
+          "#000000",
+          "#000000",
+          "#000000",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "#000000",
+          "#000000",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#000000",
+          "#000000",
+          "#000000",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          "#000000",
+          "#000000",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#000000",
+          "#000000",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "#000000",
+          "#000000",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#000000",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "#000000",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#000000",
+          "#000000",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          "#000000",
+          "#000000",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#000000",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          "#000000",
+          "#ff1414",
+          "#ff1414",
+          "#ffffff",
+          "#ffffff",
+          "#ffffff",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#000000",
+          "#000000",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          "#000000",
+          "#ff1414",
+          "#ff1414",
+          "#ffffff",
+          "#ffffff",
+          "#ffffff",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#000000",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          "#000000",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ffffff",
+          "#ffffff",
+          "#ffffff",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#000000",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          "#000000",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#000000",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          "#000000",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#000000",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          "#000000",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#000000",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "#000000",
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          "#000000",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ffffff",
+          "#ffffff",
+          "#ffffff",
+          "#ffffff",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#000000",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "#000000",
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          "#000000",
+          "#000000",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ffffff",
+          "#ffffff",
+          "#ffffff",
+          "#ffffff",
+          "#ffffff",
+          "#ff1414",
+          "#ff1414",
+          "#000000",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "#000000",
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          "#000000",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ffffff",
+          "#ffffff",
+          "#ffffff",
+          "#ffffff",
+          "#ff1414",
+          "#000000",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "#000000",
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          "#000000",
+          "#000000",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ffffff",
+          "#ffffff",
+          "#ff1414",
+          "#ff1414",
+          "#000000",
+          "#000000",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "#000000",
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "#000000",
+          "#000000",
+          "#000000",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#ff1414",
+          "#000000",
+          "#000000",
+          "#000000",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "#000000",
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "#000000",
+          "#000000",
+          "#000000",
+          "#000000",
+          "#000000",
+          "#000000",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "#000000",
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "#000000",
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "#000000",
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "#000000",
+          "#000000",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "#000000",
+          "#000000",
+          "#000000",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "#000000",
+          "#000000",
+          "#000000",
+          "#000000",
+          "#000000",
+          "#000000",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      ]
+    },
+    {
+      "index": 1,
+      "format": "compressed",
+      "timestamp": "2025-08-08T13:18:33.127Z",
+      "cells": [
+        {
+          "pixel": 165,
+          "color": "#000000"
+        },
+        {
+          "pixel": 166,
+          "color": "#000000"
+        },
+        {
+          "pixel": 167,
+          "color": "#000000"
+        },
+        {
+          "pixel": 168,
+          "color": "#000000"
+        },
+        {
+          "pixel": 169,
+          "color": "#000000"
+        },
+        {
+          "pixel": 170,
+          "color": "#000000"
+        },
+        {
+          "pixel": 197,
+          "color": "#000000"
+        },
+        {
+          "pixel": 198,
+          "color": "#000000"
+        },
+        {
+          "pixel": 199,
+          "color": "#000000"
+        },
+        {
+          "pixel": 200,
+          "color": "#000000"
+        },
+        {
+          "pixel": 201,
+          "color": "#000000"
+        },
+        {
+          "pixel": 202,
+          "color": "#000000"
+        },
+        {
+          "pixel": 229,
+          "color": "#000000"
+        },
+        {
+          "pixel": 230,
+          "color": "#000000"
+        },
+        {
+          "pixel": 231,
+          "color": "#000000"
+        },
+        {
+          "pixel": 232,
+          "color": "#000000"
+        },
+        {
+          "pixel": 233,
+          "color": "#000000"
+        },
+        {
+          "pixel": 234,
+          "color": "#000000"
+        },
+        {
+          "pixel": 261,
+          "color": "#000000"
+        },
+        {
+          "pixel": 262,
+          "color": "#000000"
+        },
+        {
+          "pixel": 263,
+          "color": "#000000"
+        },
+        {
+          "pixel": 264,
+          "color": "#000000"
+        },
+        {
+          "pixel": 265,
+          "color": "#000000"
+        },
+        {
+          "pixel": 266,
+          "color": "#000000"
+        },
+        {
+          "pixel": 293,
+          "color": "#000000"
+        },
+        {
+          "pixel": 294,
+          "color": "#000000"
+        },
+        {
+          "pixel": 295,
+          "color": "#000000"
+        },
+        {
+          "pixel": 296,
+          "color": "#000000"
+        },
+        {
+          "pixel": 297,
+          "color": "#000000"
+        },
+        {
+          "pixel": 298,
+          "color": "#000000"
+        },
+        {
+          "pixel": 325,
+          "color": "#000000"
+        },
+        {
+          "pixel": 326,
+          "color": "#000000"
+        },
+        {
+          "pixel": 327,
+          "color": "#000000"
+        },
+        {
+          "pixel": 328,
+          "color": "#000000"
+        },
+        {
+          "pixel": 329,
+          "color": "#000000"
+        },
+        {
+          "pixel": 330,
+          "color": "#000000"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "format": "compressed",
+      "timestamp": "2025-08-08T13:18:33.127Z",
+      "cells": [
+        {
+          "pixel": 390,
+          "color": "#000000"
+        },
+        {
+          "pixel": 391,
+          "color": "#000000"
+        },
+        {
+          "pixel": 392,
+          "color": "#000000"
+        },
+        {
+          "pixel": 393,
+          "color": "#000000"
+        },
+        {
+          "pixel": 394,
+          "color": "#000000"
+        },
+        {
+          "pixel": 395,
+          "color": "#000000"
+        },
+        {
+          "pixel": 422,
+          "color": "#000000"
+        },
+        {
+          "pixel": 423,
+          "color": "#000000"
+        },
+        {
+          "pixel": 424,
+          "color": "#000000"
+        },
+        {
+          "pixel": 425,
+          "color": "#000000"
+        },
+        {
+          "pixel": 426,
+          "color": "#000000"
+        },
+        {
+          "pixel": 427,
+          "color": "#000000"
+        },
+        {
+          "pixel": 454,
+          "color": "#000000"
+        },
+        {
+          "pixel": 455,
+          "color": "#000000"
+        },
+        {
+          "pixel": 456,
+          "color": "#000000"
+        },
+        {
+          "pixel": 457,
+          "color": "#000000"
+        },
+        {
+          "pixel": 458,
+          "color": "#000000"
+        },
+        {
+          "pixel": 459,
+          "color": "#000000"
+        },
+        {
+          "pixel": 486,
+          "color": "#000000"
+        },
+        {
+          "pixel": 487,
+          "color": "#000000"
+        },
+        {
+          "pixel": 488,
+          "color": "#000000"
+        },
+        {
+          "pixel": 489,
+          "color": "#000000"
+        },
+        {
+          "pixel": 490,
+          "color": "#000000"
+        },
+        {
+          "pixel": 491,
+          "color": "#000000"
+        },
+        {
+          "pixel": 518,
+          "color": "#000000"
+        },
+        {
+          "pixel": 519,
+          "color": "#000000"
+        },
+        {
+          "pixel": 520,
+          "color": "#000000"
+        },
+        {
+          "pixel": 521,
+          "color": "#000000"
+        },
+        {
+          "pixel": 522,
+          "color": "#000000"
+        },
+        {
+          "pixel": 523,
+          "color": "#000000"
+        },
+        {
+          "pixel": 550,
+          "color": "#000000"
+        },
+        {
+          "pixel": 551,
+          "color": "#000000"
+        },
+        {
+          "pixel": 552,
+          "color": "#000000"
+        },
+        {
+          "pixel": 553,
+          "color": "#000000"
+        },
+        {
+          "pixel": 554,
+          "color": "#000000"
+        },
+        {
+          "pixel": 555,
+          "color": "#000000"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "format": "compressed",
+      "timestamp": "2025-08-08T13:18:33.127Z",
+      "cells": [
+        {
+          "pixel": 615,
+          "color": "#000000"
+        },
+        {
+          "pixel": 616,
+          "color": "#000000"
+        },
+        {
+          "pixel": 617,
+          "color": "#000000"
+        },
+        {
+          "pixel": 618,
+          "color": "#000000"
+        },
+        {
+          "pixel": 619,
+          "color": "#000000"
+        },
+        {
+          "pixel": 620,
+          "color": "#000000"
+        },
+        {
+          "pixel": 647,
+          "color": "#000000"
+        },
+        {
+          "pixel": 648,
+          "color": "#000000"
+        },
+        {
+          "pixel": 649,
+          "color": "#000000"
+        },
+        {
+          "pixel": 650,
+          "color": "#000000"
+        },
+        {
+          "pixel": 651,
+          "color": "#000000"
+        },
+        {
+          "pixel": 652,
+          "color": "#000000"
+        },
+        {
+          "pixel": 679,
+          "color": "#000000"
+        },
+        {
+          "pixel": 680,
+          "color": "#000000"
+        },
+        {
+          "pixel": 681,
+          "color": "#000000"
+        },
+        {
+          "pixel": 682,
+          "color": "#000000"
+        },
+        {
+          "pixel": 683,
+          "color": "#000000"
+        },
+        {
+          "pixel": 684,
+          "color": "#000000"
+        },
+        {
+          "pixel": 711,
+          "color": "#000000"
+        },
+        {
+          "pixel": 712,
+          "color": "#000000"
+        },
+        {
+          "pixel": 713,
+          "color": "#000000"
+        },
+        {
+          "pixel": 714,
+          "color": "#000000"
+        },
+        {
+          "pixel": 715,
+          "color": "#000000"
+        },
+        {
+          "pixel": 716,
+          "color": "#000000"
+        },
+        {
+          "pixel": 743,
+          "color": "#000000"
+        },
+        {
+          "pixel": 744,
+          "color": "#000000"
+        },
+        {
+          "pixel": 745,
+          "color": "#000000"
+        },
+        {
+          "pixel": 746,
+          "color": "#000000"
+        },
+        {
+          "pixel": 747,
+          "color": "#000000"
+        },
+        {
+          "pixel": 748,
+          "color": "#000000"
+        },
+        {
+          "pixel": 775,
+          "color": "#000000"
+        },
+        {
+          "pixel": 776,
+          "color": "#000000"
+        },
+        {
+          "pixel": 777,
+          "color": "#000000"
+        },
+        {
+          "pixel": 778,
+          "color": "#000000"
+        },
+        {
+          "pixel": 779,
+          "color": "#000000"
+        },
+        {
+          "pixel": 780,
+          "color": "#000000"
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "format": "compressed",
+      "timestamp": "2025-08-08T13:18:33.127Z",
+      "cells": [
+        {
+          "pixel": 716,
+          "color": "#000000"
+        },
+        {
+          "pixel": 717,
+          "color": "#000000"
+        },
+        {
+          "pixel": 718,
+          "color": "#000000"
+        },
+        {
+          "pixel": 719,
+          "color": "#000000"
+        },
+        {
+          "pixel": 720,
+          "color": "#000000"
+        },
+        {
+          "pixel": 721,
+          "color": "#000000"
+        },
+        {
+          "pixel": 748,
+          "color": "#000000"
+        },
+        {
+          "pixel": 749,
+          "color": "#000000"
+        },
+        {
+          "pixel": 750,
+          "color": "#000000"
+        },
+        {
+          "pixel": 751,
+          "color": "#000000"
+        },
+        {
+          "pixel": 752,
+          "color": "#000000"
+        },
+        {
+          "pixel": 753,
+          "color": "#000000"
+        },
+        {
+          "pixel": 780,
+          "color": "#000000"
+        },
+        {
+          "pixel": 781,
+          "color": "#000000"
+        },
+        {
+          "pixel": 782,
+          "color": "#000000"
+        },
+        {
+          "pixel": 783,
+          "color": "#000000"
+        },
+        {
+          "pixel": 784,
+          "color": "#000000"
+        },
+        {
+          "pixel": 785,
+          "color": "#000000"
+        },
+        {
+          "pixel": 812,
+          "color": "#000000"
+        },
+        {
+          "pixel": 813,
+          "color": "#000000"
+        },
+        {
+          "pixel": 814,
+          "color": "#000000"
+        },
+        {
+          "pixel": 815,
+          "color": "#000000"
+        },
+        {
+          "pixel": 816,
+          "color": "#000000"
+        },
+        {
+          "pixel": 817,
+          "color": "#000000"
+        },
+        {
+          "pixel": 844,
+          "color": "#000000"
+        },
+        {
+          "pixel": 845,
+          "color": "#000000"
+        },
+        {
+          "pixel": 846,
+          "color": "#000000"
+        },
+        {
+          "pixel": 847,
+          "color": "#000000"
+        },
+        {
+          "pixel": 848,
+          "color": "#000000"
+        },
+        {
+          "pixel": 849,
+          "color": "#000000"
+        },
+        {
+          "pixel": 876,
+          "color": "#000000"
+        },
+        {
+          "pixel": 877,
+          "color": "#000000"
+        },
+        {
+          "pixel": 878,
+          "color": "#000000"
+        },
+        {
+          "pixel": 879,
+          "color": "#000000"
+        },
+        {
+          "pixel": 880,
+          "color": "#000000"
+        },
+        {
+          "pixel": 881,
+          "color": "#000000"
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "format": "legacy",
+      "timestamp": "2025-08-08T13:18:33.127Z",
+      "grid": [
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "#000000",
+          "#000000",
+          "#000000",
+          "#000000",
+          "#000000",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          "#000000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#000000",
+          "#000000",
+          "#000000",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "#000000",
+          "#000000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#000000",
+          "#000000",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "#000000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#000000",
+          "#000000",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          "#000000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#000000",
+          "#000000",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          "#000000",
+          "#000000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#000000",
+          "#000000",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "#000000",
+          "#000000",
+          "#000000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#000000",
+          "#000000",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "#000000",
+          "#000000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#000000",
+          "#000000",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "#000000",
+          "#000000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#000000",
+          "#000000",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          "#000000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#000000",
+          "#000000",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          "#000000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#000000",
+          "#000000",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          "#000000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#000000",
+          "#000000",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          "#000000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#000000",
+          "#000000",
+          "#000000",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          "#000000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#000000",
+          "#000000",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          "#000000",
+          "#000000",
+          "#000000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#ff0000",
+          "#000000",
+          "#000000",
+          "#000000",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "#000000",
+          "#000000",
+          "#000000",
+          "#000000",
+          "#000000",
+          "#000000",
+          "#000000",
+          "#000000",
+          "#000000",
+          "#000000",
+          "#000000",
+          "#000000",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "#000000",
+          "#000000",
+          "#000000",
+          "#000000",
+          "#000000",
+          "#000000",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "#000000",
+          "#000000",
+          "#000000",
+          "#000000",
+          "#000000",
+          "#000000",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "#000000",
+          "#000000",
+          "#000000",
+          "#000000",
+          "#000000",
+          "#000000",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "#000000",
+          "#000000",
+          "#000000",
+          "#000000",
+          "#000000",
+          "#000000",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "#000000",
+          "#000000",
+          "#000000",
+          "#000000",
+          "#000000",
+          "#000000",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "#000000",
+          "#000000",
+          "#000000",
+          "#000000",
+          "#000000",
+          "#000000",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      ]
+    },
+    {
+      "index": 6,
+      "format": "compressed",
+      "timestamp": "2025-08-08T13:18:33.127Z",
+      "cells": [
+        {
+          "pixel": 311,
+          "color": "#000000"
+        },
+        {
+          "pixel": 312,
+          "color": "#000000"
+        },
+        {
+          "pixel": 313,
+          "color": "#000000"
+        },
+        {
+          "pixel": 314,
+          "color": "#000000"
+        },
+        {
+          "pixel": 315,
+          "color": "#000000"
+        },
+        {
+          "pixel": 316,
+          "color": "#000000"
+        },
+        {
+          "pixel": 343,
+          "color": "#000000"
+        },
+        {
+          "pixel": 344,
+          "color": "#000000"
+        },
+        {
+          "pixel": 345,
+          "color": "#000000"
+        },
+        {
+          "pixel": 346,
+          "color": "#000000"
+        },
+        {
+          "pixel": 347,
+          "color": "#000000"
+        },
+        {
+          "pixel": 348,
+          "color": "#000000"
+        },
+        {
+          "pixel": 375,
+          "color": "#000000"
+        },
+        {
+          "pixel": 376,
+          "color": "#000000"
+        },
+        {
+          "pixel": 377,
+          "color": "#000000"
+        },
+        {
+          "pixel": 378,
+          "color": "#000000"
+        },
+        {
+          "pixel": 379,
+          "color": "#000000"
+        },
+        {
+          "pixel": 380,
+          "color": "#000000"
+        },
+        {
+          "pixel": 407,
+          "color": "#000000"
+        },
+        {
+          "pixel": 408,
+          "color": "#000000"
+        },
+        {
+          "pixel": 409,
+          "color": "#000000"
+        },
+        {
+          "pixel": 410,
+          "color": "#000000"
+        },
+        {
+          "pixel": 411,
+          "color": "#000000"
+        },
+        {
+          "pixel": 412,
+          "color": "#000000"
+        },
+        {
+          "pixel": 439,
+          "color": "#000000"
+        },
+        {
+          "pixel": 440,
+          "color": "#000000"
+        },
+        {
+          "pixel": 441,
+          "color": "#000000"
+        },
+        {
+          "pixel": 442,
+          "color": "#000000"
+        },
+        {
+          "pixel": 443,
+          "color": "#000000"
+        },
+        {
+          "pixel": 444,
+          "color": "#000000"
+        },
+        {
+          "pixel": 471,
+          "color": "#000000"
+        },
+        {
+          "pixel": 472,
+          "color": "#000000"
+        },
+        {
+          "pixel": 473,
+          "color": "#000000"
+        },
+        {
+          "pixel": 474,
+          "color": "#000000"
+        },
+        {
+          "pixel": 475,
+          "color": "#000000"
+        },
+        {
+          "pixel": 476,
+          "color": "#000000"
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "format": "compressed",
+      "timestamp": "2025-08-08T13:18:33.127Z",
+      "cells": [
+        {
+          "pixel": 86,
+          "color": "#000000"
+        },
+        {
+          "pixel": 87,
+          "color": "#000000"
+        },
+        {
+          "pixel": 88,
+          "color": "#000000"
+        },
+        {
+          "pixel": 89,
+          "color": "#000000"
+        },
+        {
+          "pixel": 90,
+          "color": "#000000"
+        },
+        {
+          "pixel": 91,
+          "color": "#000000"
+        },
+        {
+          "pixel": 118,
+          "color": "#000000"
+        },
+        {
+          "pixel": 119,
+          "color": "#000000"
+        },
+        {
+          "pixel": 120,
+          "color": "#000000"
+        },
+        {
+          "pixel": 121,
+          "color": "#000000"
+        },
+        {
+          "pixel": 122,
+          "color": "#000000"
+        },
+        {
+          "pixel": 123,
+          "color": "#000000"
+        },
+        {
+          "pixel": 150,
+          "color": "#000000"
+        },
+        {
+          "pixel": 151,
+          "color": "#000000"
+        },
+        {
+          "pixel": 152,
+          "color": "#000000"
+        },
+        {
+          "pixel": 153,
+          "color": "#000000"
+        },
+        {
+          "pixel": 154,
+          "color": "#000000"
+        },
+        {
+          "pixel": 155,
+          "color": "#000000"
+        },
+        {
+          "pixel": 182,
+          "color": "#000000"
+        },
+        {
+          "pixel": 183,
+          "color": "#000000"
+        },
+        {
+          "pixel": 184,
+          "color": "#000000"
+        },
+        {
+          "pixel": 185,
+          "color": "#000000"
+        },
+        {
+          "pixel": 186,
+          "color": "#000000"
+        },
+        {
+          "pixel": 187,
+          "color": "#000000"
+        },
+        {
+          "pixel": 214,
+          "color": "#000000"
+        },
+        {
+          "pixel": 215,
+          "color": "#000000"
+        },
+        {
+          "pixel": 216,
+          "color": "#000000"
+        },
+        {
+          "pixel": 217,
+          "color": "#000000"
+        },
+        {
+          "pixel": 218,
+          "color": "#000000"
+        },
+        {
+          "pixel": 219,
+          "color": "#000000"
+        },
+        {
+          "pixel": 246,
+          "color": "#000000"
+        },
+        {
+          "pixel": 247,
+          "color": "#000000"
+        },
+        {
+          "pixel": 248,
+          "color": "#000000"
+        },
+        {
+          "pixel": 249,
+          "color": "#000000"
+        },
+        {
+          "pixel": 250,
+          "color": "#000000"
+        },
+        {
+          "pixel": 251,
+          "color": "#000000"
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "format": "compressed",
+      "timestamp": "2025-08-08T13:18:33.127Z",
+      "cells": [
+        {
+          "pixel": 108,
+          "color": "#000000"
+        },
+        {
+          "pixel": 109,
+          "color": "#000000"
+        },
+        {
+          "pixel": 110,
+          "color": "#000000"
+        },
+        {
+          "pixel": 111,
+          "color": "#000000"
+        },
+        {
+          "pixel": 112,
+          "color": "#000000"
+        },
+        {
+          "pixel": 113,
+          "color": "#000000"
+        },
+        {
+          "pixel": 140,
+          "color": "#000000"
+        },
+        {
+          "pixel": 141,
+          "color": "#000000"
+        },
+        {
+          "pixel": 142,
+          "color": "#000000"
+        },
+        {
+          "pixel": 143,
+          "color": "#000000"
+        },
+        {
+          "pixel": 144,
+          "color": "#000000"
+        },
+        {
+          "pixel": 145,
+          "color": "#000000"
+        },
+        {
+          "pixel": 172,
+          "color": "#000000"
+        },
+        {
+          "pixel": 173,
+          "color": "#000000"
+        },
+        {
+          "pixel": 174,
+          "color": "#000000"
+        },
+        {
+          "pixel": 175,
+          "color": "#000000"
+        },
+        {
+          "pixel": 176,
+          "color": "#000000"
+        },
+        {
+          "pixel": 177,
+          "color": "#000000"
+        },
+        {
+          "pixel": 204,
+          "color": "#000000"
+        },
+        {
+          "pixel": 205,
+          "color": "#000000"
+        },
+        {
+          "pixel": 206,
+          "color": "#000000"
+        },
+        {
+          "pixel": 207,
+          "color": "#000000"
+        },
+        {
+          "pixel": 208,
+          "color": "#000000"
+        },
+        {
+          "pixel": 209,
+          "color": "#000000"
+        },
+        {
+          "pixel": 236,
+          "color": "#000000"
+        },
+        {
+          "pixel": 237,
+          "color": "#000000"
+        },
+        {
+          "pixel": 238,
+          "color": "#000000"
+        },
+        {
+          "pixel": 239,
+          "color": "#000000"
+        },
+        {
+          "pixel": 240,
+          "color": "#000000"
+        },
+        {
+          "pixel": 241,
+          "color": "#000000"
+        },
+        {
+          "pixel": 268,
+          "color": "#000000"
+        },
+        {
+          "pixel": 269,
+          "color": "#000000"
+        },
+        {
+          "pixel": 270,
+          "color": "#000000"
+        },
+        {
+          "pixel": 271,
+          "color": "#000000"
+        },
+        {
+          "pixel": 272,
+          "color": "#000000"
+        },
+        {
+          "pixel": 273,
+          "color": "#000000"
+        }
+      ]
+    },
+    {
+      "index": 9,
+      "format": "compressed",
+      "timestamp": "2025-08-08T13:18:33.127Z",
+      "cells": [
+        {
+          "pixel": 196,
+          "color": "#000000"
+        },
+        {
+          "pixel": 197,
+          "color": "#000000"
+        },
+        {
+          "pixel": 198,
+          "color": "#000000"
+        },
+        {
+          "pixel": 199,
+          "color": "#000000"
+        },
+        {
+          "pixel": 200,
+          "color": "#000000"
+        },
+        {
+          "pixel": 201,
+          "color": "#000000"
+        },
+        {
+          "pixel": 228,
+          "color": "#000000"
+        },
+        {
+          "pixel": 229,
+          "color": "#000000"
+        },
+        {
+          "pixel": 230,
+          "color": "#000000"
+        },
+        {
+          "pixel": 231,
+          "color": "#000000"
+        },
+        {
+          "pixel": 232,
+          "color": "#000000"
+        },
+        {
+          "pixel": 233,
+          "color": "#000000"
+        },
+        {
+          "pixel": 260,
+          "color": "#000000"
+        },
+        {
+          "pixel": 261,
+          "color": "#000000"
+        },
+        {
+          "pixel": 262,
+          "color": "#000000"
+        },
+        {
+          "pixel": 263,
+          "color": "#000000"
+        },
+        {
+          "pixel": 264,
+          "color": "#000000"
+        },
+        {
+          "pixel": 265,
+          "color": "#000000"
+        },
+        {
+          "pixel": 292,
+          "color": "#000000"
+        },
+        {
+          "pixel": 293,
+          "color": "#000000"
+        },
+        {
+          "pixel": 294,
+          "color": "#000000"
+        },
+        {
+          "pixel": 295,
+          "color": "#000000"
+        },
+        {
+          "pixel": 296,
+          "color": "#000000"
+        },
+        {
+          "pixel": 297,
+          "color": "#000000"
+        },
+        {
+          "pixel": 324,
+          "color": "#000000"
+        },
+        {
+          "pixel": 325,
+          "color": "#000000"
+        },
+        {
+          "pixel": 326,
+          "color": "#000000"
+        },
+        {
+          "pixel": 327,
+          "color": "#000000"
+        },
+        {
+          "pixel": 328,
+          "color": "#000000"
+        },
+        {
+          "pixel": 329,
+          "color": "#000000"
+        },
+        {
+          "pixel": 356,
+          "color": "#000000"
+        },
+        {
+          "pixel": 357,
+          "color": "#000000"
+        },
+        {
+          "pixel": 358,
+          "color": "#000000"
+        },
+        {
+          "pixel": 359,
+          "color": "#000000"
+        },
+        {
+          "pixel": 360,
+          "color": "#000000"
+        },
+        {
+          "pixel": 361,
+          "color": "#000000"
+        }
+      ]
+    },
+    {
+      "index": 10,
+      "format": "compressed",
+      "timestamp": "2025-08-08T13:18:33.127Z",
+      "cells": [
+        {
+          "pixel": 517,
+          "color": "#000000"
+        },
+        {
+          "pixel": 518,
+          "color": "#000000"
+        },
+        {
+          "pixel": 519,
+          "color": "#000000"
+        },
+        {
+          "pixel": 520,
+          "color": "#000000"
+        },
+        {
+          "pixel": 521,
+          "color": "#000000"
+        },
+        {
+          "pixel": 522,
+          "color": "#000000"
+        },
+        {
+          "pixel": 549,
+          "color": "#000000"
+        },
+        {
+          "pixel": 550,
+          "color": "#000000"
+        },
+        {
+          "pixel": 551,
+          "color": "#000000"
+        },
+        {
+          "pixel": 552,
+          "color": "#000000"
+        },
+        {
+          "pixel": 553,
+          "color": "#000000"
+        },
+        {
+          "pixel": 554,
+          "color": "#000000"
+        },
+        {
+          "pixel": 581,
+          "color": "#000000"
+        },
+        {
+          "pixel": 582,
+          "color": "#000000"
+        },
+        {
+          "pixel": 583,
+          "color": "#000000"
+        },
+        {
+          "pixel": 584,
+          "color": "#000000"
+        },
+        {
+          "pixel": 585,
+          "color": "#000000"
+        },
+        {
+          "pixel": 586,
+          "color": "#000000"
+        },
+        {
+          "pixel": 613,
+          "color": "#000000"
+        },
+        {
+          "pixel": 614,
+          "color": "#000000"
+        },
+        {
+          "pixel": 615,
+          "color": "#000000"
+        },
+        {
+          "pixel": 616,
+          "color": "#000000"
+        },
+        {
+          "pixel": 617,
+          "color": "#000000"
+        },
+        {
+          "pixel": 618,
+          "color": "#000000"
+        },
+        {
+          "pixel": 645,
+          "color": "#000000"
+        },
+        {
+          "pixel": 646,
+          "color": "#000000"
+        },
+        {
+          "pixel": 647,
+          "color": "#000000"
+        },
+        {
+          "pixel": 648,
+          "color": "#000000"
+        },
+        {
+          "pixel": 649,
+          "color": "#000000"
+        },
+        {
+          "pixel": 650,
+          "color": "#000000"
+        },
+        {
+          "pixel": 677,
+          "color": "#000000"
+        },
+        {
+          "pixel": 678,
+          "color": "#000000"
+        },
+        {
+          "pixel": 679,
+          "color": "#000000"
+        },
+        {
+          "pixel": 680,
+          "color": "#000000"
+        },
+        {
+          "pixel": 681,
+          "color": "#000000"
+        },
+        {
+          "pixel": 682,
+          "color": "#000000"
+        }
+      ]
+    },
+    {
+      "index": 11,
+      "format": "compressed",
+      "timestamp": "2025-08-08T13:18:33.127Z",
+      "cells": [
+        {
+          "pixel": 682,
+          "color": "#000000"
+        },
+        {
+          "pixel": 683,
+          "color": "#000000"
+        },
+        {
+          "pixel": 684,
+          "color": "#000000"
+        },
+        {
+          "pixel": 685,
+          "color": "#000000"
+        },
+        {
+          "pixel": 686,
+          "color": "#000000"
+        },
+        {
+          "pixel": 687,
+          "color": "#000000"
+        },
+        {
+          "pixel": 714,
+          "color": "#000000"
+        },
+        {
+          "pixel": 715,
+          "color": "#000000"
+        },
+        {
+          "pixel": 716,
+          "color": "#000000"
+        },
+        {
+          "pixel": 717,
+          "color": "#000000"
+        },
+        {
+          "pixel": 718,
+          "color": "#000000"
+        },
+        {
+          "pixel": 719,
+          "color": "#000000"
+        },
+        {
+          "pixel": 746,
+          "color": "#000000"
+        },
+        {
+          "pixel": 747,
+          "color": "#000000"
+        },
+        {
+          "pixel": 748,
+          "color": "#000000"
+        },
+        {
+          "pixel": 749,
+          "color": "#000000"
+        },
+        {
+          "pixel": 750,
+          "color": "#000000"
+        },
+        {
+          "pixel": 751,
+          "color": "#000000"
+        },
+        {
+          "pixel": 778,
+          "color": "#000000"
+        },
+        {
+          "pixel": 779,
+          "color": "#000000"
+        },
+        {
+          "pixel": 780,
+          "color": "#000000"
+        },
+        {
+          "pixel": 781,
+          "color": "#000000"
+        },
+        {
+          "pixel": 782,
+          "color": "#000000"
+        },
+        {
+          "pixel": 783,
+          "color": "#000000"
+        },
+        {
+          "pixel": 810,
+          "color": "#000000"
+        },
+        {
+          "pixel": 811,
+          "color": "#000000"
+        },
+        {
+          "pixel": 812,
+          "color": "#000000"
+        },
+        {
+          "pixel": 813,
+          "color": "#000000"
+        },
+        {
+          "pixel": 814,
+          "color": "#000000"
+        },
+        {
+          "pixel": 815,
+          "color": "#000000"
+        },
+        {
+          "pixel": 842,
+          "color": "#000000"
+        },
+        {
+          "pixel": 843,
+          "color": "#000000"
+        },
+        {
+          "pixel": 844,
+          "color": "#000000"
+        },
+        {
+          "pixel": 845,
+          "color": "#000000"
+        },
+        {
+          "pixel": 846,
+          "color": "#000000"
+        },
+        {
+          "pixel": 847,
+          "color": "#000000"
+        }
+      ]
+    },
+    {
+      "index": 12,
+      "format": "compressed",
+      "timestamp": "2025-08-08T13:18:33.127Z",
+      "cells": [
+        {
+          "pixel": 725,
+          "color": "#000000"
+        },
+        {
+          "pixel": 726,
+          "color": "#000000"
+        },
+        {
+          "pixel": 727,
+          "color": "#000000"
+        },
+        {
+          "pixel": 728,
+          "color": "#000000"
+        },
+        {
+          "pixel": 729,
+          "color": "#000000"
+        },
+        {
+          "pixel": 730,
+          "color": "#000000"
+        },
+        {
+          "pixel": 731,
+          "color": "#000000"
+        },
+        {
+          "pixel": 757,
+          "color": "#000000"
+        },
+        {
+          "pixel": 758,
+          "color": "#000000"
+        },
+        {
+          "pixel": 759,
+          "color": "#000000"
+        },
+        {
+          "pixel": 760,
+          "color": "#000000"
+        },
+        {
+          "pixel": 761,
+          "color": "#000000"
+        },
+        {
+          "pixel": 762,
+          "color": "#000000"
+        },
+        {
+          "pixel": 763,
+          "color": "#000000"
+        },
+        {
+          "pixel": 789,
+          "color": "#000000"
+        },
+        {
+          "pixel": 790,
+          "color": "#000000"
+        },
+        {
+          "pixel": 791,
+          "color": "#000000"
+        },
+        {
+          "pixel": 792,
+          "color": "#000000"
+        },
+        {
+          "pixel": 793,
+          "color": "#000000"
+        },
+        {
+          "pixel": 794,
+          "color": "#000000"
+        },
+        {
+          "pixel": 795,
+          "color": "#000000"
+        },
+        {
+          "pixel": 821,
+          "color": "#000000"
+        },
+        {
+          "pixel": 822,
+          "color": "#000000"
+        },
+        {
+          "pixel": 823,
+          "color": "#000000"
+        },
+        {
+          "pixel": 824,
+          "color": "#000000"
+        },
+        {
+          "pixel": 825,
+          "color": "#000000"
+        },
+        {
+          "pixel": 826,
+          "color": "#000000"
+        },
+        {
+          "pixel": 827,
+          "color": "#000000"
+        },
+        {
+          "pixel": 853,
+          "color": "#000000"
+        },
+        {
+          "pixel": 854,
+          "color": "#000000"
+        },
+        {
+          "pixel": 855,
+          "color": "#000000"
+        },
+        {
+          "pixel": 856,
+          "color": "#000000"
+        },
+        {
+          "pixel": 857,
+          "color": "#000000"
+        },
+        {
+          "pixel": 858,
+          "color": "#000000"
+        },
+        {
+          "pixel": 859,
+          "color": "#000000"
+        },
+        {
+          "pixel": 885,
+          "color": "#000000"
+        },
+        {
+          "pixel": 886,
+          "color": "#000000"
+        },
+        {
+          "pixel": 887,
+          "color": "#000000"
+        },
+        {
+          "pixel": 888,
+          "color": "#000000"
+        },
+        {
+          "pixel": 889,
+          "color": "#000000"
+        },
+        {
+          "pixel": 890,
+          "color": "#000000"
+        },
+        {
+          "pixel": 891,
+          "color": "#000000"
+        }
+      ]
+    },
+    {
+      "index": 13,
+      "format": "compressed",
+      "timestamp": "2025-08-08T13:18:33.127Z",
+      "cells": [
+        {
+          "pixel": 537,
+          "color": "#000000"
+        },
+        {
+          "pixel": 538,
+          "color": "#000000"
+        },
+        {
+          "pixel": 539,
+          "color": "#000000"
+        },
+        {
+          "pixel": 540,
+          "color": "#000000"
+        },
+        {
+          "pixel": 541,
+          "color": "#000000"
+        },
+        {
+          "pixel": 542,
+          "color": "#000000"
+        },
+        {
+          "pixel": 569,
+          "color": "#000000"
+        },
+        {
+          "pixel": 570,
+          "color": "#000000"
+        },
+        {
+          "pixel": 571,
+          "color": "#000000"
+        },
+        {
+          "pixel": 572,
+          "color": "#000000"
+        },
+        {
+          "pixel": 573,
+          "color": "#000000"
+        },
+        {
+          "pixel": 574,
+          "color": "#000000"
+        },
+        {
+          "pixel": 601,
+          "color": "#000000"
+        },
+        {
+          "pixel": 602,
+          "color": "#000000"
+        },
+        {
+          "pixel": 603,
+          "color": "#000000"
+        },
+        {
+          "pixel": 604,
+          "color": "#000000"
+        },
+        {
+          "pixel": 605,
+          "color": "#000000"
+        },
+        {
+          "pixel": 606,
+          "color": "#000000"
+        },
+        {
+          "pixel": 633,
+          "color": "#000000"
+        },
+        {
+          "pixel": 634,
+          "color": "#000000"
+        },
+        {
+          "pixel": 635,
+          "color": "#000000"
+        },
+        {
+          "pixel": 636,
+          "color": "#000000"
+        },
+        {
+          "pixel": 637,
+          "color": "#000000"
+        },
+        {
+          "pixel": 638,
+          "color": "#000000"
+        },
+        {
+          "pixel": 665,
+          "color": "#000000"
+        },
+        {
+          "pixel": 666,
+          "color": "#000000"
+        },
+        {
+          "pixel": 667,
+          "color": "#000000"
+        },
+        {
+          "pixel": 668,
+          "color": "#000000"
+        },
+        {
+          "pixel": 669,
+          "color": "#000000"
+        },
+        {
+          "pixel": 670,
+          "color": "#000000"
+        },
+        {
+          "pixel": 697,
+          "color": "#000000"
+        },
+        {
+          "pixel": 698,
+          "color": "#000000"
+        },
+        {
+          "pixel": 699,
+          "color": "#000000"
+        },
+        {
+          "pixel": 700,
+          "color": "#000000"
+        },
+        {
+          "pixel": 701,
+          "color": "#000000"
+        },
+        {
+          "pixel": 702,
+          "color": "#000000"
+        }
+      ]
+    },
+    {
+      "index": 14,
+      "format": "compressed",
+      "timestamp": "2025-08-08T13:18:33.127Z",
+      "cells": [
+        {
+          "pixel": 308,
+          "color": "#000000"
+        },
+        {
+          "pixel": 309,
+          "color": "#000000"
+        },
+        {
+          "pixel": 310,
+          "color": "#000000"
+        },
+        {
+          "pixel": 311,
+          "color": "#000000"
+        },
+        {
+          "pixel": 312,
+          "color": "#000000"
+        },
+        {
+          "pixel": 313,
+          "color": "#000000"
+        },
+        {
+          "pixel": 340,
+          "color": "#000000"
+        },
+        {
+          "pixel": 341,
+          "color": "#000000"
+        },
+        {
+          "pixel": 342,
+          "color": "#000000"
+        },
+        {
+          "pixel": 343,
+          "color": "#000000"
+        },
+        {
+          "pixel": 344,
+          "color": "#000000"
+        },
+        {
+          "pixel": 345,
+          "color": "#000000"
+        },
+        {
+          "pixel": 372,
+          "color": "#000000"
+        },
+        {
+          "pixel": 373,
+          "color": "#000000"
+        },
+        {
+          "pixel": 374,
+          "color": "#000000"
+        },
+        {
+          "pixel": 375,
+          "color": "#000000"
+        },
+        {
+          "pixel": 376,
+          "color": "#000000"
+        },
+        {
+          "pixel": 377,
+          "color": "#000000"
+        },
+        {
+          "pixel": 404,
+          "color": "#000000"
+        },
+        {
+          "pixel": 405,
+          "color": "#000000"
+        },
+        {
+          "pixel": 406,
+          "color": "#000000"
+        },
+        {
+          "pixel": 407,
+          "color": "#000000"
+        },
+        {
+          "pixel": 408,
+          "color": "#000000"
+        },
+        {
+          "pixel": 409,
+          "color": "#000000"
+        },
+        {
+          "pixel": 436,
+          "color": "#000000"
+        },
+        {
+          "pixel": 437,
+          "color": "#000000"
+        },
+        {
+          "pixel": 438,
+          "color": "#000000"
+        },
+        {
+          "pixel": 439,
+          "color": "#000000"
+        },
+        {
+          "pixel": 440,
+          "color": "#000000"
+        },
+        {
+          "pixel": 441,
+          "color": "#000000"
+        },
+        {
+          "pixel": 468,
+          "color": "#000000"
+        },
+        {
+          "pixel": 469,
+          "color": "#000000"
+        },
+        {
+          "pixel": 470,
+          "color": "#000000"
+        },
+        {
+          "pixel": 471,
+          "color": "#000000"
+        },
+        {
+          "pixel": 472,
+          "color": "#000000"
+        },
+        {
+          "pixel": 473,
+          "color": "#000000"
+        }
+      ]
+    },
+    {
+      "index": 15,
+      "format": "compressed",
+      "timestamp": "2025-08-08T13:18:33.127Z",
+      "cells": [
+        {
+          "pixel": 301,
+          "color": "#000000"
+        },
+        {
+          "pixel": 302,
+          "color": "#000000"
+        },
+        {
+          "pixel": 303,
+          "color": "#000000"
+        },
+        {
+          "pixel": 304,
+          "color": "#000000"
+        },
+        {
+          "pixel": 305,
+          "color": "#000000"
+        },
+        {
+          "pixel": 306,
+          "color": "#000000"
+        },
+        {
+          "pixel": 333,
+          "color": "#000000"
+        },
+        {
+          "pixel": 334,
+          "color": "#000000"
+        },
+        {
+          "pixel": 335,
+          "color": "#000000"
+        },
+        {
+          "pixel": 336,
+          "color": "#000000"
+        },
+        {
+          "pixel": 337,
+          "color": "#000000"
+        },
+        {
+          "pixel": 338,
+          "color": "#000000"
+        },
+        {
+          "pixel": 365,
+          "color": "#000000"
+        },
+        {
+          "pixel": 366,
+          "color": "#000000"
+        },
+        {
+          "pixel": 367,
+          "color": "#000000"
+        },
+        {
+          "pixel": 368,
+          "color": "#000000"
+        },
+        {
+          "pixel": 369,
+          "color": "#000000"
+        },
+        {
+          "pixel": 370,
+          "color": "#000000"
+        },
+        {
+          "pixel": 397,
+          "color": "#000000"
+        },
+        {
+          "pixel": 398,
+          "color": "#000000"
+        },
+        {
+          "pixel": 399,
+          "color": "#000000"
+        },
+        {
+          "pixel": 400,
+          "color": "#000000"
+        },
+        {
+          "pixel": 401,
+          "color": "#000000"
+        },
+        {
+          "pixel": 402,
+          "color": "#000000"
+        },
+        {
+          "pixel": 429,
+          "color": "#000000"
+        },
+        {
+          "pixel": 430,
+          "color": "#000000"
+        },
+        {
+          "pixel": 431,
+          "color": "#000000"
+        },
+        {
+          "pixel": 432,
+          "color": "#000000"
+        },
+        {
+          "pixel": 433,
+          "color": "#000000"
+        },
+        {
+          "pixel": 434,
+          "color": "#000000"
+        },
+        {
+          "pixel": 461,
+          "color": "#000000"
+        },
+        {
+          "pixel": 462,
+          "color": "#000000"
+        },
+        {
+          "pixel": 463,
+          "color": "#000000"
+        },
+        {
+          "pixel": 464,
+          "color": "#000000"
+        },
+        {
+          "pixel": 465,
+          "color": "#000000"
+        },
+        {
+          "pixel": 466,
+          "color": "#000000"
+        }
+      ]
+    },
+    {
+      "index": 16,
+      "format": "compressed",
+      "timestamp": "2025-08-08T13:18:33.127Z",
+      "cells": [
+        {
+          "pixel": 524,
+          "color": "#000000"
+        },
+        {
+          "pixel": 525,
+          "color": "#000000"
+        },
+        {
+          "pixel": 526,
+          "color": "#000000"
+        },
+        {
+          "pixel": 527,
+          "color": "#000000"
+        },
+        {
+          "pixel": 528,
+          "color": "#000000"
+        },
+        {
+          "pixel": 529,
+          "color": "#000000"
+        },
+        {
+          "pixel": 556,
+          "color": "#000000"
+        },
+        {
+          "pixel": 557,
+          "color": "#000000"
+        },
+        {
+          "pixel": 558,
+          "color": "#000000"
+        },
+        {
+          "pixel": 559,
+          "color": "#000000"
+        },
+        {
+          "pixel": 560,
+          "color": "#000000"
+        },
+        {
+          "pixel": 561,
+          "color": "#000000"
+        },
+        {
+          "pixel": 588,
+          "color": "#000000"
+        },
+        {
+          "pixel": 589,
+          "color": "#000000"
+        },
+        {
+          "pixel": 590,
+          "color": "#000000"
+        },
+        {
+          "pixel": 591,
+          "color": "#000000"
+        },
+        {
+          "pixel": 592,
+          "color": "#000000"
+        },
+        {
+          "pixel": 593,
+          "color": "#000000"
+        },
+        {
+          "pixel": 620,
+          "color": "#000000"
+        },
+        {
+          "pixel": 621,
+          "color": "#000000"
+        },
+        {
+          "pixel": 622,
+          "color": "#000000"
+        },
+        {
+          "pixel": 623,
+          "color": "#000000"
+        },
+        {
+          "pixel": 624,
+          "color": "#000000"
+        },
+        {
+          "pixel": 625,
+          "color": "#000000"
+        },
+        {
+          "pixel": 652,
+          "color": "#000000"
+        },
+        {
+          "pixel": 653,
+          "color": "#000000"
+        },
+        {
+          "pixel": 654,
+          "color": "#000000"
+        },
+        {
+          "pixel": 655,
+          "color": "#000000"
+        },
+        {
+          "pixel": 656,
+          "color": "#000000"
+        },
+        {
+          "pixel": 657,
+          "color": "#000000"
+        },
+        {
+          "pixel": 684,
+          "color": "#000000"
+        },
+        {
+          "pixel": 685,
+          "color": "#000000"
+        },
+        {
+          "pixel": 686,
+          "color": "#000000"
+        },
+        {
+          "pixel": 687,
+          "color": "#000000"
+        },
+        {
+          "pixel": 688,
+          "color": "#000000"
+        },
+        {
+          "pixel": 689,
+          "color": "#000000"
+        }
+      ]
+    },
+    {
+      "index": 17,
+      "format": "compressed",
+      "timestamp": "2025-08-08T13:18:33.127Z",
+      "cells": [
+        {
+          "pixel": 461,
+          "color": "#000000"
+        },
+        {
+          "pixel": 462,
+          "color": "#000000"
+        },
+        {
+          "pixel": 463,
+          "color": "#000000"
+        },
+        {
+          "pixel": 464,
+          "color": "#000000"
+        },
+        {
+          "pixel": 465,
+          "color": "#000000"
+        },
+        {
+          "pixel": 466,
+          "color": "#000000"
+        },
+        {
+          "pixel": 493,
+          "color": "#000000"
+        },
+        {
+          "pixel": 494,
+          "color": "#000000"
+        },
+        {
+          "pixel": 495,
+          "color": "#000000"
+        },
+        {
+          "pixel": 496,
+          "color": "#000000"
+        },
+        {
+          "pixel": 497,
+          "color": "#000000"
+        },
+        {
+          "pixel": 498,
+          "color": "#000000"
+        },
+        {
+          "pixel": 525,
+          "color": "#000000"
+        },
+        {
+          "pixel": 526,
+          "color": "#000000"
+        },
+        {
+          "pixel": 527,
+          "color": "#000000"
+        },
+        {
+          "pixel": 528,
+          "color": "#000000"
+        },
+        {
+          "pixel": 529,
+          "color": "#000000"
+        },
+        {
+          "pixel": 530,
+          "color": "#000000"
+        },
+        {
+          "pixel": 557,
+          "color": "#000000"
+        },
+        {
+          "pixel": 558,
+          "color": "#000000"
+        },
+        {
+          "pixel": 559,
+          "color": "#000000"
+        },
+        {
+          "pixel": 560,
+          "color": "#000000"
+        },
+        {
+          "pixel": 561,
+          "color": "#000000"
+        },
+        {
+          "pixel": 562,
+          "color": "#000000"
+        },
+        {
+          "pixel": 589,
+          "color": "#000000"
+        },
+        {
+          "pixel": 590,
+          "color": "#000000"
+        },
+        {
+          "pixel": 591,
+          "color": "#000000"
+        },
+        {
+          "pixel": 592,
+          "color": "#000000"
+        },
+        {
+          "pixel": 593,
+          "color": "#000000"
+        },
+        {
+          "pixel": 594,
+          "color": "#000000"
+        },
+        {
+          "pixel": 621,
+          "color": "#000000"
+        },
+        {
+          "pixel": 622,
+          "color": "#000000"
+        },
+        {
+          "pixel": 623,
+          "color": "#000000"
+        },
+        {
+          "pixel": 624,
+          "color": "#000000"
+        },
+        {
+          "pixel": 625,
+          "color": "#000000"
+        },
+        {
+          "pixel": 626,
+          "color": "#000000"
+        }
+      ]
+    },
+    {
+      "index": 18,
+      "format": "compressed",
+      "timestamp": "2025-08-08T13:18:33.127Z",
+      "cells": [
+        {
+          "pixel": 461,
+          "color": "#000000"
+        },
+        {
+          "pixel": 462,
+          "color": "#000000"
+        },
+        {
+          "pixel": 463,
+          "color": "#000000"
+        },
+        {
+          "pixel": 464,
+          "color": "#000000"
+        },
+        {
+          "pixel": 465,
+          "color": "#000000"
+        },
+        {
+          "pixel": 466,
+          "color": "#000000"
+        },
+        {
+          "pixel": 493,
+          "color": "#000000"
+        },
+        {
+          "pixel": 494,
+          "color": "#000000"
+        },
+        {
+          "pixel": 495,
+          "color": "#000000"
+        },
+        {
+          "pixel": 496,
+          "color": "#000000"
+        },
+        {
+          "pixel": 497,
+          "color": "#000000"
+        },
+        {
+          "pixel": 498,
+          "color": "#000000"
+        },
+        {
+          "pixel": 525,
+          "color": "#000000"
+        },
+        {
+          "pixel": 526,
+          "color": "#000000"
+        },
+        {
+          "pixel": 527,
+          "color": "#000000"
+        },
+        {
+          "pixel": 528,
+          "color": "#000000"
+        },
+        {
+          "pixel": 529,
+          "color": "#000000"
+        },
+        {
+          "pixel": 530,
+          "color": "#000000"
+        },
+        {
+          "pixel": 557,
+          "color": "#000000"
+        },
+        {
+          "pixel": 558,
+          "color": "#000000"
+        },
+        {
+          "pixel": 559,
+          "color": "#000000"
+        },
+        {
+          "pixel": 560,
+          "color": "#000000"
+        },
+        {
+          "pixel": 561,
+          "color": "#000000"
+        },
+        {
+          "pixel": 562,
+          "color": "#000000"
+        },
+        {
+          "pixel": 589,
+          "color": "#000000"
+        },
+        {
+          "pixel": 590,
+          "color": "#000000"
+        },
+        {
+          "pixel": 591,
+          "color": "#000000"
+        },
+        {
+          "pixel": 592,
+          "color": "#000000"
+        },
+        {
+          "pixel": 593,
+          "color": "#000000"
+        },
+        {
+          "pixel": 594,
+          "color": "#000000"
+        },
+        {
+          "pixel": 621,
+          "color": "#000000"
+        },
+        {
+          "pixel": 622,
+          "color": "#000000"
+        },
+        {
+          "pixel": 623,
+          "color": "#000000"
+        },
+        {
+          "pixel": 624,
+          "color": "#000000"
+        },
+        {
+          "pixel": 625,
+          "color": "#000000"
+        },
+        {
+          "pixel": 626,
+          "color": "#000000"
+        }
+      ]
+    }
+  ],
+  "gridWidth": 32,
+  "gridHeight": 32,
+  "pixelSize": 16,
+  "filename": "LoveHclub2",
+  "palette": [],
+  "createdAt": "2025-08-08T13:18:33.127Z"
+}

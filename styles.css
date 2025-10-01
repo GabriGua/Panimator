@@ -1445,3 +1445,92 @@ a:hover, a:focus {
 .cursor-fill {
     cursor: url('./assets/Bucket.png') 0 32, auto;
 }
+
+.layers-drawer {
+  position: fixed;
+  top: 0; left: 0;
+  width: 260px; max-width: 85vw;
+  height: 100vh;
+  background: rgba(20,20,20,0.92);
+  backdrop-filter: blur(6px);
+  border-right: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 2px 0 18px rgba(0,0,0,0.4);
+  transform: translateX(-100%);
+  transition: transform 220ms ease;
+  z-index: 1200; color: #fff;
+}
+.layers-drawer.open { transform: translateX(0); }
+
+.layers-toggle {
+  position: fixed;
+  top: 50%; left: 12px;
+  transform: translateY(-50%);
+  z-index: 1210;
+  width: 36px; height: 36px;
+  border-radius: 999px; border: none;
+  background: #2fbf71; color: #111; cursor: pointer;
+  display: grid; place-items: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  transition: opacity 160ms ease;
+}
+body.layers-open .layers-toggle { opacity: 0; pointer-events: none; }
+
+.layers-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.25);
+  z-index: 1199; opacity: 0; pointer-events: none;
+  transition: opacity 200ms ease;
+}
+.layers-overlay.show { opacity: 1; pointer-events: auto; }
+
+.drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.drawer-content { padding: 10px 12px 16px; height: calc(100vh - 54px); overflow: auto; }
+
+.drawer-header-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.drawer-close {
+  min-width: 32px;
+  height: 32px;
+  border-radius: 6px;
+}
+.btn-small {
+  height: 32px;
+  padding: 0 10px;
+  border-radius: 6px;
+}
+
+.layers-list {
+  display: grid;
+  gap: 16px;              
+  min-height: 40px;
+  padding: 12px;
+}
+.layer-wrap {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 10px; border-radius: 8px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  cursor: grab; user-select: none;
+}
+.layer-wrap.dragging { opacity: 0.6; cursor: grabbing; }
+.layer-wrap:hover { background: rgba(255,255,255,0.08); }
+.layer-wrap.active { outline: 2px solid #2fbf71; background: rgba(47,191,113,0.14); }
+
+.layer-canvas {
+  width: 64px; height: 64px; image-rendering: pixelated;
+  border-radius: 6px; border: 1px solid rgba(255,255,255,0.12); background: #111;
+}
+.layer-label { font-size: 12px; color: #e7e7e7; }
+.layer-vis-btn, .delete-layer-btn {
+  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+  color:#fff; border-radius:6px; padding:4px 6px; font-size:12px; cursor:pointer;
+}
+.layer-vis-btn:hover, .delete-layer-btn:hover { background: rgba(255,255,255,0.12); }

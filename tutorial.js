@@ -11,6 +11,7 @@ const tutorialSteps = [
   { element: ".theme", text: "Change Theme or set the grid size whenever you want" },
   { element: ".import-export", text: "Import your project, or export as a GIF, PNG, mPNG and Spritesheet." },
   { element: ".question", text: "Click here to see all the shortcuts, speed up your work!" },
+  { element: ".layers-toggle", text: "Click here to open the layer drawer and manage your layers." },
   { element: ".tutorial", text: "Click here to start the tutorial again. yk it could be useful right?" },
 ];
 

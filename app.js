@@ -49,12 +49,87 @@ const modal = document.getElementById("modal");
 const closeButton = document.getElementById("close-button");
 
 
+
+let layers = [];
+let activeLayerIndex = 0;
+
 //Handling frames
 let frames = [];
 let activeFrameIndex = 0;
 let draggedElement = null;
 let draggedIndex = null;
 
+function deepCloneGrid(g)
+{
+    return g? g.map(col => col.slice()) : null;
+}
+
+function createLayerData(name = "") {
+    return {
+    id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now() + Math.random()),
+    name,
+    visible: true,
+    grid: Array.from({ length: gridWidth }, () => Array(gridHeight).fill(null)),
+    
+    previewCanvas: null,
+    previewCtx: null,
+    wrapEl: null
+  };
+}
+
+function createLayerFromGrid(name, gridSrc) {
+    const L = createLayerData(name);
+    L.grid = deepCloneGrid(gridSrc);
+    return L;
+}
+
+function deepCloneLayers(srcLayers)
+{
+
+    return srcLayers.map(layer => {
+        const newLayer = createLayerData(layer.name);
+        newLayer.visible = layer.visible;
+        newLayer.grid = deepCloneGrid(layer.grid);
+        return newLayer;
+    });
+}
+
+function  composeToMainCanvas()
+{
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = isLight ? "#fff" : "#585858ff";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  for (let li = 0; li < layers.length; li++) {
+    const L = layers[li];
+    if (!L || !L.visible || !L.grid) continue;
+    const g = L.grid;
+    for (let x = 0; x < gridWidth; x++) {
+      for (let y = 0; y < gridHeight; y++) {
+        const c = g[x][y];
+        if (c) {
+          ctx.fillStyle = c;
+          ctx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
+        }
+      }
+    }
+  }
+}
+
+function buildCompositeGridFromLayers(ls = layers) {
+  const composite = Array.from({ length: gridWidth }, () => Array(gridHeight).fill(null));
+  for (let li = 0; li < ls.length; li++) {
+    const L = ls[li];
+    if (!L || !L.visible || !L.grid) continue;
+    for (let x = 0; x < gridWidth; x++) {
+      for (let y = 0; y < gridHeight; y++) {
+        const c = L.grid[x][y];
+        if (c) composite[x][y] = c; 
+      }
+    }
+  }
+  return composite;
+}
 
 function createNewFrame() {
     return createFrame(null);
@@ -168,39 +243,36 @@ function createFrame(importedGrid = null) {
     
     let prevFrame = frames[activeFrameIndex];
     let newGrid;
+    let newLayers;
+
     if (importedGrid !== null && importedGrid !== undefined) {
         
-        if (
-            !Array.isArray(importedGrid) ||
-            importedGrid.length !== gridWidth ||
-            !Array.isArray(importedGrid[0]) ||
-            importedGrid[0].length !== gridHeight
-        ) {
-            console.warn("Imported grid has wrong dimensions, creating empty grid");
-            newGrid = Array.from({ length: gridWidth }, () =>
-                Array(gridHeight).fill(null)
-            );
-        } else {
-            newGrid = JSON.parse(JSON.stringify(importedGrid)); // Deep copy
-        }
+       
+        newLayers = [createLayerFromGrid("Layer 1", importedGrid)];
     }
     else if (prevFrame && copyFrameToggle.checked) {
         
-        newGrid = JSON.parse(JSON.stringify(prevFrame.grid));
+        
+        newLayers = deepCloneLayers(prevFrame.layers);
     } else {
         
-        newGrid = Array.from({length: gridWidth}, () => Array(gridHeight).fill(null));
+        
+        newLayers = [createLayerData("Layer 1")];
     }
+
+    const newComposite = buildCompositeGridFromLayers(newLayers);
 
     const insertIndex = activeFrameIndex + 1;
     frames.splice(insertIndex, 0, {
-        grid: newGrid,
-        undoStack: [JSON.stringify(newGrid)],
+        grid: newComposite,
+        layers: newLayers,
+        activeLayerIndex: 0,
+        undoStack: [JSON.stringify(newComposite)],
         redoStack: [],
         canvas: newFrame,
         ctx: newFrame.getContext("2d")
     });
-    grid = JSON.parse(JSON.stringify(newGrid));
+    
 
      const wraps = Array.from(frameContainer.children);
 frameContainer.insertBefore(frameWrap, wraps[insertIndex] || null);
@@ -236,8 +308,17 @@ function selectFrame(index) {
     activeFrameIndex = index;
     // Loading Frames
     const frame = frames[activeFrameIndex];
-    grid = JSON.parse(JSON.stringify(frames[index].grid));
+    if (!frame.layers) {
+    frame.layers = [createLayerFromGrid("Layer 1", frame.grid)];
+    frame.activeLayerIndex = 0;
+   }
+   layers = frame.layers;
+  activeLayerIndex = frame.activeLayerIndex ?? 0;
     
+    rebuildLayersUI();
+
+    grid = layers[activeLayerIndex].grid;
+
     previewIndex = frame.undoStack.length - 1;
     redrawCanvas();
     drawPreviewFromStack(previewIndex);
@@ -246,40 +327,15 @@ function selectFrame(index) {
 //canvas rendering
 function redrawCanvas() {
     
-    if (
-        !grid ||
-        grid.length !== gridWidth ||
-        !grid[0] ||
-        grid[0].length !== gridHeight
-    ) {
-        grid = Array.from({ length: gridWidth }, () =>
-            Array(gridHeight).fill(null)
-        );
-    }
-
-    if (isLight) {
-    ctx.fillStyle = "#fff";
-    }
-    else {
-    ctx.fillStyle = "#585858ff";
-    }
+    if (!layers[activeLayerIndex]) return;
+    grid = layers[activeLayerIndex].grid;
     
 
-    
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    composeToMainCanvas();
     drawGrid(); 
 
     if (onionSkinEnabled) {
         drawOnionSkin();
-    }
-
-    for (let x = 0; x < gridWidth; x++) {
-        for (let y = 0; y < gridHeight; y++) {
-            if (grid[x][y]) {
-                ctx.fillStyle = grid[x][y];
-                ctx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
-            }
-        }
     }
 
     //this is the cursor hover effect that adapts to the size of each tool
@@ -328,6 +384,39 @@ function redrawCanvas() {
         );
         ctx.restore();
     }
+    syncFrameCompositeAndPreview();//
+    refreshAllLayerPreviews();//
+}
+function syncFrameCompositeAndPreview() {
+  const frame = frames[activeFrameIndex];
+  if (!frame) return;
+  frame.grid = buildCompositeGridFromLayers(layers);
+  // aggiorna anteprima timeline
+  if (frame.ctx && frame.canvas) {
+    const ctxPreview = frame.ctx;
+    const cv = frame.canvas;
+    const cellW = cv.width / gridWidth, cellH = cv.height / gridHeight;
+    ctxPreview.clearRect(0, 0, cv.width, cv.height);
+    for (let x = 0; x < gridWidth; x++) {
+      for (let y = 0; y < gridHeight; y++) {
+        const c = frame.grid[x][y];
+        if (c) {
+          ctxPreview.fillStyle = c;
+          ctxPreview.fillRect(x * cellW, y * cellH, cellW, cellH);
+        }
+      }
+    }
+    ctxPreview.save();
+    ctxPreview.strokeStyle = "rgba(0,0,0,0.15)";
+    ctxPreview.lineWidth = 1;
+    for (let x = 0; x <= gridWidth; x++) {
+      ctxPreview.beginPath(); ctxPreview.moveTo(x * cellW, 0); ctxPreview.lineTo(x * cellW, cv.height); ctxPreview.stroke();
+    }
+    for (let y = 0; y <= gridHeight; y++) {
+      ctxPreview.beginPath(); ctxPreview.moveTo(0, y * cellH); ctxPreview.lineTo(cv.width, y * cellH); ctxPreview.stroke();
+    }
+    ctxPreview.restore();
+  }
 }
 
 function drawOnionSkin() {
@@ -337,7 +426,7 @@ function drawOnionSkin() {
     if (currentFrame > 0) {
         const prevFrame = frames[currentFrame - 1];
         if (prevFrame && prevFrame.grid) {
-            drawOnionLayer(prevFrame.grid, 'rgba(0, 100, 255, 0.1)'); // Blu sbiadito
+            drawOnionLayer(prevFrame.grid, 'rgba(0, 100, 255, 0.1)');
         }
     }
     
@@ -345,7 +434,7 @@ function drawOnionSkin() {
     if (currentFrame < frames.length - 1) {
         const nextFrame = frames[currentFrame + 1];
         if (nextFrame && nextFrame.grid) {
-            drawOnionLayer(nextFrame.grid, 'rgba(255, 50, 50, 0.1)'); // Rosso sbiadito
+            drawOnionLayer(nextFrame.grid, 'rgba(255, 50, 50, 0.1)');
         }
     }
 }
@@ -406,40 +495,57 @@ onionSkinToggle.addEventListener("change", () => {
 //this function is used for the preview in the frames
 function drawPreviewFromStack(index) {
     const frame = frames[activeFrameIndex];
-    if (!frame || !frame.ctx || !frame.canvas) return;
-    const ctxPreview = frame.ctx;
-    const canvasPreview = frame.canvas;
-    ctxPreview.clearRect(0, 0, canvasPreview.width, canvasPreview.height);
-    if (index < 0 || index >= frame.undoStack.length) return;
+  if (!frame || !frame.ctx || !frame.canvas || !frame.undoStack?.length) return;
+
+  const ctxPreview = frame.ctx;
+  const canvasPreview = frame.canvas;
+  ctxPreview.clearRect(0, 0, canvasPreview.width, canvasPreview.height);
+
+  if (index < 0 || index >= frame.undoStack.length) return;
+
+  let composite;
+  try {
     const state = JSON.parse(frame.undoStack[index]);
-    
-    const cellSizeX = canvasPreview.width / gridWidth;
-    const cellSizeY = canvasPreview.height / gridHeight;
-    for (let x = 0; x < gridWidth; x++) {
-        for (let y = 0; y < gridHeight; y++) {
-            if (state[x][y]) {
-                ctxPreview.fillStyle = state[x][y];
-                ctxPreview.fillRect(x * cellSizeX, y * cellSizeY, cellSizeX, cellSizeY);
-            }
-        }
+    if (Array.isArray(state)) {
+      // legacy: grid
+      composite = state;
+    } else if (state && state.layers) {
+      // layers: costruisci composito
+      composite = buildCompositeGridFromLayers(state.layers);
     }
-    // this draw the grid on the preview canvas
-    ctxPreview.save();
-    ctxPreview.strokeStyle = "rgba(0,0,0,0.15)";
-    ctxPreview.lineWidth = 1;
-    for (let x = 0; x <= gridWidth; x++) {
-        ctxPreview.beginPath();
-        ctxPreview.moveTo(x * cellSizeX, 0);
-        ctxPreview.lineTo(x * cellSizeX, canvasPreview.height);
-        ctxPreview.stroke();
+  } catch {
+    composite = frame.grid; // fallback
+  }
+  composite = composite || frame.grid || buildCompositeGridFromLayers(layers);
+
+  const cellSizeX = canvasPreview.width / gridWidth;
+  const cellSizeY = canvasPreview.height / gridHeight;
+  for (let x = 0; x < gridWidth; x++) {
+    for (let y = 0; y < gridHeight; y++) {
+      const c = composite[x][y];
+      if (c) {
+        ctxPreview.fillStyle = c;
+        ctxPreview.fillRect(x * cellSizeX, y * cellSizeY, cellSizeX, cellSizeY);
+      }
     }
-    for (let y = 0; y <= gridHeight; y++) {
-        ctxPreview.beginPath();
-        ctxPreview.moveTo(0, y * cellSizeY);
-        ctxPreview.lineTo(canvasPreview.width, y * cellSizeY);
-        ctxPreview.stroke();
-    }
-    ctxPreview.restore();
+  }
+  // griglia overlay
+  ctxPreview.save();
+  ctxPreview.strokeStyle = "rgba(0,0,0,0.15)";
+  ctxPreview.lineWidth = 1;
+  for (let x = 0; x <= gridWidth; x++) {
+    ctxPreview.beginPath();
+    ctxPreview.moveTo(x * cellSizeX, 0);
+    ctxPreview.lineTo(x * cellSizeX, canvasPreview.height);
+    ctxPreview.stroke();
+  }
+  for (let y = 0; y <= gridHeight; y++) {
+    ctxPreview.beginPath();
+    ctxPreview.moveTo(0, y * cellSizeY);
+    ctxPreview.lineTo(canvasPreview.width, y * cellSizeY);
+    ctxPreview.stroke();
+  }
+  ctxPreview.restore();
 }
 
 function drawGrid()
@@ -533,11 +639,24 @@ canvas.addEventListener("mousemove", function(e) {
 
 function isGridChanged() {
     const frame = frames[activeFrameIndex];
-    if (!frame || !frame.undoStack) return true;
-    if (frame.undoStack.length === 0) return true;
-    const last = JSON.stringify(grid);
-    const prev = frame.undoStack[frame.undoStack.length - 1];
-    return last !== prev;
+  if (!frame || !frame.undoStack || frame.undoStack.length === 0) return true;
+
+  const currentComposite = buildCompositeGridFromLayers(layers);
+  let last = frame.undoStack[frame.undoStack.length - 1];
+  try {
+    const parsed = JSON.parse(last);
+    if (Array.isArray(parsed)) {
+      // legacy: parsed è una grid
+      return JSON.stringify(currentComposite) !== JSON.stringify(parsed);
+    } else if (parsed && parsed.layers) {
+      // nuovo formato: ricomponi
+      const prevComposite = buildCompositeGridFromLayers(parsed.layers);
+      return JSON.stringify(currentComposite) !== JSON.stringify(prevComposite);
+    }
+  } catch {
+    // se non è JSON, fallback
+  }
+  return true;
 }
 
 canvas.addEventListener("mouseup", function() {
@@ -660,39 +779,49 @@ vMirrorButton.addEventListener("click", () => {
 
 
 function saveState() {
-    const frame = frames[activeFrameIndex];
-    if (!frame) return;
-    frame.grid = JSON.parse(JSON.stringify(grid));
-    frame.undoStack.push(JSON.stringify(grid));
-    frame.redoStack = [];
-    previewIndex = frame.undoStack.length - 1;
-    drawPreviewFromStack(previewIndex);
-    saveToLocalStorage();
+  const frame = frames[activeFrameIndex];
+  if (!frame) return;
+
+  // aggiorna composito
+  const composite = buildCompositeGridFromLayers(layers);
+  frame.grid = composite;
+
+  // push snapshot layers
+  frame.undoStack = frame.undoStack || [];
+  frame.redoStack = [];
+  frame.undoStack.push(snapshotLayersState());
+
+  previewIndex = frame.undoStack.length - 1;
+  drawPreviewFromStack(previewIndex);
+  saveToLocalStorage();
 }
 
 undoButton.addEventListener("click", () => {
     const frame = frames[activeFrameIndex];
-    if (frame.undoStack.length > 1) {
-        frame.redoStack.push(JSON.stringify(frame.grid));
-        frame.undoStack.pop();
-        frame.grid = JSON.parse(frame.undoStack[frame.undoStack.length - 1]);
-        grid = JSON.parse(JSON.stringify(frame.grid));
-        redrawCanvas();
-        previewIndex = frame.undoStack.length - 1;
-        drawPreviewFromStack(previewIndex);
-    }
+  if (!frame || frame.undoStack.length <= 1) return;
+
+  // Sposta lo stato corrente su redo
+  frame.redoStack.push(snapshotLayersState());
+
+  // Rimuovi lo stato corrente e ripristina il precedente
+  frame.undoStack.pop();
+  const prevSnap = frame.undoStack[frame.undoStack.length - 1];
+  restoreFromSnapshot(prevSnap);
+
+  previewIndex = frame.undoStack.length - 1;
+  drawPreviewFromStack(previewIndex);
 });
 redoButton.addEventListener("click", () => {
     const frame = frames[activeFrameIndex];
-    if (frame.redoStack.length > 0) {
-        const redoState = frame.redoStack.pop();
-        frame.undoStack.push(redoState);
-        frame.grid = JSON.parse(redoState);
-        grid = JSON.parse(JSON.stringify(frame.grid));
-        redrawCanvas();
-        previewIndex = frame.undoStack.length - 1;
-        drawPreviewFromStack(previewIndex);
-    }
+  if (!frame || frame.redoStack.length === 0) return;
+
+  // Porta lo stato redo in undo e ripristinalo
+  const snap = frame.redoStack.pop();
+  frame.undoStack.push(snap);
+  restoreFromSnapshot(snap);
+
+  previewIndex = frame.undoStack.length - 1;
+  drawPreviewFromStack(previewIndex);
 });
 
 
@@ -885,12 +1014,7 @@ function fillAtMouse(e) {
     const targetColor = grid[cellX][cellY];
     floodFill(cellX, cellY, targetColor, currentColor);
     redrawCanvas();
-    // Save the state after filling
-    const frame = frames[activeFrameIndex];
-    frame.undoStack.push(JSON.stringify(grid));
-    frame.grid = JSON.parse(JSON.stringify(grid));
-    frame.redoStack = [];
-    previewIndex = frame.undoStack.length - 1;
+    saveState();
     drawPreviewFromStack(previewIndex);
 }
 
@@ -950,24 +1074,17 @@ function hexToRgb(hex, opacity) {
 
 colorSave.addEventListener("click", () => {
     const currentColor = getCurrentColorWithOpacity();
-    const colorList = document.getElementById("color-list");
-    const rgbColor = hexToRgb(currentColor);
-    const alreadyExists = Array.from(colorList.children).some(div => {
-        
+  const colorList = document.getElementById("color-list");
+  const alreadyExists = Array.from(colorList.children).some(div => {
     const savedColor = div.getAttribute("data-color");
-    
-    if(!currentColor.startsWith('rgba') && !savedColor.startsWith('rgba'))
-    {
-        return currentColor.toLowerCase() === savedColorColor.toLowerCase();
+    if (!currentColor.startsWith('rgba') && !savedColor.startsWith('rgba')) {
+      return currentColor.toLowerCase() === savedColor.toLowerCase(); // fix
     }
-
     const currentNormalized = normalizeColor(currentColor);
     const savedNormalized = normalizeColor(savedColor);
     return currentNormalized === savedNormalized;
-    }
-
-);
-    if (alreadyExists) return;
+  });
+  if (alreadyExists) return;
     const newColorDiv = document.createElement("div");
     newColorDiv.className = "color";
     newColorDiv.style.backgroundColor = currentColor;
@@ -1057,15 +1174,21 @@ addFrame.addEventListener("click", createNewFrame);
 
 window.addEventListener("DOMContentLoaded", () => {
      if (localStorage.getItem("frames")) {
-        loadFromLocalStorage();
-        for (let i = 0; i < frames.length; i++) {
-            selectFrame(i);
-        }
-        selectFrame(0);
-    } else {
-        createNewFrame();
-        selectFrame(0);
+    loadFromLocalStorage();
+    for (let i = 0; i < frames.length; i++) selectFrame(i);
+    selectFrame(0);
+  } else {
+    createNewFrame();
+    // Assicura layers sul primo frame
+    if (!frames[0].layers) {
+      frames[0].layers = [createLayerData("Layer 1")];
+      frames[0].activeLayerIndex = 0;
+      frames[0].grid = buildCompositeGridFromLayers(frames[0].layers);
+      frames[0].undoStack = [JSON.stringify(frames[0].grid)];
+      frames[0].redoStack = [];
     }
+    selectFrame(0);
+  }
     activeTool = "pencil";
     updateCursor();
     pencilButton.classList.add("active");
@@ -1132,11 +1255,12 @@ function exportCanvasWithTransparentBg(callback) {
     
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    
+    const composite = buildCompositeGridFromLayers();
     for (let x = 0; x < gridWidth; x++) {
         for (let y = 0; y < gridHeight; y++) {
-            if (grid[x][y]) {
-                ctx.fillStyle = grid[x][y];
+            const col = composite[x][y];
+            if (col) {
+                ctx.fillStyle = col;
                 ctx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
             }
         }
@@ -1163,14 +1287,17 @@ function exportSpecificFrameAsPNG(frameIndex, filename = "frame") {
     const tempCtx = tempCanvas.getContext("2d");
 
     
-    const state = frame.grid;
+    const composite = Array.isArray(frame.layers) && frame.layers.length
+    ? buildCompositeGridFromLayers(frame.layers)
+    : frame.grid;
 
     
     
     for (let x = 0; x < gridWidth; x++) {
         for (let y = 0; y < gridHeight; y++) {
-            if (state[x][y]) {
-                tempCtx.fillStyle = state[x][y];
+            const col = composite[x][y];
+            if (col) {
+                tempCtx.fillStyle = col;
                 tempCtx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
             }
         }
@@ -1360,42 +1487,58 @@ window.addEventListener("themechange", (e) => {
 
 // localStorage functions
 function saveToLocalStorage() {
-    //frames
-    const framesData = frames.map(frame => ({
-        grid: frame.grid,
-        undoStack: frame.undoStack,
-        redoStack: frame.redoStack
-    }));
-    // palette
-    const colorList = document.getElementById("color-list");
-    const palette = Array.from(colorList.children).map(div => div.getAttribute("data-color"));
-    localStorage.setItem("palette", JSON.stringify(palette));
-
-    localStorage.setItem("frames", JSON.stringify(framesData));
-    
+  const framesData = frames.map(frame => ({
+    grid: frame.grid, 
+    layers: frame.layers ? frame.layers.map(L => ({
+      name: L.name,
+      visible: L.visible,
+      grid: L.grid
+    })) : undefined,
+    activeLayerIndex: frame.activeLayerIndex ?? 0,
+    undoStack: frame.undoStack,
+    redoStack: frame.redoStack
+  }));
+  const colorList = document.getElementById("color-list");
+  const palette = Array.from(colorList.children).map(div => div.getAttribute("data-color"));
+  localStorage.setItem("palette", JSON.stringify(palette));
+  localStorage.setItem("frames", JSON.stringify(framesData));
 }
 
 
 function loadFromLocalStorage() {
-    const framesData = JSON.parse(localStorage.getItem("frames"));
-    const palette = JSON.parse(localStorage.getItem("palette"));
+  const framesData = JSON.parse(localStorage.getItem("frames"));
+  const palette = JSON.parse(localStorage.getItem("palette"));
 
-    if (framesData && Array.isArray(framesData)) {
-        // Clean up existing frames
-        const frameContainer = document.getElementById("timeline");
-        while (frameContainer.firstChild) frameContainer.removeChild(frameContainer.firstChild);
-        frames.length = 0;
-        activeFrameIndex = 0;
+  if (framesData && Array.isArray(framesData)) {
+    const frameContainer = document.getElementById("timeline");
+    while (frameContainer.firstChild) frameContainer.removeChild(frameContainer.firstChild);
+    frames.length = 0;
+    activeFrameIndex = 0;
 
-        // Create frames from stored data
-        framesData.forEach((frameData, i) => {
-            createNewFrame();
-            frames[i].grid = frameData.grid;
-            frames[i].undoStack = frameData.undoStack || [JSON.stringify(frameData.grid)];
-            frames[i].redoStack = frameData.redoStack || [];
+    framesData.forEach((fd, i) => {
+      createNewFrame(); 
+      
+      if (fd.layers && Array.isArray(fd.layers)) {
+        frames[i].layers = fd.layers.map(L => {
+          const nl = createLayerData(L.name || `Layer`);
+          nl.visible = (L.visible !== false);
+          nl.grid = deepCloneGrid(L.grid);
+          return nl;
         });
-        selectFrame(0);
-    }
+        frames[i].activeLayerIndex = fd.activeLayerIndex ?? 0;
+      } else {
+        
+        frames[i].layers = [createLayerFromGrid("Layer 1", fd.grid)];
+        frames[i].activeLayerIndex = 0;
+      }
+      
+      const composite = buildCompositeGridFromLayers(frames[i].layers);
+      frames[i].grid = composite;
+      frames[i].undoStack = fd.undoStack && fd.undoStack.length ? fd.undoStack : [JSON.stringify(composite)];
+      frames[i].redoStack = fd.redoStack || [];
+    });
+    selectFrame(0);
+  }
 
     // Create Palette from stored colors
     if (palette && Array.isArray(palette)) {
@@ -1697,11 +1840,7 @@ function horizontalMirroring()
         }
     }
     redrawCanvas();
-    const frame = frames[activeFrameIndex];
-    frame.undoStack.push(JSON.stringify(grid));
-    frame.grid = JSON.parse(JSON.stringify(grid));
-    frame.redoStack = [];
-    previewIndex = frame.undoStack.length - 1;
+    saveState();
     drawPreviewFromStack(previewIndex);
 }
 
@@ -1716,13 +1855,285 @@ function verticalMirroring()
         }
     }
     redrawCanvas();
-    const frame = frames[activeFrameIndex];
-    frame.undoStack.push(JSON.stringify(grid));
-    frame.grid = JSON.parse(JSON.stringify(grid));
-    frame.redoStack = [];
-    previewIndex = frame.undoStack.length - 1;
+    saveState();
     drawPreviewFromStack(previewIndex);
 }
+
+function updateLayerNumbers() {
+  const container = document.getElementById("layer-container");
+  if (!container) return;
+  Array.from(container.children).forEach((wrap, i) => {
+    const label = wrap.querySelector(".layer-label");
+    if (label) label.textContent = `Layer ${i + 1}`;
+  });
+}
+
+// array layers
+function applyOrderFromDOM() {
+  const container = document.getElementById("layer-container");
+  if (!container) return;
+
+  const newOrderEls = Array.from(container.children);
+  const byId = Object.fromEntries(layers.map(L => [L.id, L]));
+  const newLayers = [];
+
+  newOrderEls.forEach(wrap => {
+    const id = wrap.dataset.layerId;
+    let L = id ? byId[id] : null;
+    if (!L) L = layers.find(Lx => Lx.wrapEl === wrap);
+    if (L) newLayers.push(L);
+  });
+
+  const currentActive = layers[activeLayerIndex];
+  layers = newLayers;
+  activeLayerIndex = Math.max(0, layers.indexOf(currentActive));
+
+  if (frames[activeFrameIndex]) {
+    frames[activeFrameIndex].layers = layers;
+    frames[activeFrameIndex].activeLayerIndex = activeLayerIndex;
+  }
+  updateLayerNumbers();
+  setActiveLayer(activeLayerIndex);
+  redrawCanvas();
+}
+
+
+function getDragAfterElement(container, y) {
+  const els = [...container.querySelectorAll('.layer-wrap:not(.dragging)')];
+  return els.reduce((closest, child) => {
+    const box = child.getBoundingClientRect();
+    const offset = y - (box.top + box.height / 2);
+    if (offset < 0 && offset > closest.offset) {
+      return { offset, element: child };
+    }
+    return closest;
+  }, { offset: Number.NEGATIVE_INFINITY, element: null }).element;
+}
+
+function addLayerUI(L, insertIndex = null) {
+  const container = document.getElementById("layer-container");
+  if (!container) return;
+
+  const wrap = document.createElement("div");
+  wrap.className = "layer-wrap";
+  wrap.draggable = true;
+
+  // Preview
+  const prev = document.createElement("canvas");
+  prev.width = 96; prev.height = 96;
+  prev.className = "layer-canvas";
+  const pctx = prev.getContext("2d");
+
+  const label = document.createElement("span");
+  label.className = "layer-label";
+  label.textContent = L.name || `Layer ${container.children.length + 1}`;
+
+  const visBtn = document.createElement("button");
+  visBtn.className = "layer-vis-btn";
+  const updateEye = () => visBtn.textContent = L.visible ? "👁️" : "🚫";
+  updateEye();
+  visBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    L.visible = !L.visible;
+    updateEye();
+    redrawCanvas();
+  });
+
+  const delBtn = document.createElement("button");
+  delBtn.className = "delete-layer-btn";
+  delBtn.title = "Delete";
+  delBtn.textContent = "×";
+  delBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const idx = layers.indexOf(L);
+    if (idx >= 0 && layers.length > 1) {
+      layers.splice(idx, 1);
+      container.removeChild(wrap);
+      const newIdx = Math.max(0, Math.min(activeLayerIndex, layers.length - 1));
+      setActiveLayer(newIdx);
+      updateLayerNumbers();
+      redrawCanvas();
+      saveState?.();
+    }
+  });
+
+  wrap.addEventListener("click", () => {
+    const idx = Array.from(container.children).indexOf(wrap);
+    setActiveLayer(idx);
+  });
+
+  // Drag & drop
+  wrap.addEventListener("dragstart", (e) => {
+    wrap.classList.add("dragging");
+    e.dataTransfer.effectAllowed = "move";
+    e.dataTransfer.setData("text/plain", L.id);
+  });
+  wrap.addEventListener("dragend", () => {
+    wrap.classList.remove("dragging");
+    applyOrderFromDOM();
+  });
+
+  // Mount
+  const left = document.createElement("div");
+  left.style.display = "flex"; left.style.alignItems = "center"; left.style.gap = "8px";
+  left.appendChild(prev); left.appendChild(label);
+
+  const right = document.createElement("div");
+  right.style.marginLeft = "auto"; right.style.display = "flex"; right.style.gap = "6px";
+  right.appendChild(visBtn); right.appendChild(delBtn);
+
+  wrap.appendChild(left); wrap.appendChild(right);
+
+  if (insertIndex !== null && insertIndex >= 0 && insertIndex <= container.children.length) {
+    const ref = container.children[insertIndex] || null;
+    container.insertBefore(wrap, ref);
+  } else {
+    container.appendChild(wrap);
+  }
+
+ 
+  wrap.dataset.layerId = L.id;
+  L.previewCanvas = prev;
+  L.previewCtx = pctx;
+  L.wrapEl = wrap;
+
+  drawLayerPreview(L);
+
+
+  if (!container._dragoverBound) {
+    container.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      const afterElement = getDragAfterElement(container, e.clientY);
+      const dragging = container.querySelector('.layer-wrap.dragging');
+      if (!dragging) return;
+      if (afterElement == null) {
+        container.appendChild(dragging);
+      } else {
+        container.insertBefore(dragging, afterElement);
+      }
+    });
+    container.addEventListener('drop', (e) => {
+      e.preventDefault();
+      applyOrderFromDOM();
+    });
+    container._dragoverBound = true;
+  }
+
+  updateLayerNumbers();
+}
+
+function drawLayerPreview(L) {
+  if (!L.previewCanvas || !L.previewCtx) return;
+  const pc = L.previewCanvas, pctx = L.previewCtx;
+  pctx.clearRect(0, 0, pc.width, pc.height);
+  const cellW = pc.width / gridWidth, cellH = pc.height / gridHeight;
+  for (let x = 0; x < gridWidth; x++) {
+    for (let y = 0; y < gridHeight; y++) {
+      const c = L.grid[x][y];
+      if (c) { pctx.fillStyle = c; pctx.fillRect(x * cellW, y * cellH, cellW, cellH); }
+    }
+  }
+}
+function refreshAllLayerPreviews() { layers.forEach(drawLayerPreview); }
+
+function rebuildLayersUI() {
+  const container = document.getElementById("layer-container");
+  if (!container) return;
+  container.innerHTML = "";
+  layers.forEach((L, i) => addLayerUI(L, i));
+  setActiveLayer(frames[activeFrameIndex].activeLayerIndex ?? 0);
+}
+
+function setActiveLayer(index) {
+  if (index < 0 || index >= layers.length) return;
+  activeLayerIndex = index;
+  if (frames[activeFrameIndex]) frames[activeFrameIndex].activeLayerIndex = activeLayerIndex;
+  grid = layers[activeLayerIndex].grid;
+
+  const container = document.getElementById("layer-container");
+  if (container) {
+    Array.from(container.children).forEach((el, i) => {
+      el.classList.toggle("active", i === activeLayerIndex);
+    });
+  }
+  redrawCanvas();
+}
+
+
+const addLayerBtn = document.getElementById("add-layer-btn");
+addLayerBtn?.addEventListener("click", () => {
+ const insertIndex = Math.min(activeLayerIndex + 1, layers.length);
+  const L = createLayerData(`Layer ${insertIndex + 1}`);
+  layers.splice(insertIndex, 0, L);
+  addLayerUI(L, insertIndex);
+  updateLayerNumbers();
+  setActiveLayer(insertIndex);
+  saveState?.();
+});
+
+(function initDrawer() {
+  const drawer = document.getElementById('layers-drawer');
+  const toggleBtn = document.getElementById('layers-toggle');
+  const closeBtn = document.getElementById('layers-close');
+  const overlay = document.querySelector('.layers-overlay');
+  if (!drawer || !toggleBtn || !overlay) return;
+  function openDrawer() {
+    drawer.classList.add('open'); drawer.setAttribute('aria-hidden','false');
+    toggleBtn.classList.add('open'); toggleBtn.setAttribute('aria-expanded','true');
+    overlay.classList.add('show'); document.body.classList.add('layers-open');
+  }
+  function closeDrawer() {
+    drawer.classList.remove('open'); drawer.setAttribute('aria-hidden','true');
+    toggleBtn.classList.remove('open'); toggleBtn.setAttribute('aria-expanded','false');
+    overlay.classList.remove('show'); document.body.classList.remove('layers-open');
+  }
+  toggleBtn.addEventListener('click', () => drawer.classList.contains('open') ? closeDrawer() : openDrawer());
+  closeBtn?.addEventListener('click', closeDrawer);
+  overlay.addEventListener('click', closeDrawer);
+})();
+
+function snapshotLayersState() {
+  return JSON.stringify({
+    layers: deepCloneLayers(layers),
+    activeLayerIndex
+  });
+}
+
+// Ripristina da snapshot (supporta legacy: array grid)
+function restoreFromSnapshot(snap) {
+  let parsed;
+  try { parsed = JSON.parse(snap); } catch { parsed = null; }
+  if (!parsed) return;
+
+  if (Array.isArray(parsed)) {
+    // Legacy: snap è la grid composita -> crea un layer unico da quella
+    const newLayers = [createLayerFromGrid("Layer 1", parsed)];
+    frames[activeFrameIndex].layers = newLayers;
+    frames[activeFrameIndex].activeLayerIndex = 0;
+    layers = newLayers;
+    activeLayerIndex = 0;
+  } else if (parsed.layers) {
+    // Nuovo formato: layers + indice attivo
+    const newLayers = deepCloneLayers(parsed.layers);
+    const idx = Math.min(
+      parsed.activeLayerIndex ?? 0,
+      Math.max(0, newLayers.length - 1)
+    );
+    frames[activeFrameIndex].layers = newLayers;
+    frames[activeFrameIndex].activeLayerIndex = idx;
+    layers = newLayers;
+    activeLayerIndex = idx;
+  }
+
+  // Riallinea alias grid, UI e composito
+  grid = layers[activeLayerIndex].grid;
+  rebuildLayersUI?.();
+  // Aggiorna snapshot composito del frame
+  frames[activeFrameIndex].grid = buildCompositeGridFromLayers(layers);
+  redrawCanvas();
+}
+
+
 
 export{exportCanvasWithTransparentBg};
 

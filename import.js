@@ -1,5 +1,5 @@
 
-import { frames, selectFrame, setGridParams, activeFrameIndex, activeTool } from "./app.js";
+import { frames, selectFrame, setGridParams, activeFrameIndex, activeTool, gridHeight, gridWidth } from "./app.js";
 import {setFilename} from "./export.js";
 
 
@@ -144,3 +144,177 @@ function decompressFrame(compressedCells, width, height) {
     
     return frameGrid;
 }
+
+function decompressCellsToGrid(cells, width, height) {
+  const grid = Array.from({ length: width }, () => Array(height).fill(null));
+  if (!Array.isArray(cells)) return grid;
+  for (const { pixel, color } of cells) {
+    if (typeof pixel !== "number") continue;
+    const idx = pixel - 1;
+    const x = idx % width;
+    const y = Math.floor(idx / width);
+    if (x >= 0 && x < width && y >= 0 && y < height) {
+      grid[x][y] = color;
+    }
+  }
+  return grid;
+}
+
+function composeLayers(layers, width, height) {
+  const composite = Array.from({ length: width }, () => Array(height).fill(null));
+  if (!Array.isArray(layers)) return composite;
+  for (let li = 0; li < layers.length; li++) {
+    const L = layers[li];
+    if (!L || L.visible === false || !Array.isArray(L.grid)) continue;
+    const g = L.grid;
+    for (let x = 0; x < width; x++) {
+      for (let y = 0; y < height; y++) {
+        const c = g[x]?.[y];
+        if (c) composite[x][y] = c; 
+      }
+    }
+  }
+  return composite;
+}
+
+function normalizeLayersFromFrameData(fd) {
+  
+  if (Array.isArray(fd.layers) && fd.layers.length > 0) {
+    return fd.layers.map(L => ({
+      name: L.name || "Layer",
+      visible: L.visible !== false,
+      grid: fixGridSize(L.grid, gridWidth, gridHeight)
+    }));
+  }
+ 
+  const legacyGrid = fd.format === "compressed"
+    ? decompressCellsToGrid(fd.cells, gridWidth, gridHeight)
+    : fixGridSize(fd.grid, gridWidth, gridHeight);
+  return [{
+    name: "Layer 1",
+    visible: true,
+    grid: legacyGrid
+  }];
+}
+
+function fixGridSize(src, width, height) {
+  const g = Array.isArray(src) ? src : [];
+  const out = Array.from({ length: width }, () => Array(height).fill(null));
+  for (let x = 0; x < width; x++) {
+    for (let y = 0; y < height; y++) {
+      out[x][y] = g[x]?.[y] ?? null;
+    }
+  }
+  return out;
+}
+
+function toFramesLocalStorageShape(project) {
+  const result = [];
+
+  // palette e filename a livello globale
+  if (Array.isArray(project.palette)) {
+    localStorage.setItem("palette", JSON.stringify(project.palette));
+  }
+  if (project.filename) {
+    localStorage.setItem("projectFilename", project.filename);
+  }
+
+  for (let i = 0; i < project.frames.length; i++) {
+    const fd = project.frames[i];
+
+    
+    const layers = normalizeLayersFromFrameData(fd);
+
+
+    const composite = composeLayers(layers, gridWidth, gridHeight);
+
+
+    const undoStack = [JSON.stringify(composite)];
+    const redoStack = [];
+
+    result.push({
+      grid: composite,          
+      layers: layers,         
+      activeLayerIndex: Math.min(fd.activeLayerIndex ?? 0, Math.max(0, layers.length - 1)),
+      undoStack,
+      redoStack
+    });
+  }
+
+  return result;
+}
+
+async function readJSONFile(file) {
+  const text = await file.text();
+  try {
+    return JSON.parse(text);
+  } catch (e) {
+    console.error("JSON non valido:", e);
+    throw new Error("File JSON non valido");
+  }
+}
+
+function migrateLegacyProject(raw) {
+
+  if (!raw || !Array.isArray(raw.frames)) throw new Error("Formato progetto non valido");
+  return {
+    version: raw.version || "2.0",
+    frames: raw.frames.map(f => ({
+      index: f.index ?? 0,
+      format: f.format || (Array.isArray(f.cells) ? "compressed" : "legacy"),
+      grid: f.grid,
+      cells: f.cells,
+      layers: undefined, 
+      activeLayerIndex: 0,
+      timestamp: f.timestamp
+    })),
+    gridWidth: raw.gridWidth,
+    gridHeight: raw.gridHeight,
+    pixelSize: raw.pixelSize,
+    filename: raw.filename || "animation",
+    palette: raw.palette || [],
+    createdAt: raw.createdAt || new Date().toISOString()
+  };
+}
+
+function normalizeProject(raw) {
+  if (!raw || !Array.isArray(raw.frames)) throw new Error("Formato progetto non valido");
+
+  
+  if (raw.version && String(raw.version).startsWith("3") && raw.frames.some(f => Array.isArray(f.layers))) {
+    return raw;
+  }
+  
+  return migrateLegacyProject(raw);
+}
+
+function applyImportedFramesToLocalStorage(framesLSShape) {
+  
+  localStorage.setItem("frames", JSON.stringify(framesLSShape));
+  
+  window.location.reload();
+}
+
+function setupImportUI() {
+  const fileInput = document.getElementById("import-project");
+  if (!fileInput) return;
+
+  fileInput.addEventListener("change", async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    try {
+      const raw = await readJSONFile(file);
+      const project = normalizeProject(raw);
+      const framesLSShape = toFramesLocalStorageShape(project);
+      applyImportedFramesToLocalStorage(framesLSShape);
+    } catch (err) {
+      alert(`Import fallito: ${err.message || err}`);
+      console.error(err);
+    } finally {
+      
+      e.target.value = "";
+    }
+  });
+}
+
+document.addEventListener("DOMContentLoaded", setupImportUI);

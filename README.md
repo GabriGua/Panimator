@@ -17,7 +17,11 @@ Those are the tools available right now!
 - Eraser
 - Fill Bucket
 - Color Palette
+- Mirroring
+- Trasparency
 - Animator Timeline
+
+You can see some already made projects [here](https://github.com/GabriGua/Panimator/project-test);, just import them in the web app and play a bit around!
 
 > if you have any suggestions, you can write it at this email: gabrio.guastella@gmail.com
 
@@ -40,8 +44,6 @@ Those are the tools available right now!
     - [x] Eraser Size
     - [x] Cursor
 - [x] Mirroring Canvas
-- [ ] Geometric Shapes
-- [ ] Automatic Outline
 - [x] Custom Cursors
 - [x] Timeline
     - [x] Play Function
@@ -77,7 +79,7 @@ Those are the tools available right now!
 - [x] Final Polishing
 - [x] Adding a Tutorial
 - [x] Opacity
-- [ ] Layers
+- [x] Layers
 - [x] Enhance the README
 
 ---
@@ -100,6 +102,7 @@ for what?
 - Making a smooth transition in js for the Tutorial (I rarely animated in js)
 - Making a Drag and Drop system to re-positioning frames (just to know how this system should have worked)
 - Making the onion skin work ( had to understand how to make it work with a canvas)
+-Making the layer system ( this was pretty hard, had to get assisted very often)
 - Debugging (rarely);
 
 In some occasion used autocomplete just to speed up repetitive tasks.
